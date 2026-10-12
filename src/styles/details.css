@@ -1,0 +1,23 @@
+/* Chapter interactions. Tokens stay in tokens.css; no competing motion owners. */
+.site-header{transition:background .35s,border-color .35s}
+.site-header.is-scrolled{background:rgba(12,16,32,.95);backdrop-filter:blur(12px);border-bottom-color:var(--line)}
+.header-sentinel{position:absolute;top:0;left:0;width:1px;height:20px;pointer-events:none}
+.featured-frame{--light-x:65%;--light-y:40%}
+.featured-frame:after{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--light-x) var(--light-y),#BBC8EB18,transparent 45%);opacity:0;transition:opacity .5s}
+.featured-frame:hover:after,.featured-frame:focus-visible:after{opacity:1}
+.atlas{display:grid;grid-template-columns:1.35fr .65fr;gap:0 45px}
+.atlas-map{min-width:0}
+.atlas-list{grid-column:span 2}
+.atlas-preview{align-self:center;display:grid;grid-template-columns:85px 1fr;gap:24px;align-items:center;padding:30px 0}
+.atlas-preview-image{height:130px;display:grid;place-items:center}
+.atlas-preview-image img{max-height:125px;width:auto;filter:grayscale(1) brightness(1.2);opacity:.65}
+.atlas-preview h3{font-size:34px;margin:12px 0}
+.atlas-preview p:not(.eyebrow){font-size:11px;color:var(--muted);line-height:1.9}
+.atlas-preview .quiet-link{font-size:10px;margin-top:17px}
+.atlas-point.is-active .atlas-star{color:var(--light);filter:drop-shadow(0 0 10px var(--lavender))}
+.atlas-point{transition:color .25s}
+.message-actions{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
+.quiet-button{font-size:11px;background:none;border:0;border-bottom:1px solid var(--line);padding:8px 0;color:var(--muted)}
+.motion-paused .featured-frame img,.motion-paused .featured-frame:after,.motion-paused .line-link span,.motion-paused .circle-arrow{transition:none;transform:none}
+@media(max-width:1050px){.atlas{grid-template-columns:1.1fr .9fr;gap:0 24px}.atlas-preview{grid-template-columns:1fr}.atlas-preview-image{display:none}}
+@media(max-width:760px){.atlas{grid-template-columns:1fr;gap:0}.atlas-list{grid-column:1}.atlas-preview{grid-template-columns:65px 1fr;gap:18px;border-top:1px solid var(--line);padding:25px 0}.atlas-preview-image{display:grid;height:100px}.atlas-preview-image img{max-height:90px}.atlas-preview h3{font-size:29px}.site-header.is-scrolled{background:#0C1020f5;backdrop-filter:blur(8px)}}

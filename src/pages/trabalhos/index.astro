@@ -1,0 +1,5 @@
+---
+import Base from '../../layouts/Base.astro';
+import { projects } from '../../data/site';
+---
+<Base title="Trabalhos · Glifo"><section class="page-intro wrap"><p class="eyebrow">A vitrine / Trabalhos</p><h1>Ideias que<br/>encontraram forma.</h1><p>Uma seleção de projetos, suas linguagens e as escolhas que os construíram.</p></section><section class="wrap project-index">{projects.map(p=><a href={`/trabalhos/${p.slug}/`} class="index-work"><div class="index-image"><img src={p.image} alt={p.alt} width="1536" height="1024"/></div><div><p class="eyebrow">{p.label} / {p.year}</p><h2>{p.title}</h2><p>{p.summary}</p><span class="quiet-link">Explorar o projeto ↗</span></div></a>)}</section></Base>

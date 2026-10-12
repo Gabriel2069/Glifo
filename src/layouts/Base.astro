@@ -1,0 +1,20 @@
+---
+import { site } from '../data/site';
+import '../styles/tokens.css';
+import '../styles/global.css';
+import '../styles/details.css';
+import '../styles/observatory.css';
+interface Props { title?: string; description?: string; }
+const {title = 'Glifo · Ideias que encontram forma', description = site.description} = Astro.props;
+---
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><title>{title}</title><meta name="description" content={description}/><meta name="theme-color" content="#0C1020"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:type" content="website"/><meta property="og:image" content="/images/vision-board.webp"/><link rel="icon" type="image/svg+xml" href="/brand/favicon.svg"/><link rel="preload" href="/fonts/cormorant-500.woff2" as="font" type="font/woff2" crossorigin/><link rel="preload" href="/fonts/manrope-400.woff2" as="font" type="font/woff2" crossorigin/></head>
+<body><div class="reading-progress" aria-hidden="true"><span data-reading-progress></span></div><a class="skip-link" href="#main">Ir para o conteúdo</a>
+<header class="site-header"><a class="brand" href="/" aria-label="Glifo início"><img src="/brand/logo.png" alt="Glifo" width="1394" height="1128"/><span>ESTÚDIO AUTORAL</span></a><nav class="desktop-nav" aria-label="Navegação principal"><a href="/trabalhos/">Trabalhos</a><a href="/#glifo">A Glifo</a><a href="/#processo">O processo</a></nav><div class="header-actions"><a class="contact-link" href="/#contato">Uma ideia em mente? <span aria-hidden="true">↗</span></a><button class="icon-button" data-motion aria-label="Pausar animações" aria-pressed="false" type="button"><span aria-hidden="true">◌</span></button><button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu">Menu <span aria-hidden="true">+</span></button></div></header>
+<div class="header-sentinel" aria-hidden="true"></div>
+<nav id="mobile-menu" class="mobile-menu" aria-label="Navegação móvel" hidden><a href="/trabalhos/">Trabalhos</a><a href="/#glifo">A Glifo</a><a href="/#processo">O processo</a><a href="/#contato">Contato</a></nav>
+<main id="main"><slot/></main>
+<footer class="site-footer wrap"><a href="/" class="footer-word">Glifo<span aria-hidden="true">✦</span></a><div><p>Ideia · Forma · Presença</p><p>Um estúdio de Gabriel Tadeu.</p></div><a href="#main" class="back-top">Voltar ao céu ↑</a></footer>
+<div class="feedback" role="status" aria-live="polite" data-feedback></div>
+<dialog class="idea-dialog" aria-labelledby="idea-title"><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar">×</button><p class="eyebrow">Uma conversa começa por uma ideia</p><h2 id="idea-title">O que precisa<br/>ganhar forma?</h2><form data-idea-form><label>Seu nome<input name="name" autocomplete="name" required maxlength="100"/></label><label>O que você tem em mente?<textarea name="idea" required minlength="10" maxlength="2000" rows="4" placeholder="Me conte sobre o projeto, o material ou a presença que você quer construir."></textarea></label><button class="line-link" type="submit">Preparar mensagem <span aria-hidden="true">↗</span></button></form><div class="idea-result" hidden><p class="eyebrow">Sua ideia em palavras</p><textarea readonly aria-label="Mensagem preparada" data-idea-message rows="7"></textarea><div class="message-actions"><button class="line-link" type="button" data-copy-idea>Copiar mensagem ↗</button><button class="quiet-button" type="button" data-edit-idea>Editar ideia</button></div><p class="small-note">Mensagem preparada para compartilhar com Tadeu. Nenhuma mensagem foi enviada.</p></div></dialog>
+<script>import '../scripts/site';</script>
+</body></html>
