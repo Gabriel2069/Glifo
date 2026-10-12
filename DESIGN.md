@@ -22,7 +22,7 @@ GSAP coordena entradas e deslocamentos. Canvas é responsável apenas pelas estr
 
 ## Estado do conteúdo
 
-A primeira versão apresenta somente o caso real autoral Glifo. Os três pontos do atlas são capítulos desse caso, não clientes ou projetos adicionais. Acrescentar novos registros apenas quando houver material e informações confirmados.
+A vitrine apresenta Glifo, Tadeon Nexus, o editorial de Tessitura do Vazio, NexOS, Delfas Corpore e Christiano Tadeu. Os três pontos do atlas continuam sendo capítulos de Glifo. A coleção selecionada apresenta os outros cinco projetos, com abas e caminhos diretos para os casos. Acrescentar registros apenas quando houver material e informações confirmados.
 
 O contato direto ainda precisa ser definido em `site.contact`. A ferramenta de preparação de mensagem copia uma proposta local e informa que não houve envio.
 
@@ -47,3 +47,9 @@ A cena do mito permanece com CSS sticky durante a leitura, sem capturar a rolage
 O caderno usa rolagem horizontal nativa no toque, arrasto com impulso limitado no mouse, setas e teclado. Arrastar não aciona os links; clicar continua navegando. O detalhe tem ampliação por controle nativo e deslocamento no mouse, com botão de recentrar. Não há rolagem automática de galerias ou bloqueio da leitura vertical.
 
 A tipografia, os frames e os textos têm proprietários de animação separados. As imagens fornecidas não foram alteradas. A prancha anterior continua identificada como registro conceitual. Verificar narrativa, galeria, início de uma sessão com animação pausada e mudanças da preferência do sistema.
+
+## Casos e materiais de portfólio
+
+Cada caso conserva sua identidade e descreve o que foi construído, sem métricas comerciais inventadas. Tadeon e NexOS utilizam recortes das pranchas de interface dos próprios repositórios, identificados como estudos com dados ilustrativos. TdV usa capa e página divisória dos documentos de Urdidura do Vazio. Delfas preserva a assinatura rosa/azul do registro de identidade e distingue o estudo posterior de reposicionamento em roxo/dourado. Christiano utiliza a assinatura e a composição da página pública de links. Não apresentar o canal profissional como site institucional da Belcar ou da Volkswagen.
+
+ProjectVisual mantém a apresentação coerente, sem aplicar filtros ou recoloração aos projetos. Os dados em site.ts orientam o índice, a coleção da home e as rotas estáticas de casos. A página Glifo permanece própria; os demais casos usam [slug].astro. O filtro do índice não altera registros. No preview portátil, todas as rotas de caso devem ser incluídas. Preservar o nome do Worker glifo configurado pelo autor.

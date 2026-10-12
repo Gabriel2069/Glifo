@@ -3,10 +3,10 @@ test('atlas focus updates the preview and opens its chapter',async({page})=>{
  await page.goto('/');await page.locator('[data-atlas="linguagem"]').focus();await expect(page.locator('[data-atlas-title]')).toHaveText('Linguagem');const link=page.getByRole('link',{name:'Conhecer este capítulo'});await expect(link).toHaveAttribute('href','/trabalhos/glifo/#linguagem');await link.click();await expect(page).toHaveURL(/glifo\/#linguagem$/);
 });
 test('portfolio links open the authorial case',async({page})=>{
- await page.goto('/trabalhos/');await page.locator('.index-work').click();await expect(page).toHaveURL(/\/trabalhos\/glifo\//);await expect(page.locator('#identidade')).toBeVisible();
+ await page.goto('/trabalhos/');await page.locator('.index-work').first().click();await expect(page).toHaveURL(/\/trabalhos\/glifo\//);await expect(page.locator('#identidade')).toBeVisible();
 });
 test('process works with keyboard and retains one selected panel',async({page})=>{
- await page.goto('/');const tab=page.getByRole('tab',{name:/Forma/});await tab.click();await expect(tab).toHaveAttribute('aria-selected','true');await tab.press('ArrowRight');await expect(page.getByRole('tab',{name:/Presença/})).toHaveAttribute('aria-selected','true');await expect(page.getByRole('tabpanel')).toHaveCount(1);
+ await page.goto('/');const tab=page.getByRole('tab',{name:/Forma/});await tab.click();await expect(tab).toHaveAttribute('aria-selected','true');await tab.press('ArrowRight');await expect(page.getByRole('tab',{name:/Presença/})).toHaveAttribute('aria-selected','true');await expect(page.locator('.process-panel:not([hidden])')).toHaveCount(1);
 });
 test('draft can be prepared and edited without sending',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:/Preparar minha ideia/}).click();await page.getByLabel('Seu nome').fill('Visitante');await page.getByLabel('O que você tem em mente?').fill('Quero organizar a apresentação do meu projeto.');await page.getByRole('button',{name:/Preparar mensagem/}).click();await expect(page.getByLabel('Mensagem preparada')).toHaveValue(/Visitante/);await page.getByRole('button',{name:'Editar ideia'}).click();await expect(page.getByLabel('Seu nome')).toHaveValue('Visitante');await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).not.toBeVisible();
@@ -34,4 +34,14 @@ test('myth and archive remain readable when scripts are disabled',async({browser
 });
 test('motion control restores every narrative word and frame',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:'Pausar animações'}).click();await expect(page.locator('body')).toHaveClass(/motion-paused/);expect(await page.locator('[data-reading-prose] .reading-word').evaluateAll(words=>words.every(word=>Number(getComputedStyle(word).opacity)>.99))).toBe(true);const slider=page.getByRole('slider',{name:'Ampliação do grifo'});await slider.focus();await slider.press('End');await page.getByRole('button',{name:'Recentrar'}).click();await expect(slider).toHaveValue('100');
+});
+test('project collection switches with keyboard and opens the selected case',async({page})=>{
+ await page.goto('/');const tab=page.getByRole('tab',{name:/Tadeon Nexus/});await tab.focus();await tab.press('ArrowDown');await expect(page.getByRole('tab',{name:/Tessitura do Vazio/})).toHaveAttribute('aria-selected','true');await expect(page.locator('.collection-panel:not([hidden])')).toHaveCount(1);await page.locator('#project-panel-tdv-editorial').getByRole('link',{name:/Explorar o projeto/}).click();await expect(page).toHaveURL(/tdv-editorial\/$/);await expect(page.locator('h1')).toHaveText('Tessitura do Vazio');
+});
+test('portfolio filtering keeps the correct case links',async({page})=>{
+ await page.goto('/trabalhos/');await expect(page.locator('.index-work')).toHaveCount(6);await page.getByRole('button',{name:'Editorial',exact:true}).click();await expect(page.locator('.index-work:not([hidden])')).toHaveCount(1);await expect(page.locator('[data-project-filter-count]')).toHaveText('1 trabalho');await page.locator('.index-work:not([hidden])').click();await expect(page).toHaveURL(/tdv-editorial\/$/);
+});
+test('all new case routes have local imagery and explicit project context',async({page})=>{
+ for(const slug of ['tadeon','tdv-editorial','nexos','delfas-corpore','christiano-tadeu']){await page.goto('/trabalhos/'+slug+'/');await expect(page.locator('h1')).toBeVisible();await expect(page.locator('.case-project-details')).toBeVisible();expect(await page.locator('.project-art img').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);}
+ await expect(page.getByRole('link',{name:'Visitar a página de links'})).toHaveAttribute('href','https://caminhoes.christianotadeu.workers.dev/links');
 });

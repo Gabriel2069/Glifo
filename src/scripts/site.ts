@@ -279,3 +279,27 @@ if(detailPan){
  const endPan=()=>{pressed=false;detailPan.classList.remove('is-dragging');};detailPan.addEventListener('pointerup',endPan);detailPan.addEventListener('pointercancel',endPan);
  document.querySelector('[data-detail-reset]')?.addEventListener('click',()=>{panX=panY=0;if(zoom){zoom.value='100';zoom.dispatchEvent(new Event('input'));}gsap.to(image,{x:0,y:0,duration:paused||reduced.matches?0:.6,ease:'power2.out',overwrite:'auto'});});
 }
+
+// Project selection has a single panel and equivalent pointer/keyboard paths.
+const projectTabs=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-project-tab]'));
+function selectProject(index:number,focus=false){
+ projectTabs.forEach((tab,i)=>{
+  const active=i===index;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;
+  const panel=document.getElementById(tab.getAttribute('aria-controls')!);
+  if(panel){panel.hidden=!active;if(active&&!paused&&!reduced.matches){gsap.fromTo(panel,{opacity:.25,y:16},{opacity:1,y:0,duration:.7,ease:'power2.out',overwrite:true});}}
+  if(active&&focus)tab.focus();
+ });
+}
+projectTabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectProject(i));tab.addEventListener('keydown',e=>{let index=i;if(e.key==='ArrowDown'||e.key==='ArrowRight')index=(i+1)%projectTabs.length;else if(e.key==='ArrowUp'||e.key==='ArrowLeft')index=(i-1+projectTabs.length)%projectTabs.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=projectTabs.length-1;else return;e.preventDefault();selectProject(index,true);});});
+document.querySelectorAll<HTMLButtonElement>('[data-project-filter]').forEach(button=>{
+ button.addEventListener('click',()=>{
+  const filter=button.dataset.projectFilter;let count=0;
+  document.querySelectorAll('[data-project-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
+  document.querySelectorAll<HTMLElement>('[data-project-categories]').forEach(project=>{project.hidden=filter!=='Todos'&&!project.dataset.projectCategories?.split(',').includes(filter!);if(!project.hidden)count++;});
+  const status=document.querySelector('[data-project-filter-count]');if(status)status.textContent=`${count} ${count===1?'trabalho':'trabalhos'}`;
+  ScrollTrigger.refresh();
+ });
+});
+const projectOrientation=matchMedia('(max-width:760px)');
+const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',projectOrientation.matches?'horizontal':'vertical');
+projectOrientation.addEventListener('change',setProjectOrientation);setProjectOrientation();

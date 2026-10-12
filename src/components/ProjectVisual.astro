@@ -1,0 +1,6 @@
+---
+import type { Project } from '../data/site';
+interface Props { project:Project; eager?:boolean }
+const { project:p,eager=false }=Astro.props;
+---
+<div class:list={['project-art',`art-${p.theme||'glifo'}`,`art-${p.kind||'screen'}`]}><div class="project-art-orbit" aria-hidden="true"></div><img src={p.image} alt={p.alt} width={p.kind==='book'?1061:1440} height={p.kind==='book'?1500:1000} loading={eager?'eager':'lazy'}/><span class="project-art-label" aria-hidden="true">{p.title} / {p.categories[0]}</span></div>

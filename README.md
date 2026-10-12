@@ -23,7 +23,7 @@ O resultado estático fica em `dist/`. Fontes e imagens são locais. Os avisos S
 
 ## Conteúdo
 
-`src/data/site.ts` mantém os dados de autoria, método e projetos. A primeira versão contém o caso autoral da própria Glifo. Os capítulos Identidade, Linguagem e Presença no atlas são links para partes desse caso.
+`src/data/site.ts` mantém os dados de autoria, método e projetos. O portfólio reúne seis casos: Glifo, Tadeon Nexus, editorial de Tessitura do Vazio, NexOS, Delfas Corpore e Christiano Tadeu. Os capítulos Identidade, Linguagem e Presença no atlas continuam levando ao caso Glifo. Os demais trabalhos aparecem na coleção interativa e em rotas próprias.
 
 Adicionar imagens e descrição confirmada para cada novo projeto. Nenhum cliente, resultado ou canal de contato foi inventado. O endereço de contato deve ser confirmado em `site.contact` antes da abertura comercial da vitrine. Atualmente o botão prepara uma mensagem para copiar; ele não envia mensagens.
 
