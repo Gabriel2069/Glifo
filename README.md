@@ -68,3 +68,9 @@ O mito de origem tem três capítulos e uma cena persistente. `src/components/Ar
 ## Identidades
 
 O menu Identidades leva às pranchas de Glifo, Christiano Tadeu e Tessitura do Vazio. Os registros em `src/data/identities.ts` reúnem assinaturas, cores, tipografia, linguagem e materiais dos documentos fornecidos. Imagens podem ser ampliadas com zoom, setas e teclado; o fechamento retorna o foco à peça original. A gestão interna de Christiano é descrita pela função, sem publicar registros de clientes.
+
+## Documentos de marca e leitura
+
+Os links Abrir documento da marca apresentam a identidade em uma janela sobre a vitrine. Essência, símbolo, letras e cores formam a visão de conjunto; materiais reais continuam ampliáveis. A rota direta funciona sem JavaScript. Escape fecha primeiro a peça ampliada e depois o documento, devolvendo o foco ao link de origem.
+
+A narrativa usa títulos serifados e prosa em Manrope, com parágrafos separados. A entrada é por parágrafo inteiro e não divide a leitura em palavras claras e escuras.

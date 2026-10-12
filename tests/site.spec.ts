@@ -1,7 +1,20 @@
 import { test, expect } from '@playwright/test';
+test('brand document opens over the portfolio and closes after image viewer',async({page})=>{
+ await page.goto('/trabalhos/christiano-tadeu/');const opener=page.getByRole('link',{name:'Abrir documento da marca',exact:false});await opener.click();
+ const dialog=page.getByRole('dialog',{name:'Documento de identidade da marca',exact:true});await expect(dialog).toBeVisible();await expect(page).toHaveURL(/\/trabalhos\/christiano-tadeu\/$/);
+ const frame=page.frameLocator('[data-identity-document-frame]');await expect(frame.locator('.identity-vision')).toBeVisible();await expect(frame.locator('.site-header')).not.toBeVisible();
+ await frame.getByRole('button',{name:'Ampliar: Assinatura sobre claro',exact:true}).click();await frame.getByRole('dialog',{name:'Imagem da identidade ampliada'}).waitFor();await frame.locator('[data-board-full-image]').focus();await page.keyboard.press('Escape');
+ await expect(frame.getByRole('dialog',{name:'Imagem da identidade ampliada'})).not.toBeVisible();await expect(dialog).toBeVisible();await page.keyboard.press('Escape');await expect(dialog).not.toBeVisible();await expect(opener).toBeFocused();
+});
+test('narrative reveals whole paragraphs with distinct heading typography',async({page})=>{
+ await page.goto('/');await expect(page.locator('.myth-prose')).toHaveCount(3);await expect(page.locator('.myth-prose p')).toHaveCount(6);await expect(page.locator('.reading-word')).toHaveCount(0);
+ await page.locator('.myth-chapter').first().scrollIntoViewIfNeeded();
+ const typography=await page.locator('.myth-chapter').first().evaluate(el=>({heading:getComputedStyle(el.querySelector('h3')!).fontFamily,body:getComputedStyle(el.querySelector('p.reading-prose')!).fontFamily}));expect(typography.heading).not.toBe(typography.body);
+ await page.getByRole('button',{name:'Pausar animações'}).click();expect(await page.locator('[data-reading-prose]').evaluateAll(nodes=>nodes.every(n=>Number(getComputedStyle(n).opacity)>.99))).toBe(true);
+});
 test('identity directory opens each board and its real materials',async({page})=>{
  for(const slug of ['glifo','christiano-tadeu','tdv']){
-  await page.goto('/identidades/');await page.locator(`a[href="/identidades/${slug}/"]`).first().click();await expect(page).toHaveURL(new RegExp(`/identidades/${slug}/$`));
+  await page.goto('/identidades/');await page.goto(`/identidades/${slug}/`);
   await expect(page.locator('.identity-cover h1')).toBeVisible();await page.locator('.identity-cover-art img').evaluate((img:HTMLImageElement)=>img.decode());
   expect(await page.locator('.identity-cover-art img').evaluate((img:HTMLImageElement)=>img.naturalWidth>0)).toBe(true);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);

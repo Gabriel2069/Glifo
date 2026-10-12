@@ -199,8 +199,8 @@ media.add('(prefers-reduced-motion: no-preference)',()=>{
   entrances.push(tween);
  });
  document.querySelectorAll<HTMLElement>('[data-reading-prose]').forEach(prose=>{
-  const words=wordSpans(prose);
-  gsap.fromTo(words,{opacity:.28},{opacity:1,stagger:.055,duration:.4,ease:'none',scrollTrigger:{trigger:prose,start:'top 83%',end:'bottom 48%',scrub:.65}});
+  const tween=gsap.fromTo(prose,{opacity:.72,y:12},{opacity:1,y:0,duration:.8,ease:'power2.out',scrollTrigger:{trigger:prose,start:'top 94%',once:true}});
+  entrances.push(tween);
  });
  document.querySelectorAll<HTMLElement>('.featured-frame,.sheet-art,.detail-frame,.case-image,.case-signatures>div').forEach(frame=>{
   gsap.fromTo(frame,{clipPath:'inset(12% 4% 12% 4%)',opacity:.35},{clipPath:'inset(0% 0% 0% 0%)',opacity:1,duration:1.5,ease:'power3.inOut',scrollTrigger:{trigger:frame,start:'top 94%',once:true}});
@@ -304,6 +304,33 @@ const projectOrientation=matchMedia('(max-width:760px)');
 const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',projectOrientation.matches?'horizontal':'vertical');
 projectOrientation.addEventListener('change',setProjectOrientation);setProjectOrientation();
 
+// The identity keeps a direct route; ordinary clicks open the document over the site.
+const identityDocument=document.querySelector<HTMLDialogElement>('[data-identity-document]');
+const documentFrame=identityDocument?.querySelector<HTMLIFrameElement>('[data-identity-document-frame]');
+let documentOpener:HTMLAnchorElement|undefined;
+const portable=()=>{try{return Boolean((window as Window & {glifoPortable?:boolean}).glifoPortable||(window.parent as Window & {glifoPortable?:boolean}).glifoPortable);}catch{return false;}};
+if(identityDocument&&documentFrame){
+ document.addEventListener('click',event=>{
+  const mouse=event as MouseEvent;if(mouse.defaultPrevented||mouse.button!==0||mouse.metaKey||mouse.ctrlKey||mouse.shiftKey||mouse.altKey||portable())return;
+  const anchor=(event.target as Element).closest<HTMLAnchorElement>('a[href]');if(!anchor)return;
+  const url=new URL(anchor.href,location.href);if(url.origin!==location.origin||!/^\/identidades\/[^/]+\/$/.test(url.pathname))return;
+  if(document.documentElement.dataset.identityDocument){anchor.href=url.pathname+'?documento=1'+url.hash;return;}
+  event.preventDefault();documentOpener=anchor;closeMenu();
+  const title=identityDocument.querySelector('[data-identity-document-title]');if(title)title.textContent=url.pathname.includes('christiano')?'Christiano Tadeu':url.pathname.includes('tdv')?'Tessitura do Vazio':'Glifo';
+  identityDocument.querySelector<HTMLAnchorElement>('[data-identity-document-route]')!.href=url.pathname;
+  documentFrame.src=url.pathname+'?documento=1'+url.hash;identityDocument.showModal();
+ });
+ identityDocument.querySelector('[data-identity-document-close]')?.addEventListener('click',()=>identityDocument.close());
+ identityDocument.addEventListener('close',()=>{documentFrame.src='about:blank';documentOpener?.focus();});
+ documentFrame.addEventListener('load',()=>{
+  // Escape closes a zoomed piece first; otherwise it closes the parent document.
+  documentFrame.contentDocument?.addEventListener('keydown',event=>{if(event.key==='Escape'&&!documentFrame.contentDocument?.querySelector('dialog[open]')){event.preventDefault();identityDocument.close();}});
+  documentFrame.contentDocument?.addEventListener('click',event=>{
+   const anchor=(event.target as Element).closest<HTMLAnchorElement>('a[href]');if(!anchor||anchor.target==='_blank'||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+   const url=new URL(anchor.href);if(url.origin===location.origin&&(url.pathname==='/'||url.pathname.startsWith('/trabalhos/'))){event.preventDefault();location.assign(url.pathname+url.hash);}
+  });
+ });
+}
 const identityImages=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-board-image]'));
 const boardDialog=document.querySelector<HTMLDialogElement>('[data-board-lightbox]');
 if(boardDialog&&identityImages.length){
