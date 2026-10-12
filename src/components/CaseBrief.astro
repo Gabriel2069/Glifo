@@ -1,0 +1,6 @@
+---
+import {type Project} from '../data/site';
+interface Props {project:Project}
+const {project:p}=Astro.props;
+---
+<div class="case-project-details wrap"><div><span class="eyebrow">O trabalho</span><ul>{p.scope?.map(item=><li>{item}</li>)}</ul></div><div><span class="eyebrow">Estado do projeto</span><p>{p.status}</p>{p.external&&<a href={p.external.url} target="_blank" rel="noopener noreferrer" class="quiet-link">{p.external.label} ↗</a>}</div></div>

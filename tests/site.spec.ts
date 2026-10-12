@@ -1,6 +1,18 @@
 import { test, expect } from '@playwright/test';
+test('documents have visible home entries and cases share the reading sequence',async({page})=>{
+ await page.goto('/');await expect(page.locator('#identidades .brand-document-card')).toHaveCount(3);await page.locator('#identidades a[href="/identidades/tdv/"]').click();await expect(page.getByRole('dialog',{name:'Documento de identidade da marca'})).toBeVisible();await page.getByRole('button',{name:'Fechar documento da marca'}).click();
+ for(const slug of ['glifo','tdv-editorial','christiano-tadeu','delfas-corpore']){await page.goto(`/trabalhos/${slug}/`);await expect(page.locator('.case-entry')).toBeVisible();expect(await page.locator('.case-entry').evaluate(el=>Boolean(el.compareDocumentPosition(document.querySelector('.case-project-visual')!)&Node.DOCUMENT_POSITION_FOLLOWING))).toBe(true);await expect(page.locator('#materiais')).toBeVisible();}
+});
+test('TdV presents all supplied cover sheets and supports enlargement',async({page})=>{
+ await page.goto('/trabalhos/tdv-editorial/');await expect(page.locator('.case-material-grid figure')).toHaveCount(7);await page.locator('.case-material-grid figure').first().scrollIntoViewIfNeeded();expect(await page.locator('.case-material-image').first().evaluate(el=>{const frame=el.getBoundingClientRect(),image=el.querySelector('img')!.getBoundingClientRect();return image.bottom<=frame.bottom&&image.right<=frame.right;})).toBe(true);await page.getByRole('button',{name:'Ampliar: Orbis Ardex',exact:true}).click();await expect(page.getByRole('dialog',{name:'Imagem da identidade ampliada'})).toBeVisible();await expect(page.locator('[data-board-full-image]')).toHaveAttribute('src','/identities/tdv/collection-6.webp');await page.keyboard.press('Escape');
+});
+test('timed selection advances without focus and manual use pauses it',async({page})=>{
+ await page.goto('/');const scene=page.locator('.hero [data-griff]');await page.mouse.move(0,0);await expect(scene).toHaveAttribute('data-auto-state','running');await expect(scene.getByRole('button',{name:'Emblema',exact:true})).toHaveAttribute('aria-pressed','true',{timeout:11000});
+ await scene.getByRole('button',{name:'Constelação',exact:true}).click();await expect(scene.getByRole('button',{name:'Retomar alternância'})).toBeVisible();await expect(scene).toHaveAttribute('data-auto-state','paused');
+ await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');await expect(page.locator('.hero [data-griff]')).toHaveAttribute('data-auto-state','paused');
+});
 test('brand document opens over the portfolio and closes after image viewer',async({page})=>{
- await page.goto('/trabalhos/christiano-tadeu/');const opener=page.getByRole('link',{name:'Abrir documento da marca',exact:false});await opener.click();
+ await page.goto('/trabalhos/christiano-tadeu/');const opener=page.getByRole('link',{name:/Ver a identidade visual/});await opener.click();
  const dialog=page.getByRole('dialog',{name:'Documento de identidade da marca',exact:true});await expect(dialog).toBeVisible();await expect(page).toHaveURL(/\/trabalhos\/christiano-tadeu\/$/);
  const frame=page.frameLocator('[data-identity-document-frame]');await expect(frame.locator('.identity-vision')).toBeVisible();await expect(frame.locator('.site-header')).not.toBeVisible();
  await frame.getByRole('button',{name:'Ampliar: Assinatura sobre claro',exact:true}).click();await frame.getByRole('dialog',{name:'Imagem da identidade ampliada'}).waitFor();await frame.locator('[data-board-full-image]').focus();await page.keyboard.press('Escape');
@@ -75,6 +87,6 @@ test('portfolio filtering keeps the correct case links',async({page})=>{
  await page.goto('/trabalhos/');await expect(page.locator('.index-work')).toHaveCount(6);await page.getByRole('button',{name:'Editorial',exact:true}).click();await expect(page.locator('.index-work:not([hidden])')).toHaveCount(1);await expect(page.locator('[data-project-filter-count]')).toHaveText('1 trabalho');await page.locator('.index-work:not([hidden])').click();await expect(page).toHaveURL(/tdv-editorial\/$/);
 });
 test('all new case routes have local imagery and explicit project context',async({page})=>{
- for(const slug of ['tadeon','tdv-editorial','nexos','delfas-corpore','christiano-tadeu']){await page.goto('/trabalhos/'+slug+'/');await expect(page.locator('h1')).toBeVisible();await expect(page.locator('.case-project-details')).toBeVisible();expect(await page.locator('.project-art img').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);}
+ for(const slug of ['tadeon','tdv-editorial','nexos','delfas-corpore','christiano-tadeu']){await page.goto('/trabalhos/'+slug+'/');await expect(page.locator('h1')).toBeVisible();await expect(page.locator('.case-project-details')).toBeVisible();expect(await page.locator('.case-project-visual .project-art img').evaluate((img:HTMLImageElement)=>img.complete&&img.naturalWidth>0)).toBe(true);}
  await expect(page.getByRole('link',{name:'Visitar o site completo'})).toHaveAttribute('href','https://caminhoes.christianotadeu.workers.dev');
 });

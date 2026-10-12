@@ -1,0 +1,6 @@
+---
+import {type Project} from '../data/site';
+interface Props {project:Project}
+const {project:p}=Astro.props;
+---
+<nav class="case-entry wrap" aria-label="Explorar este projeto">{p.board&&<a class="case-entry-document" href={`/identidades/${p.board}/`}><span>DOCUMENTO DA MARCA</span><strong>Ver a identidade visual</strong><span aria-hidden="true">↗</span></a>}<a href="#construcao"><span>O PROJETO</span><strong>Conhecer a construção</strong><span aria-hidden="true">↓</span></a><a href="#materiais"><span>AS APLICAÇÕES</span><strong>Ver os materiais</strong><span aria-hidden="true">↓</span></a></nav>

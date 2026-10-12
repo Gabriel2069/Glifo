@@ -1,4 +1,5 @@
 ---
+import ImageViewer from '../components/ImageViewer.astro';
 import { site } from '../data/site';
 import '../styles/tokens.css';
 import '../styles/global.css';
@@ -8,6 +9,7 @@ import '../styles/narrative.css';
 import '../styles/portfolio.css';
 import '../styles/identity-board.css';
 import '../styles/identity-document.css';
+import '../styles/portfolio-discovery.css';
 interface Props { title?: string; description?: string; bodyClass?: string; }
 const {title = 'Glifo · Ideias que encontram forma', description = site.description, bodyClass} = Astro.props;
 ---
@@ -18,7 +20,7 @@ const {title = 'Glifo · Ideias que encontram forma', description = site.descrip
 <nav id="mobile-menu" class="mobile-menu" aria-label="Navegação móvel" hidden><a href="/trabalhos/">Trabalhos</a><a href="/#glifo">A Glifo</a><a href="/#processo">O processo</a><a href="/identidades/">Identidades</a><a href="/#contato">Contato</a></nav>
 <main id="main"><slot/></main>
 <footer class="site-footer wrap"><a href="/" class="footer-word">Glifo<span aria-hidden="true">✦</span></a><div><p>Ideia · Forma · Presença</p><p>Um estúdio de Gabriel Tadeu.</p></div><a href="#main" class="back-top">Voltar ao céu ↑</a></footer>
-<div class="feedback" role="status" aria-live="polite" data-feedback></div>
+<ImageViewer/><div class="feedback" role="status" aria-live="polite" data-feedback></div>
 <dialog class="identity-document-dialog" data-identity-document aria-label="Documento de identidade da marca"><div class="identity-document-toolbar"><div><span>GLIFO / DOCUMENTO DE MARCA</span><strong data-identity-document-title></strong></div><a data-identity-document-route class="quiet-link" target="_blank" rel="noopener">Abrir em outra aba ↗</a><button type="button" data-identity-document-close aria-label="Fechar documento da marca">×</button></div><iframe title="Identidade visual e essência da marca" data-identity-document-frame></iframe></dialog>
 <dialog class="idea-dialog" aria-labelledby="idea-title"><button class="dialog-close" type="button" data-close-dialog aria-label="Fechar">×</button><p class="eyebrow">Uma conversa começa por uma ideia</p><h2 id="idea-title">O que precisa<br/>ganhar forma?</h2><form data-idea-form><label>Seu nome<input name="name" autocomplete="name" required maxlength="100"/></label><label>O que você tem em mente?<textarea name="idea" required minlength="10" maxlength="2000" rows="4" placeholder="Me conte sobre o projeto, o material ou a presença que você quer construir."></textarea></label><button class="line-link" type="submit">Preparar mensagem <span aria-hidden="true">↗</span></button></form><div class="idea-result" hidden><p class="eyebrow">Sua ideia em palavras</p><textarea readonly aria-label="Mensagem preparada" data-idea-message rows="7"></textarea><div class="message-actions"><button class="line-link" type="button" data-copy-idea>Copiar mensagem ↗</button><button class="quiet-button" type="button" data-edit-idea>Editar ideia</button></div><p class="small-note">Mensagem preparada para compartilhar com Tadeu. Nenhuma mensagem foi enviada.</p></div></dialog>
 <script>import '../scripts/site';</script>

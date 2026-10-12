@@ -1,0 +1,6 @@
+---
+import {type Project} from '../data/site';
+interface Props {project:Project}
+const {project:p}=Astro.props;
+---
+<section class:list={['case-materials','section','wrap',`materials-${p.theme}`]} id="materiais"><div class="section-heading"><div><p class="eyebrow">Aplicações / {p.title}</p><h2>{p.slug==='tdv-editorial'?'Uma coleção,':'O desenho'}<br/><em>{p.slug==='tdv-editorial'?'muitas leituras.':'em uso.'}</em></h2></div><p class="section-description">{p.materialIntro||'Materiais do projeto, reunidos para examinar o desenho e suas aplicações.'}</p></div><div class="case-material-grid">{p.materials?.map((item,i)=><figure><button type="button" class="case-material-image identity-image-trigger" data-board-image={item.image} data-board-caption={item.caption} aria-label={`Ampliar: ${item.title}`}><img src={item.image} alt={item.title} width="1600" height="1100" loading="lazy"/><span class="image-expand" aria-hidden="true">↗</span></button><figcaption><span class="eyebrow">0{i+1} / {item.label||'Material do projeto'}</span><h3>{item.title}</h3><p>{item.caption}</p></figcaption></figure>)}</div></section>

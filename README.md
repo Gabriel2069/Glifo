@@ -74,3 +74,9 @@ O menu Identidades leva às pranchas de Glifo, Christiano Tadeu e Tessitura do V
 Os links Abrir documento da marca apresentam a identidade em uma janela sobre a vitrine. Essência, símbolo, letras e cores formam a visão de conjunto; materiais reais continuam ampliáveis. A rota direta funciona sem JavaScript. Escape fecha primeiro a peça ampliada e depois o documento, devolvendo o foco ao link de origem.
 
 A narrativa usa títulos serifados e prosa em Manrope, com parágrafos separados. A entrada é por parágrafo inteiro e não divide a leitura em palavras claras e escuras.
+
+## Descoberta de trabalhos
+
+A abertura leva aos documentos de marca e uma seção própria reúne suas entradas. Os casos oferecem acesso à identidade, à construção e aos materiais antes da imagem principal. TdV inclui as sete pranchas fornecidas; Christiano reúne nove aplicações. Christiano e Delfas aparecem primeiro na seleção da home.
+
+As áreas de seleção alternam com o tempo quando estão visíveis, com controles locais para pausar e retomar. Interação manual mantém a seleção, e foco, ponteiro, movimento reduzido, diálogos e aba oculta suspendem a alternância.

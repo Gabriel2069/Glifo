@@ -50,7 +50,7 @@ A tipografia, os frames e os textos têm proprietários de animação separados.
 
 ## Casos e materiais de portfólio
 
-Cada caso conserva sua identidade e descreve o que foi construído, sem métricas comerciais inventadas. Tadeon e NexOS utilizam recortes das pranchas de interface dos próprios repositórios, identificados como estudos com dados ilustrativos. TdV usa capa e página divisória dos documentos de Urdidura do Vazio. Delfas preserva a assinatura rosa/azul do registro de identidade e distingue o estudo posterior de reposicionamento em roxo/dourado. Christiano apresenta as assinaturas fornecidas, os materiais comerciais e editoriais e o site público completo. A função da gestão interna é descrita sem expor dados de clientes. Não apresentar o canal profissional como site institucional da Belcar ou da Volkswagen.
+Cada caso conserva sua identidade e descreve o que foi construído, sem métricas comerciais inventadas. Tadeon e NexOS utilizam recortes das pranchas de interface dos próprios repositórios, identificados como estudos com dados ilustrativos. TdV apresenta as sete pranchas de capas fornecidas, com núcleo, divisões, encerramentos, Arden, expansões, Orbis Ardex e diagramas. Delfas preserva a assinatura rosa/azul do registro de identidade e distingue o estudo posterior de reposicionamento em roxo/dourado. Christiano apresenta as assinaturas fornecidas, os materiais comerciais e editoriais e o site público completo. A função da gestão interna é descrita sem expor dados de clientes. Não apresentar o canal profissional como site institucional da Belcar ou da Volkswagen.
 
 ProjectVisual mantém a apresentação coerente, sem aplicar filtros ou recoloração aos projetos. Os dados em site.ts orientam o índice, a coleção da home e as rotas estáticas de casos. A página Glifo permanece própria; os demais casos usam [slug].astro. O filtro do índice não altera registros. No preview portátil, todas as rotas de caso devem ser incluídas. Preservar o nome do Worker glifo configurado pelo autor.
 
@@ -65,3 +65,9 @@ Ampliação em dialog nativo, zoom, navegação por setas e retorno de foco. As 
 A prosa narrativa entra por parágrafo, sem divisão em palavras ou gradação de luz dentro das frases. Títulos usam Cormorant com maior escala e peso; a explicação usa Manrope, com parágrafos curtos e vocabulário concreto. O imaginário leva às decisões do trabalho, mantendo o site como exemplo dessas escolhas.
 
 Links de identidade abrem um documento em dialog com iframe de mesma origem. A rota continua disponível diretamente e sem JavaScript. O parâmetro documento esconde a navegação geral dentro do documento. Escape fecha a imagem ampliada antes do documento, e o foco retorna ao link de origem. A abertura reúne essência, sinais, tipografia e paleta em uma composição de vision board.
+
+## Descoberta e sequência dos casos
+
+A abertura oferece acesso aos documentos e a home tem uma seção de três documentos com chamadas visíveis. Os casos seguem apresentação, entradas para identidade/construção/materiais, imagem principal, escopo, construção, aplicações e continuidade. As identidades mantêm a sequência essência, assinaturas, cor, tipografia, linguagem e aplicações; os elementos continuam próprios de cada marca. Christiano e Delfas aparecem primeiro na coleção da home.
+
+A seleção de projetos, a representação do grifo, o atlas, o método e o caderno têm alternância temporizada. Ela pausa fora da tela, em aba oculta, com diálogos abertos, movimento reduzido, pausa global, ponteiro e foco. Interação manual suspende a alternância da seção até Retomar. As trocas automáticas reutilizam os controles, não movem foco e não anunciam a galeria continuamente.

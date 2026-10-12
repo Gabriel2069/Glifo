@@ -10,6 +10,7 @@ let heroVisible = true;
 const motionButton = document.querySelector<HTMLButtonElement>('[data-motion]');
 const loops: gsap.core.Tween[] = [];
 const entrances: gsap.core.Animation[] = [];
+const rotationRefresh: Array<()=>void> = [];
 const updateMotion = () => {
  document.body.classList.toggle('motion-paused', paused);
  if(paused)entrances.forEach(animation=>animation.progress(1));
@@ -20,6 +21,7 @@ const updateMotion = () => {
   if (paused) { trigger.animation?.progress(1); trigger.disable(false); }
   else trigger.enable(false);
  }
+ rotationRefresh.forEach(refresh=>refresh());
 };
 motionButton?.addEventListener('click',()=>{paused=!paused;try{localStorage.setItem('glifo:motion',paused?'paused':'playing');}catch{}updateMotion();drawSky(performance.now());requestAnimationFrame(()=>{ScrollTrigger.refresh();updateReading();});});
 reduced.addEventListener('change',()=>{if(reduced.matches){paused=true;updateMotion();drawSky(performance.now());}});
@@ -331,6 +333,44 @@ if(identityDocument&&documentFrame){
   });
  });
 }
+// Timed discovery shares the existing selection handlers and never moves focus.
+function rotateWhenVisible(root:HTMLElement|null,period:number,next:()=>void){
+ if(!root)return;
+ let visible=false,hover=false,manual=false,timer:ReturnType<typeof setTimeout>|undefined;
+ const controls=document.createElement('div');controls.className='auto-cycle';
+ controls.innerHTML='<span data-auto-status>Alternância automática</span><span class="auto-cycle-track" aria-hidden="true"><span></span></span><button type="button" data-auto-toggle aria-pressed="false">Pausar alternância</button>';
+ root.append(controls);root.style.setProperty('--auto-period',`${period/1000}s`);
+ const toggle=controls.querySelector<HTMLButtonElement>('button')!;
+ const refresh=()=>{
+  clearTimeout(timer);timer=undefined;
+  const focus=root.contains(document.activeElement)&&document.activeElement!==toggle;
+  const blocked=paused||reduced.matches||document.hidden||Boolean(document.querySelector('dialog[open]'));
+  const running=visible&&!hover&&!focus&&!manual&&!blocked;
+  root.dataset.autoState=running?'running':'paused';
+  toggle.setAttribute('aria-pressed',String(manual));toggle.textContent=manual?'Retomar alternância':'Pausar alternância';
+  controls.querySelector('[data-auto-status]')!.textContent=manual?'Alternância pausada':blocked?'Alternância em pausa':'Alterna automaticamente';
+  root.querySelectorAll<HTMLElement>('[aria-live]').forEach(el=>el.setAttribute('aria-live',running?'off':'polite'));
+  if(running)timer=setTimeout(()=>{next();const bar=controls.querySelector<HTMLElement>('.auto-cycle-track span')!;bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';refresh();},period);
+ };
+ toggle.addEventListener('click',()=>{manual=!manual;refresh();});
+ root.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'){hover=true;refresh();}});
+ root.addEventListener('pointerleave',()=>{hover=false;refresh();});
+ root.addEventListener('focusin',refresh);root.addEventListener('focusout',()=>queueMicrotask(refresh));
+ const stopOnUse=(event:Event)=>{if(event.isTrusted&&!(event.target as Element).closest('[data-auto-toggle]')){manual=true;refresh();}};
+ root.addEventListener('pointerdown',stopOnUse);root.addEventListener('keydown',stopOnUse);
+ new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;refresh();},{threshold:.12}).observe(root);
+ document.addEventListener('visibilitychange',refresh);
+ new MutationObserver(refresh).observe(document.body,{subtree:true,attributes:true,attributeFilter:['open']});
+ rotationRefresh.push(refresh);refresh();
+}
+const scene=document.querySelector<HTMLElement>('.hero [data-griff]');
+rotateWhenVisible(scene,8000,()=>{const buttons=Array.from(scene!.querySelectorAll<HTMLButtonElement>('[data-scene-mode]'));const index=buttons.findIndex(b=>b.getAttribute('aria-pressed')==='true');buttons[(index+1)%buttons.length]?.click();});
+rotateWhenVisible(document.querySelector('.work-collection'),12000,()=>{const current=projectTabs.findIndex(t=>t.getAttribute('aria-selected')==='true');selectProject((current+1)%projectTabs.length);});
+rotateWhenVisible(document.querySelector('#processo'),14000,()=>{const current=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');selectTab((current+1)%tabs.length);});
+const atlas=document.querySelector<HTMLElement>('.atlas-section');
+rotateWhenVisible(atlas,10000,()=>{const points=Array.from(atlas!.querySelectorAll<HTMLElement>('[data-atlas]'));const current=points.findIndex(p=>p.classList.contains('is-active'));points[(current+1)%points.length]?.dispatchEvent(new Event('pointerenter'));});
+rotateWhenVisible(document.querySelector('.archive-section'),16000,()=>{const last=document.querySelector<HTMLButtonElement>('[data-archive-next]');if(last?.disabled)track?.dispatchEvent(new KeyboardEvent('keydown',{key:'Home'}));else last?.click();});
+
 const identityImages=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-board-image]'));
 const boardDialog=document.querySelector<HTMLDialogElement>('[data-board-lightbox]');
 if(boardDialog&&identityImages.length){
