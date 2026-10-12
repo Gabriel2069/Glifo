@@ -60,3 +60,7 @@ Depois do build, execute `npx playwright install chromium` e `npm test`. O workf
 ## Observatório e movimento
 
 As assinaturas finais em `public/brand` são os arquivos fornecidos pelo autor, sem recoloração. O observatório alterna entre conexões e emblema; o atlas apresenta estados visuais por capítulo; o detalhe tem ampliação operável por teclado. As órbitas, os traços e a profundidade acompanham o percurso sem capturar a rolagem. O controle global e a preferência do sistema reduzem o movimento.
+
+## Caderno celeste
+
+O mito de origem tem três capítulos e uma cena persistente. `src/components/Archive.astro` contém quatro estudos autorais com arrasto, navegação por setas e teclado. A imagem `celestial-archive.webp` foi criada como ilustração conceitual, separada das assinaturas finais. A experiência mantém leitura sem JavaScript e alternativas para movimento reduzido.
