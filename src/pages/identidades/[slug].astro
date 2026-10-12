@@ -1,0 +1,9 @@
+---
+import Base from '../../layouts/Base.astro';
+import IdentityBoard from '../../components/IdentityBoard.astro';
+import {identities,type IdentityBoard as Board} from '../../data/identities';
+export function getStaticPaths(){return identities.map(board=>({params:{slug:board.slug},props:{board}}));}
+interface Props {board:Board}
+const {board}=Astro.props;
+---
+<Base bodyClass={board.theme==='ct'?'identity-light-page':undefined} title={`${board.name} · Prancha de identidade`} description={board.intro}><IdentityBoard board={board}/></Base>

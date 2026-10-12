@@ -2,7 +2,7 @@
 
 ## Direção
 
-Um atlas de ideias que encontraram forma. Universo celestial, mitológico e editorial; apresentação autoral conduzida por Gabriel Tadeu. A navegação e o conteúdo devem demonstrar relações e cuidado, preservando leitura e acesso direto aos trabalhos.
+Os glifos são o centro da marca: formas visíveis que participam da construção de sentido. As constelações oferecem uma imagem para a relação entre os sinais. O grifo é um glifo representativo, escolhido pelo jogo entre os nomes e pela figura mitológica; não resume a essência da Glifo. Universo celestial e editorial, com apresentação autoral conduzida por Gabriel Tadeu. A navegação deve demonstrar relações e cuidado, preservando leitura e acesso direto aos trabalhos.
 
 ## Fontes de verdade
 
@@ -50,6 +50,12 @@ A tipografia, os frames e os textos têm proprietários de animação separados.
 
 ## Casos e materiais de portfólio
 
-Cada caso conserva sua identidade e descreve o que foi construído, sem métricas comerciais inventadas. Tadeon e NexOS utilizam recortes das pranchas de interface dos próprios repositórios, identificados como estudos com dados ilustrativos. TdV usa capa e página divisória dos documentos de Urdidura do Vazio. Delfas preserva a assinatura rosa/azul do registro de identidade e distingue o estudo posterior de reposicionamento em roxo/dourado. Christiano utiliza a assinatura e a composição da página pública de links. Não apresentar o canal profissional como site institucional da Belcar ou da Volkswagen.
+Cada caso conserva sua identidade e descreve o que foi construído, sem métricas comerciais inventadas. Tadeon e NexOS utilizam recortes das pranchas de interface dos próprios repositórios, identificados como estudos com dados ilustrativos. TdV usa capa e página divisória dos documentos de Urdidura do Vazio. Delfas preserva a assinatura rosa/azul do registro de identidade e distingue o estudo posterior de reposicionamento em roxo/dourado. Christiano apresenta as assinaturas fornecidas, os materiais comerciais e editoriais e o site público completo. A função da gestão interna é descrita sem expor dados de clientes. Não apresentar o canal profissional como site institucional da Belcar ou da Volkswagen.
 
 ProjectVisual mantém a apresentação coerente, sem aplicar filtros ou recoloração aos projetos. Os dados em site.ts orientam o índice, a coleção da home e as rotas estáticas de casos. A página Glifo permanece própria; os demais casos usam [slug].astro. O filtro do índice não altera registros. No preview portátil, todas as rotas de caso devem ser incluídas. Preservar o nome do Worker glifo configurado pelo autor.
+
+## Pranchas de identidade
+
+As rotas /identidades/glifo/, /identidades/christiano-tadeu/ e /identidades/tdv/ são pranchas navegáveis, com assinaturas, paleta, tipografia, linguagem e materiais reais. src/data/identities.ts conserva os registros; cada prancha respeita as próprias fontes e cores. As páginas dos documentos fornecidos são reproduzidas como imagens selecionadas, sem alterar os originais ou apresentar diagramas de TdV como revisão de regras.
+
+Ampliação em dialog nativo, zoom, navegação por setas e retorno de foco. As cores podem ser copiadas. As fontes locais incluem as respectivas licenças. A prévia portátil inclui todas as rotas e compartilha os recursos de estilo e script para evitar duplicação.

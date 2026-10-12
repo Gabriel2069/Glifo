@@ -1,0 +1,6 @@
+---
+import Base from '../../layouts/Base.astro';
+import {identities} from '../../data/identities';
+import '../../styles/identity-board.css';
+---
+<Base title="Identidades · Glifo"><section class="page-intro wrap"><p class="eyebrow">Arquivo visual / Identidades</p><h1>Os sinais<br/>de cada marca.</h1><p>Pranchas para percorrer as assinaturas, a paleta, as letras e os materiais que compõem cada identidade.</p></section><div class="identity-index wrap">{identities.map(board=><a href={`/identidades/${board.slug}/`} class:list={['identity-index-item',`identity-index-${board.theme}`]}><div><img src={board.hero} alt={board.name} width="1600" height="1000"/></div><h2>{board.name}</h2><p>{board.subtitle}</p><span class="quiet-link">Explorar a identidade ↗</span></a>)}</div></Base>

@@ -42,7 +42,7 @@ Nenhum domínio foi registrado ou associado por esta entrega. O domínio e os ca
 ## Organização
 
 - `src/layouts`: estrutura comum e metadados.
-- `src/pages`: página inicial, lista de trabalhos, caso Glifo e 404.
+- `src/pages`: página inicial, índice de trabalhos, seis casos, índice de identidades, três pranchas e 404.
 - `src/components`: elementos gráficos reutilizáveis.
 - `src/styles`: tokens e estilos.
 - `src/scripts`: comportamento e animação.
@@ -64,3 +64,7 @@ As assinaturas finais em `public/brand` são os arquivos fornecidos pelo autor, 
 ## Caderno celeste
 
 O mito de origem tem três capítulos e uma cena persistente. `src/components/Archive.astro` contém quatro estudos autorais com arrasto, navegação por setas e teclado. A imagem `celestial-archive.webp` foi criada como ilustração conceitual, separada das assinaturas finais. A experiência mantém leitura sem JavaScript e alternativas para movimento reduzido.
+
+## Identidades
+
+O menu Identidades leva às pranchas de Glifo, Christiano Tadeu e Tessitura do Vazio. Os registros em `src/data/identities.ts` reúnem assinaturas, cores, tipografia, linguagem e materiais dos documentos fornecidos. Imagens podem ser ampliadas com zoom, setas e teclado; o fechamento retorna o foco à peça original. A gestão interna de Christiano é descrita pela função, sem publicar registros de clientes.

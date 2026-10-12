@@ -218,7 +218,7 @@ media.add('(prefers-reduced-motion: no-preference)',()=>{
 const mythChapters=Array.from(document.querySelectorAll<HTMLElement>('[data-myth-chapter]'));
 if(mythChapters.length){
  const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{if(entry.isIntersecting){const note=(entry.target as HTMLElement).dataset.mythNote;const label=document.querySelector('[data-myth-index]');if(label&&note)label.textContent=note;}});
+  entries.forEach(entry=>{if(entry.isIntersecting){const note=(entry.target as HTMLElement).dataset.mythNote;const label=document.querySelector('[data-myth-index]');if(label&&note)label.textContent=note;const stage=document.querySelector<HTMLElement>('[data-myth-stage]');if(stage)stage.dataset.phase=String(mythChapters.indexOf(entry.target as HTMLElement));}});
  },{rootMargin:'-25% 0px -35% 0px',threshold:0});mythChapters.forEach(chapter=>observer.observe(chapter));
 }
 
@@ -303,3 +303,27 @@ document.querySelectorAll<HTMLButtonElement>('[data-project-filter]').forEach(bu
 const projectOrientation=matchMedia('(max-width:760px)');
 const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',projectOrientation.matches?'horizontal':'vertical');
 projectOrientation.addEventListener('change',setProjectOrientation);setProjectOrientation();
+
+const identityImages=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-board-image]'));
+const boardDialog=document.querySelector<HTMLDialogElement>('[data-board-lightbox]');
+if(boardDialog&&identityImages.length){
+ let current=0;let opener:HTMLButtonElement|undefined;
+ const image=boardDialog.querySelector<HTMLImageElement>('[data-board-full-image]')!;
+ const zoomControl=boardDialog.querySelector<HTMLInputElement>('[data-board-zoom]');
+ const resetZoom=()=>{if(zoomControl)zoomControl.value='100';image.style.width='100%';image.parentElement?.classList.remove('is-zoomed');image.parentElement?.scrollTo(0,0);};
+ const show=(index:number)=>{current=(index+identityImages.length)%identityImages.length;const item=identityImages[current];resetZoom();image.src=item.dataset.boardImage!;image.alt=item.querySelector('img')?.alt||'Imagem da identidade';const caption=boardDialog.querySelector('[data-board-full-caption]');if(caption)caption.textContent=item.dataset.boardCaption||'';const count=boardDialog.querySelector('[data-board-image-count]');if(count)count.textContent=`${current+1} / ${identityImages.length}`;};
+ identityImages.forEach((button,index)=>button.addEventListener('click',()=>{opener=button;show(index);boardDialog.showModal();}));
+ boardDialog.querySelector('[data-board-prev]')?.addEventListener('click',()=>show(current-1));
+ boardDialog.querySelector('[data-board-next]')?.addEventListener('click',()=>show(current+1));
+ boardDialog.querySelector('[data-board-close]')?.addEventListener('click',()=>boardDialog.close());
+ boardDialog.addEventListener('close',()=>opener?.focus());
+ boardDialog.addEventListener('keydown',event=>{if(event.target===zoomControl)return;if(event.key==='ArrowLeft'){event.preventDefault();show(current-1);}if(event.key==='ArrowRight'){event.preventDefault();show(current+1);}});
+ zoomControl?.addEventListener('input',()=>{const value=Number(zoomControl.value);image.parentElement?.classList.toggle('is-zoomed',value>100);image.style.width=`${value}%`;});
+}
+document.querySelectorAll<HTMLButtonElement>('[data-copy-color]').forEach(button=>button.addEventListener('click',async()=>{
+ const value=button.dataset.copyColor!;let copied=false;
+ try{await navigator.clipboard.writeText(value);copied=true;}catch{
+  const input=document.createElement('textarea');input.value=value;input.style.position='fixed';input.style.left='-9999px';document.body.append(input);input.select();copied=document.execCommand('copy');input.remove();button.focus();
+ }
+ notify(copied?`${value} copiado.`:`Código da cor: ${value}`);
+}));
