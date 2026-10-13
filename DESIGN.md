@@ -86,4 +86,6 @@ Capas anteriores de TdV e Christiano foram restauradas, mantendo as galerias com
 
 Cada documento define suas famílias de título e leitura no próprio artigo: Glifo Almendra/Manrope, Christiano Inter/Inter, TdV EB Garamond/Inter, Delfas Arapey/Manrope, Comissão Raleway e Acolher Leckerli One/Raleway. As assinaturas originais preservam os desenhos de letras. Fontes proprietárias não fornecidas não são simuladas.
 
-Capas e materiais usam contain em trilhas de grid que podem encolher. O favicon usa a logo fornecida; o rodapé utiliza o símbolo oficial e oferece navegação, contato e autoria. O acabamento móvel prioriza leitura, alvos de toque e documentos sem excesso de altura.
+Capas e materiais usam contain em trilhas de grid que podem encolher. O favicon usa o emblema do grifo fornecido; o rodapé utiliza o símbolo oficial e oferece navegação, contato e autoria. O acabamento móvel prioriza leitura, alvos de toque e documentos sem excesso de altura.
+
+Assinaturas nominais usam public/brand/logo.png, inclusive rodapé, atlas, estudo de tela e abertura do documento Glifo. Menções editoriais ao nome continuam como texto legível. public/brand/symbol.png é o emblema do grifo e ocupa o favicon e o ícone de tela inicial.

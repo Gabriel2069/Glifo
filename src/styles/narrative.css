@@ -16,3 +16,5 @@
 
 .project-entry-links{display:flex;flex-direction:column;gap:14px;flex-shrink:0}.project-entry-links .quiet-link{margin:0}.case-text>div>p:not(.big-copy){font:400 16px/1.9 var(--sans);color:var(--light);max-width:610px}.case-text>div>p+p{margin-top:22px}.author-grid>div>p:not(.big-copy){font-size:15px;line-height:1.9}
 @media(max-width:760px){.project-entry-links{margin-top:20px}.case-text>div>p:not(.big-copy){font-size:15px}}
+
+.screen-top .screen-logotype{width:70px;height:44px;object-fit:contain;margin:0;align-self:center}
