@@ -1,0 +1,16 @@
+---
+import type {IdentityBoard} from '../data/identities';
+interface Props {board:IdentityBoard;prefix?:string}
+const {board:b,prefix=''}=Astro.props;
+const first=b.types[0];
+---
+<div class="identity-type-lab" data-type-lab>
+ <div class="identity-lab-heading"><p class="eyebrow">As letras na sua mão</p><span data-type-name>{first.name}</span></div>
+ <div class="identity-type-options" role="group" aria-label={`Experimentar as fontes de ${b.name}`}>{b.types.map((type,i)=><button type="button" data-type-family={type.family} data-type-weight={type.weight} data-type-name={type.name} aria-pressed={i===0?'true':'false'}>{type.name}</button>)}</div>
+ <label for={`${prefix}type-trial`}>Escreva uma frase para observar o desenho das letras</label><textarea id={`${prefix}type-trial`} data-type-trial rows="3" maxlength="140" spellcheck="false" style={`font-family:'${first.family}',serif;font-weight:${first.weight}`}>{first.sample}</textarea>
+ <div class="identity-type-footer"><label>Tamanho <input type="range" min="24" max="72" value="44" data-type-size aria-label={`Tamanho da amostra de ${b.name}`}/></label><output data-type-size-value>44 px</output><button type="button" class="quiet-button" data-type-reset data-type-original={first.sample}>Restaurar frase</button></div>
+</div>
+<div class="identity-color-lab" data-color-lab>
+ <div class="identity-color-composition" data-color-composition><span class="eyebrow">COR EM COMPOSIÇÃO</span><strong>{b.name}</strong><span>{b.subtitle}</span><div class="identity-color-lines" aria-hidden="true"></div></div>
+ <div class="identity-color-choice"><p class="eyebrow">Uma cor muda a presença</p><p>Escolha um fundo e observe a mesma composição. As assinaturas oficiais estão preservadas nas pranchas acima.</p><div role="group" aria-label={`Experimentar a paleta de ${b.name}`}>{b.colors.map((color,i)=><button type="button" data-color-trial={color.hex} data-color-name={color.name} style={`--trial-color:${color.hex}`} aria-pressed={i===0?'true':'false'} aria-label={`Usar ${color.name} como fundo`}><span aria-hidden="true"></span>{color.name}</button>)}</div><p class="identity-color-selection" data-color-selection>{b.colors[0].name} / {b.colors[0].hex}</p></div>
+</div>

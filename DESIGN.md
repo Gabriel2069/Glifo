@@ -107,3 +107,19 @@ O período confirmado de Acolher e Comissão Grão de Mostarda é 2025–2026. A
 Alternâncias: constelação 4,2 s, projetos 6,5 s, atlas 5,2 s, processo 7,5 s e caderno 8 s. Ponteiro sobre texto não congela uma seção; controles, foco, uso manual, diálogos e preferência de movimento mantêm as pausas. O indicador reinicia junto com o temporizador.
 
 Projetos entram com uma passagem curta no frame e na legenda, cancelável por nova seleção ou pausa. Navegação nativa usa transições entre documentos como melhoria progressiva. Documentos abrem com escala discreta; estrelas próximas ao ponteiro e pontos luminosos nas órbitas respondem sem loops adicionais.
+
+## Cenas conectadas e estudos interativos · outubro de 2026
+
+Referências verificadas: Apple AirPods Pro (cenas amplas e galeria com pausa), Linear (demonstrações no contexto da página), Raycast /new (foco, perspectiva e materialidade). O globo da Stripe, documentado em 2020, inspira relações exploráveis; não é tratado como observação da homepage atual. As linguagens das marcas não são copiadas.
+
+O instrumento dos glifos acompanha os três capítulos existentes do mito. Pontos, conexões e assinaturas têm propriedade de animação única em experience.ts; a geometria dos arquivos oficiais é preservada. Seleção manual suspende o acompanhamento até Voltar a acompanhar a leitura. No celular, o instrumento precede a prosa com controles visíveis, sem ocupar a tela durante todos os parágrafos.
+
+A constelação de trabalhos conecta os seis projetos reais da seleção. Botões selecionam a prévia, enquanto links abrem os casos e documentos. Alternância de 5,4 segundos usa o controlador comum de pausa, visibilidade e interação. No celular, a mesma exploração vira uma grade de pontos com nomes e alvos de toque.
+
+TdV possui uma mesa editorial das sete pranchas completas, com intervalo nativo, miniaturas e ampliação. Trocas rápidas concluem/cancelam a transição anterior; não há reprodução automática para interromper a comparação. A galeria original permanece disponível. Não inventar camadas de construção ou recortes que não foram fornecidos.
+
+Os documentos mantêm a sequência estabelecida e ganham amostras editáveis das fontes locais e fundos experimentais com a paleta real. A composição de cor é uma amostra tipográfica, separada da assinatura oficial. O cálculo de luminância escolhe texto claro/escuro. Campos são locais e não enviam nem persistem o texto digitado. Documentos conjuntos conservam IDs prefixados e escopo independente de interação.
+
+CoverTransition registra os eventos nativos de navegação cedo, selecionando apenas uma capa visível por passagem. O nome de transição é limpo ao terminar e no retorno do cache; a rota e o histórico continuam nativos. Sem suporte, pausa ou movimento reduzido, a navegação funciona normalmente. No preview portátil entre iframes, a continuidade nativa entre documentos não é reproduzida.
+
+Serviços agora levam também a um exemplo real do acervo, ligando a oferta ao trabalho que a demonstra.

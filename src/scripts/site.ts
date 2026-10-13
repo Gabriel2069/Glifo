@@ -1,3 +1,4 @@
+import {initExperience} from './experience';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -150,19 +151,21 @@ zoom?.addEventListener('input',()=>{
 // Scenography is scoped, bounded and disabled by the common motion control.
 media.add('(prefers-reduced-motion: no-preference)',()=>{
  const opening=gsap.timeline();entrances.push(opening);
+ if(document.querySelector('.hero')){
  opening.fromTo('.hero .griff-nodes > g',{opacity:.15,scale:.6,svgOrigin:'250 250'},{opacity:1,scale:1,duration:1.8,stagger:.025,ease:'power2.out'},0);
  opening.fromTo('.hero .celestial-dial',{rotation:-18,opacity:.1},{rotation:0,opacity:.48,duration:2.5,ease:'power3.out'},0);
  const dial=document.querySelector('.hero .orbit-b');
  if(dial)loops.push(gsap.to(dial,{rotation:360,duration:180,repeat:-1,ease:'none'}));
  gsap.to('.hero .griff-scene',{y:65,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
  gsap.to('.hero-copy',{y:-35,scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:1}});
+ }
  const myth=document.querySelector<SVGPathElement>('.myth-constellation');
  if(myth){const length=myth.getTotalLength();gsap.fromTo(myth,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,ease:'none',scrollTrigger:{trigger:'.myth',start:'top 80%',end:'center 50%',scrub:1}});}
 
  const atlasPath=document.querySelector<SVGPathElement>('.atlas-map path');
  if(atlasPath){const length=atlasPath.getTotalLength();gsap.fromTo(atlasPath,{strokeDasharray:length,strokeDashoffset:length},{strokeDashoffset:0,duration:2,ease:'power2.inOut',scrollTrigger:{trigger:'.atlas-map',start:'top 80%',once:true}});}
- gsap.fromTo('.frame-orbit',{rotation:-35},{rotation:10,ease:'none',scrollTrigger:{trigger:'.featured-frame',start:'top bottom',end:'bottom top',scrub:1.5}});
- gsap.fromTo('.contact-star',{rotation:-45,scale:.65},{rotation:30,scale:1.15,ease:'none',scrollTrigger:{trigger:'.contact-section',start:'top bottom',end:'bottom bottom',scrub:1}});
+ if(document.querySelector('.frame-orbit'))gsap.fromTo('.frame-orbit',{rotation:-35},{rotation:10,ease:'none',scrollTrigger:{trigger:'.featured-frame',start:'top bottom',end:'bottom top',scrub:1.5}});
+ if(document.querySelector('.contact-star'))gsap.fromTo('.contact-star',{rotation:-45,scale:.65},{rotation:30,scale:1.15,ease:'none',scrollTrigger:{trigger:'.contact-section',start:'top bottom',end:'bottom bottom',scrub:1}});
  updateMotion();
  if(paused)opening.progress(1);
 });
@@ -459,3 +462,5 @@ document.querySelectorAll<HTMLElement>('[data-griff]').forEach(scene=>{
  });
  scene.addEventListener('pointerleave',clear);rotationRefresh.push(()=>{if(paused||reduced.matches)clear();});
 });
+
+initExperience({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn),rotate:rotateWhenVisible});

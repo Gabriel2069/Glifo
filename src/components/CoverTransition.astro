@@ -1,0 +1,38 @@
+---
+const isCase=/^\/trabalhos\/[^/]+\/$/.test(Astro.url.pathname);
+---
+{isCase&&<link rel="expect" href="#case-cover" blocking="render"/>}
+<script is:inline>
+(()=>{
+ let chosen;
+ const slug=url=>{try{return new URL(url,location.href).pathname.match(/^\/trabalhos\/([^/]+)\/$/)?.[1];}catch{return undefined;}};
+ const paused=()=>matchMedia('(prefers-reduced-motion: reduce)').matches||document.documentElement.classList.contains('motion-paused');
+ const coverFor=key=>{
+  const frames=Array.from(document.querySelectorAll('[data-project-visual]')).filter(frame=>frame.dataset.projectVisual===key&&frame.getBoundingClientRect().width>0);
+  return frames.find(frame=>frame.closest('.case-project-visual'))||frames.find(frame=>{const r=frame.getBoundingClientRect();return r.bottom>0&&r.top<innerHeight;});
+ };
+ const assign=frame=>{if(frame){frame.style.viewTransitionName='glifo-project';return frame;}};
+ const clear=()=>{document.querySelectorAll('[data-project-visual]').forEach(frame=>frame.style.removeProperty('view-transition-name'));chosen=undefined;};
+ document.addEventListener('click',event=>{
+  if(event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.altKey||event.shiftKey||paused())return;
+  const link=event.target.closest('a[href]');if(!link||link.target==='_blank'||new URL(link.href).origin!==location.origin)return;
+  const key=slug(link.href);if(!key)return;
+  clear();chosen=assign(link.matches('[data-project-visual]')?link:link.querySelector('[data-project-visual]')||coverFor(key));
+ });
+ addEventListener('pageswap',event=>{
+  if(!event.viewTransition)return;
+  if(paused()){event.viewTransition.skipTransition();clear();return;}
+  const key=slug(event.activation?.entry?.url)||slug(location.href);
+  if(!chosen&&key)chosen=assign(coverFor(key));
+  event.viewTransition.finished.catch(()=>{}).finally(clear);
+ });
+ addEventListener('pagereveal',event=>{
+  if(!event.viewTransition)return;
+  if(paused()){event.viewTransition.skipTransition();clear();return;}
+  clear();const key=slug(location.href)||slug(window.navigation?.activation?.from?.url);
+  if(key)chosen=assign(coverFor(key));
+  event.viewTransition.finished.catch(()=>{}).finally(clear);
+ });
+ addEventListener('pageshow',event=>{if(event.persisted)clear();});
+})();
+</script>
