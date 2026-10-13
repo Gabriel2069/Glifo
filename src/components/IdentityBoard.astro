@@ -1,15 +1,17 @@
 ---
 import type {IdentityBoard as Board} from '../data/identities';
+import {projects} from '../data/site';
 import {identities,identityEssences} from '../data/identities';
 import '../styles/identity-fonts.css';
 import '../styles/identity-board.css';
 interface Props {board:Board; embedded?:boolean; prefix?:string}
 const {board:b,embedded=false,prefix=''}=Astro.props;
 const Heading=embedded?'h2':'h1';
+const period=b.caseSlug==='acolher-comissao'?projects.find(p=>p.slug===b.caseSlug)!.year:'2026';
 const essence=identityEssences[b.slug as keyof typeof identityEssences];
 ---
 <article id={prefix?`${prefix}identidade`:undefined} class:list={['identity-board',`identity-${b.theme}`]}>
- <div class="identity-document-colophon wrap"><span>GLIFO / CADERNO DE IDENTIDADES</span><span>{b.name} / 2026</span></div>
+ <div class="identity-document-colophon wrap"><span>GLIFO / CADERNO DE IDENTIDADES</span><span>{b.name} / {period}</span></div>
  <header class="identity-cover wrap"><div class="identity-cover-copy"><p class="eyebrow">Documento de marca / {b.name}</p><Heading class="identity-board-name">{b.slug==='glifo'?<img class="document-logotype" src="/brand/logo.png" alt="Glifo" width="1394" height="1128"/>:b.name}</Heading><p class="identity-subtitle">{b.subtitle}</p><p class="identity-intro">{b.intro}</p><a class="quiet-link" href={`/trabalhos/${b.caseSlug}/`}>Voltar ao projeto <span aria-hidden="true">↗</span></a></div><div class="identity-cover-art"><img src={b.hero} alt={`Identidade de ${b.name}`} width="1600" height="1000" fetchpriority="high"/></div><nav class="identity-local-nav" aria-label="Neste documento"><a href={`#${prefix}essencia`}>Essência</a><a href={`#${prefix}assinaturas`}>Assinaturas</a><a href={`#${prefix}paleta`}>Cores</a><a href={`#${prefix}tipografia`}>Tipografia</a><a href={`#${prefix}linguagem`}>Linguagem</a><a href={`#${prefix}materiais`}>Aplicações</a></nav></header>
  <section class="identity-vision wrap" id={`${prefix}essencia`} aria-label="Vision board e essência da marca"><div class="identity-essence"><p class="eyebrow">01 / A essência</p><h2>{essence.title}</h2><p>{essence.copy}</p><ul>{essence.traits.map(trait=><li>{trait}</li>)}</ul></div><div class="identity-mosaic"><div class="identity-mosaic-mark"><img src={b.slug==='glifo'?'/brand/symbol.png':b.hero} alt={`Expressão visual de ${b.name}`} width="1600" height="1000" loading="lazy"/></div><div class="identity-mosaic-type" style={`font-family:'${b.types[0].family}',serif`}><span>Aa</span><strong>{essence.word}</strong><p>{essence.note}</p></div><div class="identity-mosaic-palette" aria-label="Cores da identidade">{b.colors.map(color=><span style={`background:${color.hex}`} title={`${color.name} ${color.hex}`}></span>)}</div></div></section>
  <section class="identity-section wrap" id={`${prefix}assinaturas`}><div class="identity-section-title"><p class="eyebrow">02 / O que torna a marca reconhecível</p><h2>Assinaturas</h2></div><div class:list={['identity-mark-grid',{'identity-mark-grid-many':b.marks.length>2}]}>{b.marks.map((mark,i)=><figure><button type="button" class:list={['identity-image-trigger','identity-mark',`identity-mark-${i}`]} data-board-image={mark.image} data-board-caption={mark.caption} aria-label={`Ampliar: ${mark.title}`}><img src={mark.image} alt={mark.title} loading="lazy" width="1600" height="1000"/><span class="image-expand" aria-hidden="true">↗</span></button><figcaption><h3>{mark.title}</h3><p>{mark.caption}</p></figcaption></figure>)}</div></section>
