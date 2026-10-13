@@ -30,12 +30,47 @@ reduced.addEventListener('change',()=>{if(reduced.matches){paused=true;updateMot
 updateMotion();
 
 const menuButton=document.querySelector<HTMLButtonElement>('.menu-toggle');
-const menu=document.querySelector<HTMLElement>('#mobile-menu');
-function closeMenu(){if(menu)menu.hidden=true;menuButton?.setAttribute('aria-expanded','false');}
-menuButton?.addEventListener('click',()=>{if(!menu)return;menu.hidden=!menu.hidden;menuButton.setAttribute('aria-expanded',String(!menu.hidden));});
-menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
-document.addEventListener('keydown',e=>{if(e.key==='Escape' && menu && !menu.hidden){closeMenu();menuButton?.focus();}});
-document.addEventListener('click',e=>{const target=e.target as Node;if(menu&&!menu.hidden&&!menu.contains(target)&&!menuButton?.contains(target))closeMenu();});
+const menu=document.querySelector<HTMLDialogElement>('#mobile-menu');
+let menuExit:ReturnType<typeof setTimeout>|undefined;
+function finishMenuClose(){clearTimeout(menuExit);menu?.classList.remove('is-closing');menu?.close();}
+function closeMenu(immediate=true){
+ if(!menu?.open)return;
+ menuButton?.setAttribute('aria-expanded','false');
+ if(immediate||paused||reduced.matches){finishMenuClose();return;}
+ if(menu.classList.contains('is-closing'))return;
+ menu.classList.add('is-closing');menuExit=setTimeout(finishMenuClose,210);
+}
+menuButton?.addEventListener('click',()=>{
+ if(!menu)return;
+ if(menu.open){closeMenu(false);return;}
+ clearTimeout(menuExit);menu.classList.remove('is-closing');menu.showModal();document.body.classList.add('menu-open');menuButton.setAttribute('aria-expanded','true');
+});
+menu?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>closeMenu()));
+menu?.querySelector('[data-menu-close]')?.addEventListener('click',()=>closeMenu(false));
+menu?.addEventListener('cancel',event=>{event.preventDefault();closeMenu(false);});
+menu?.addEventListener('keydown',event=>{
+ if(event.key!=='Tab')return;
+ const controls=Array.from(menu.querySelectorAll<HTMLElement>('a[href],button:not([disabled])')).filter(el=>el.getClientRects().length>0);
+ const first=controls[0],last=controls[controls.length-1];
+ if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
+ else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
+});
+menu?.addEventListener('close',()=>{clearTimeout(menuExit);menu.classList.remove('is-closing');document.body.classList.remove('menu-open');menuButton?.setAttribute('aria-expanded','false');});
+menu?.addEventListener('click',event=>{if(event.target!==menu)return;const r=menu.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)closeMenu(false);});
+// Route and chapter state are reflected in both navigation surfaces.
+const navigationLinks=Array.from(document.querySelectorAll<HTMLAnchorElement>('[data-navigation-link]'));
+let navigationFrame=0;
+function updateNavigation(){
+ navigationFrame=0;let active='';
+ if(location.pathname.startsWith('/trabalhos/'))active='/trabalhos/';
+ else if(location.pathname.startsWith('/identidades/'))active='/identidades/';
+ else if(location.pathname==='/'){
+  const candidates=['/#servicos','/#glifo','/#processo'];
+  candidates.forEach(href=>{const section=document.getElementById(href.split('#')[1]);if(section){const r=section.getBoundingClientRect();if(r.top<innerHeight*.35&&r.bottom>innerHeight*.2)active=href;}});
+ }
+ navigationLinks.forEach(link=>{if(link.getAttribute('href')===active)link.setAttribute('aria-current',active.includes('#')?'location':'page');else link.removeAttribute('aria-current');});
+}
+addEventListener('scroll',()=>{if(!navigationFrame)navigationFrame=requestAnimationFrame(updateNavigation);},{passive:true});addEventListener('resize',updateNavigation);updateNavigation();
 const sentinel=document.querySelector('.header-sentinel');
 if(sentinel)new IntersectionObserver(([entry])=>document.querySelector('.site-header')?.classList.toggle('is-scrolled',!entry.isIntersecting)).observe(sentinel);
 
@@ -184,7 +219,7 @@ document.querySelectorAll<HTMLElement>('[data-atlas]').forEach(point=>{
 // Preserve headings as one accessible phrase, while words move inside masks.
 function wordSpans(element:HTMLElement, masked=false){
  const existing=element.querySelectorAll<HTMLElement>(masked?'.reveal-word':'.reading-word');if(existing.length)return existing;
- const label=element.textContent?.replace(/\s+/g,' ').trim()||'';
+ const label=(element.innerText||element.textContent||'').replace(/\s+/g,' ').trim();
  if(masked)element.setAttribute('aria-label',label);
  const walker=document.createTreeWalker(element,NodeFilter.SHOW_TEXT);
  const texts:Text[]=[];while(walker.nextNode())texts.push(walker.currentNode as Text);

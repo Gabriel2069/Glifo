@@ -123,3 +123,13 @@ Os documentos mantêm a sequência estabelecida e ganham amostras editáveis das
 CoverTransition registra os eventos nativos de navegação cedo, selecionando apenas uma capa visível por passagem. O nome de transição é limpo ao terminar e no retorno do cache; a rota e o histórico continuam nativos. Sem suporte, pausa ou movimento reduzido, a navegação funciona normalmente. No preview portátil entre iframes, a continuidade nativa entre documentos não é reproduzida.
 
 Serviços agora levam também a um exemplo real do acervo, ligando a oferta ao trabalho que a demonstra.
+
+## Navegação e entrada pela bio
+
+A navegação do computador mantém um conjunto compacto de destinos, com estado da rota ou capítulo. Menu abre um dialog nativo em qualquer largura; no celular, o painel ocupa a tela e prioriza os cinco caminhos e o contato. Inércia do conteúdo ao fundo, Escape, retorno de foco e pausa das alternâncias são tratados pelo dialog e pelo controlador existente. CSS coordena abertura e fechamento; navegação fecha imediatamente.
+
+Todas as setas de apresentação usam Icon.astro, em SVG monocromático, com traço e geometria comuns. Ícones decorativos ficam fora do nome acessível; comandos preservam rótulos textuais. Símbolos de linguagem celestial continuam nas ilustrações.
+
+O convite da vitrine retoma a formulação já presente nos casos: “Há outros sinais a desenhar.”
+
+/links/ é uma entrada pública e discreta para o Instagram: WhatsApp, site, trabalhos, documentos e serviços. Não aparece nos menus e possui noindex,follow. É descoberta pelo endereço, sem promessa de acesso restrito. Contatos seguem site.ts; não acrescentar usuário de Instagram ou domínio que não foram confirmados.

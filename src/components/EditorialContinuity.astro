@@ -1,4 +1,5 @@
 ---
+import Icon from './Icon.astro';
 import type {Project} from '../data/site';
 import '../styles/identity-fonts.css';
 interface Props {project:Project}
@@ -7,7 +8,7 @@ const sheets=project.materials||[];
 ---
 <section class="editorial-desk section wrap" data-editorial-desk aria-labelledby="editorial-desk-title">
  <div class="section-heading"><div><p class="eyebrow">TdV / Mesa editorial</p><h2 id="editorial-desk-title">O fio muda de caminho.<br/><em>A coleção permanece.</em></h2></div><p class="section-description">Percorra as sete pranchas para comparar capas, divisões e encerramentos. Cada livro recebe elementos próprios, enquanto os fios e a organização dos títulos conservam o parentesco.</p></div>
- <div class="editorial-stage"><div class="editorial-registration" aria-hidden="true"><span>FIO~MESTRE / ACERVO EDITORIAL</span><span data-editorial-counter>01 / 0{sheets.length}</span></div>{sheets.map((sheet,i)=><figure data-editorial-sheet hidden={i!==0}><button type="button" class="identity-image-trigger" data-board-image={sheet.image} data-board-caption={sheet.caption} aria-label={`Ampliar prancha: ${sheet.title}`}><img src={sheet.image} alt={sheet.title} width="1600" height="1100" loading="lazy"/><span class="image-expand" aria-hidden="true">↗</span></button><figcaption><p class="eyebrow">{sheet.label}</p><h3>{sheet.title}</h3><p>{sheet.caption}</p></figcaption></figure>)}</div>
+ <div class="editorial-stage"><div class="editorial-registration" aria-hidden="true"><span>FIO~MESTRE / ACERVO EDITORIAL</span><span data-editorial-counter>01 / 0{sheets.length}</span></div>{sheets.map((sheet,i)=><figure data-editorial-sheet hidden={i!==0}><button type="button" class="identity-image-trigger" data-board-image={sheet.image} data-board-caption={sheet.caption} aria-label={`Ampliar prancha: ${sheet.title}`}><img src={sheet.image} alt={sheet.title} width="1600" height="1100" loading="lazy"/><span class="image-expand" aria-hidden="true"><Icon name="arrow"/></span></button><figcaption><p class="eyebrow">{sheet.label}</p><h3>{sheet.title}</h3><p>{sheet.caption}</p></figcaption></figure>)}</div>
  <div class="editorial-scrubber"><label>Percorrer a coleção <input type="range" min="1" max={sheets.length} value="1" step="1" data-editorial-range aria-label="Prancha da coleção TdV"/></label><span>ARRASTE / USE AS SETAS</span></div>
  <div class="editorial-contact-sheet" role="group" aria-label="Escolher uma prancha da coleção">{sheets.map((sheet,i)=><button type="button" data-editorial-choice={i} aria-pressed={i===0?'true':'false'} aria-label={`Prancha ${i+1}: ${sheet.title}`}><img src={sheet.image} alt="" width="160" height="110" loading="lazy"/><span>0{i+1} · {sheet.label}</span></button>)}</div>
  <p class="editorial-source-note">Pranchas originais fornecidas pelo autor. Abra uma imagem para examinar seus detalhes.</p>

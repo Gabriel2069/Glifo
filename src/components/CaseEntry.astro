@@ -1,6 +1,7 @@
 ---
+import Icon from './Icon.astro';
 import {type Project} from '../data/site';
 interface Props {project:Project}
 const {project:p}=Astro.props;
 ---
-<nav class="case-entry wrap" aria-label="Explorar este projeto">{p.board&&<a class="case-entry-document" href={`/identidades/${p.board}/`}><span>DOCUMENTO DA MARCA</span><strong>{p.slug==='acolher-comissao'?'Ver as duas identidades':'Ver a identidade visual'}</strong><span aria-hidden="true">↗</span></a>}<a href="#construcao"><span>O PROJETO</span><strong>Conhecer a construção</strong><span aria-hidden="true">↓</span></a><a href="#materiais"><span>AS APLICAÇÕES</span><strong>Ver os materiais</strong><span aria-hidden="true">↓</span></a></nav>
+<nav class="case-entry wrap" aria-label="Explorar este projeto">{p.board&&<a class="case-entry-document" href={`/identidades/${p.board}/`}><span>DOCUMENTO DA MARCA</span><strong>{p.slug==='acolher-comissao'?'Ver as duas identidades':'Ver a identidade visual'}</strong><span aria-hidden="true"><Icon name="arrow"/></span></a>}<a href="#construcao"><span>O PROJETO</span><strong>Conhecer a construção</strong><span aria-hidden="true"><Icon name="down"/></span></a><a href="#materiais"><span>AS APLICAÇÕES</span><strong>Ver os materiais</strong><span aria-hidden="true"><Icon name="down"/></span></a></nav>

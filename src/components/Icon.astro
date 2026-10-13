@@ -1,0 +1,6 @@
+---
+interface Props {name?:'arrow'|'up'|'down'|'left'|'right'|'close'|'menu'|'motion';class?:string}
+const {name='arrow',class:className}=Astro.props;
+const paths={arrow:'M5 19L19 5M6 5H19V18',up:'M12 20V4M5 11L12 4L19 11',down:'M12 4V20M5 13L12 20L19 13',left:'M20 12H4M11 5L4 12L11 19',right:'M4 12H20M13 5L20 12L13 19',close:'M6 6L18 18M18 6L6 18',menu:'M4 8H20M4 16H16',motion:'M9 5V19M15 5V19'};
+---
+<svg class:list={['vector-icon',`icon-${name}`,className]} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d={paths[name]}/></svg>
