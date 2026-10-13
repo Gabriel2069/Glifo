@@ -14,7 +14,7 @@ Os glifos são o centro da marca: formas visíveis que participam da construçã
 
 ## Composição
 
-Alternar narrativa, trabalhos, processo e autoria. Títulos editoriais em Cormorant; informações em Manrope. O fundo favorece a leitura; a intensidade celestial se concentra nas passagens de expressão. Preservar as identidades de futuros clientes ao apresentar seus casos.
+Alternar narrativa, trabalhos, processo e autoria. Títulos editoriais em Almendra; informações em Manrope. O fundo favorece a leitura; a intensidade celestial se concentra nas passagens de expressão. Preservar as identidades de futuros clientes ao apresentar seus casos.
 
 ## Movimento
 
@@ -62,7 +62,7 @@ Ampliação em dialog nativo, zoom, navegação por setas e retorno de foco. As 
 
 ## Leitura e documentos de marca
 
-A prosa narrativa entra por parágrafo, sem divisão em palavras ou gradação de luz dentro das frases. Títulos usam Cormorant com maior escala e peso; a explicação usa Manrope, com parágrafos curtos e vocabulário concreto. O imaginário leva às decisões do trabalho, mantendo o site como exemplo dessas escolhas.
+A prosa narrativa entra por parágrafo, sem divisão em palavras ou gradação de luz dentro das frases. Títulos usam Almendra com maior escala e peso; a explicação usa Manrope, com parágrafos curtos e vocabulário concreto. O imaginário leva às decisões do trabalho, mantendo o site como exemplo dessas escolhas.
 
 Links de identidade abrem um documento em dialog com iframe de mesma origem. A rota continua disponível diretamente e sem JavaScript. O parâmetro documento esconde a navegação geral dentro do documento. Escape fecha a imagem ampliada antes do documento, e o foco retorna ao link de origem. A abertura reúne essência, sinais, tipografia e paleta em uma composição de vision board.
 
@@ -81,3 +81,9 @@ Almendra assume os títulos da Glifo, aproximando o repertório da escrita calig
 Delfas utiliza a direção consolidada nos documentos v1.0 fornecidos, com Arapey e Manrope, roxo/ameixa/champanhe, estrela e brilho delicado. Acolher e Comissão Grão de Mostarda compõem um novo caso, com dois documentos de identidade próprios e materiais das apresentações fornecidas. Tan Nimbus e Marykate são descritas pelo manual; suas famílias não são substituídas por outra fonte decorativa apresentada como original.
 
 Capas anteriores de TdV e Christiano foram restauradas, mantendo as galerias completas. Tadeon conserva a distinção entre estudo de interface e aplicativo conectado. A inspeção autenticada ficou bloqueada pelo navegador nesta etapa. Credenciais nunca entram no código, nas pranchas ou nos artefatos.
+
+## Acabamento final
+
+Cada documento define suas famílias de título e leitura no próprio artigo: Glifo Almendra/Manrope, Christiano Inter/Inter, TdV EB Garamond/Inter, Delfas Arapey/Manrope, Comissão Raleway e Acolher Leckerli One/Raleway. As assinaturas originais preservam os desenhos de letras. Fontes proprietárias não fornecidas não são simuladas.
+
+Capas e materiais usam contain em trilhas de grid que podem encolher. O favicon usa a logo fornecida; o rodapé utiliza o símbolo oficial e oferece navegação, contato e autoria. O acabamento móvel prioriza leitura, alvos de toque e documentos sem excesso de altura.

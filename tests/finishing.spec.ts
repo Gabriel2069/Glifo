@@ -1,0 +1,10 @@
+import {test,expect} from '@playwright/test';
+test('brand documents own their display and reading fonts',async({page})=>{
+ const fonts=[['glifo','Almendra','Manrope'],['christiano-tadeu','Inter','Inter'],['tdv','EB Garamond','Inter'],['delfas-corpore','Arapey','Manrope'],['comissao','Raleway','Raleway'],['acolher','Leckerli One','Raleway']];
+ for(const [slug,display,body] of fonts){await page.goto(`/identidades/${slug}/`);await page.evaluate(()=>document.fonts.ready);expect(await page.locator('.identity-section h2').first().evaluate(e=>getComputedStyle(e).fontFamily)).toContain(display);expect(await page.locator('.identity-intro').evaluate(e=>getComputedStyle(e).fontFamily)).toContain(body);expect(await page.locator('.identity-material img').first().evaluate(img=>{const a=img.getBoundingClientRect(),b=img.parentElement!.getBoundingClientRect();return a.left>=b.left-1&&a.top>=b.top-1&&a.right<=b.right+1&&a.bottom<=b.bottom+1})).toBe(true);}
+});
+test('site furniture uses approved marks and working routes',async({page})=>{
+ await page.goto('/');await expect(page.locator('link[rel="icon"]')).toHaveAttribute('href','/brand/logo.png');await expect(page.locator('.footer-brand img')).toHaveAttribute('src','/brand/symbol.png');await expect(page.locator('.footer-colophon')).toContainText('©');await expect(page.locator('#autor')).toHaveCount(1);await expect(page.getByRole('navigation',{name:'Explorar a Glifo'}).getByRole('link',{name:'Documentos de marca'})).toHaveAttribute('href','/identidades/');
+ await page.goto('/trabalhos/nexos/');await expect(page.locator('.project-system')).toContainText('N.E.X IA');await page.goto('/trabalhos/tadeon/');await expect(page.locator('.project-system')).toContainText('grafo');
+ for(const slug of ['tdv-editorial','christiano-tadeu','tadeon','nexos']){await page.goto(`/trabalhos/${slug}/`);expect(await page.locator('.case-project-visual .project-art img').evaluate(img=>{const a=img.getBoundingClientRect(),b=img.parentElement!.getBoundingClientRect();return a.left>=b.left-1&&a.top>=b.top-1&&a.right<=b.right+1&&a.bottom<=b.bottom+1})).toBe(true);}
+});

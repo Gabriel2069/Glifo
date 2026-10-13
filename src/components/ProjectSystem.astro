@@ -1,0 +1,15 @@
+---
+interface Props {slug:string}
+const {slug}=Astro.props;
+const isNex=slug==='nexos';
+const items=isNex?[
+ ['01 / N.E.X IA','Uma conversa no centro do sistema.','O assistente de IA passa a fazer parte do NexOS. A conversa ganha lugar ao lado das ferramentas de organização, dentro da mesma linguagem visual.'],
+ ['02 / EXECUÇÃO','Do que chega ao que se faz.','Inbox, missões, projetos e calendário ajudam a dar destino às entradas do dia. A próxima ação aproxima o planejamento do trabalho que precisa acontecer.'],
+ ['03 / CONTINUIDADE','Um dia conversa com o outro.','Foco, rotinas, insights e revisão semanal guardam o percurso. O sistema oferece formas de olhar para esse histórico e reorganizar o que vem depois.']
+]:[
+ ['01 / PERSONAGEM','A ficha acompanha a história.','Recursos, progressão e registros do personagem pertencem ao mesmo percurso. A organização da ficha aproxima a consulta das decisões tomadas durante o jogo.'],
+ ['02 / CONHECIMENTO','Um arquivo feito de relações.','Páginas, referências e vínculos compõem o Nexus. A árvore orienta a localização; o grafo permite acompanhar as conexões entre os conteúdos.'],
+ ['03 / MESA','O mundo continua em uso.','A biblioteca e os documentos sustentam a consulta. A mesa aproxima esses materiais da sessão, com acesso definido para mestres e jogadores.']
+];
+---
+<section class:list={['project-system','wrap',`project-system-${slug}`]} aria-label={`Áreas do ${isNex?'NexOS':'Tadeon'}`}><div class="project-system-header"><div><p class="eyebrow">O desenho acompanha a função</p><h2>{isNex?'Uma interface para agir.':'A história encontra seu arquivo.'}</h2></div><p>{isNex?'A identidade cósmica atravessa navegação, ferramentas e assistente. Cada área tem uma função no percurso.':'O Fio-Mestre atravessa os livros e chega ao aplicativo. A linguagem muda de suporte, conservando o vínculo com o universo.'}</p></div><div class="project-system-grid">{items.map(([label,title,text])=><article><span>{label}</span><h3>{title}</h3><p>{text}</p></article>)}</div></section>
