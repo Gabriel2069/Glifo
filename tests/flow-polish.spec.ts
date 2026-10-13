@@ -1,0 +1,7 @@
+import {test,expect} from '@playwright/test';
+test('project discovery keeps playing over copy and switches at the new pace',async({page})=>{
+ await page.goto('/');const section=page.locator('.work-collection');await section.locator('.section-description').scrollIntoViewIfNeeded();await section.locator('.section-description').hover();await expect(section).toHaveAttribute('data-auto-state','running');await expect(section.locator('[data-project-tab][aria-selected="true"]')).toHaveAttribute('id','project-tab-delfas-corpore',{timeout:8500});await section.getByRole('tab',{name:/Tadeon Nexus/}).click();await expect(section).toHaveAttribute('data-auto-state','paused');await expect(section.locator('.collection-panel:not([hidden])')).toHaveCount(1);await page.getByRole('button',{name:'Pausar animações'}).click();expect(await section.locator('.collection-panel:not([hidden]) .project-art').evaluate(e=>getComputedStyle(e).transform)).toBe('none');
+});
+test('saved pause disables document entrance motion and remains on navigation',async({page})=>{
+ await page.goto('/');await page.getByRole('button',{name:'Pausar animações'}).click();await page.goto('/trabalhos/christiano-tadeu/');await page.getByRole('link',{name:/Ver a identidade visual/}).click();await expect(page.locator('html')).toHaveClass(/motion-paused/);expect(await page.locator('[data-identity-document]').evaluate(e=>getComputedStyle(e).animationName)).toBe('none');
+});

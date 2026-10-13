@@ -41,3 +41,6 @@
 .motion-paused .art-book>img{transition:none;transform:rotate(-3deg) scale(.93)}
 
 .art-acolher:has(.paired-cover-marks) .project-art-label{color:#2A3683}
+
+.project-art-orbit:after{content:'';position:absolute;left:-3px;top:50%;width:5px;height:5px;border-radius:50%;background:var(--project-accent);box-shadow:0 0 14px 3px color-mix(in srgb,var(--project-accent) 70%,transparent);opacity:0;transform:scale(.3);transition:opacity .6s,transform .8s var(--ease)}.project-art:hover .project-art-orbit:after,a:focus-visible>.project-art .project-art-orbit:after{opacity:1;transform:scale(1)}
+@media(prefers-reduced-motion:reduce){.project-art-orbit:after{transition:none}}.motion-paused .project-art-orbit:after{transition:none}

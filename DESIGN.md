@@ -101,3 +101,9 @@ O hover ilumina o frame com o acento do projeto. A imagem não recebe distorçã
 Acolher e Comissão Grão de Mostarda compartilham a capa de portfólio e a rota /identidades/acolher/. O documento reúne duas apresentações completas, com IDs prefixados e famílias locais, sem misturar as paletas. A rota individual da Comissão permanece disponível. Christiano usa a assinatura central em fundo azul contínuo. TdV conserva a capa no centro e cresce no hover do frame ou foco do link, respeitando pausa e movimento reduzido.
 
 O período confirmado de Acolher e Comissão Grão de Mostarda é 2025–2026. As capas do índice de identidades e da seção de documentos usam trilhas minmax(0,1fr), com imagens contidas em ambas as dimensões para evitar expansão por tamanho intrínseco.
+
+## Ritmo e continuidade
+
+Alternâncias: constelação 4,2 s, projetos 6,5 s, atlas 5,2 s, processo 7,5 s e caderno 8 s. Ponteiro sobre texto não congela uma seção; controles, foco, uso manual, diálogos e preferência de movimento mantêm as pausas. O indicador reinicia junto com o temporizador.
+
+Projetos entram com uma passagem curta no frame e na legenda, cancelável por nova seleção ou pausa. Navegação nativa usa transições entre documentos como melhoria progressiva. Documentos abrem com escala discreta; estrelas próximas ao ponteiro e pontos luminosos nas órbitas respondem sem loops adicionais.

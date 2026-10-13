@@ -13,6 +13,7 @@ const entrances: gsap.core.Animation[] = [];
 const rotationRefresh: Array<()=>void> = [];
 const updateMotion = () => {
  document.body.classList.toggle('motion-paused', paused);
+ document.documentElement.classList.toggle('motion-paused',paused);
  if(paused)entrances.forEach(animation=>animation.progress(1));
  motionButton?.setAttribute('aria-pressed', String(paused));
  motionButton?.setAttribute('aria-label', paused ? 'Ativar animações' : 'Pausar animações');
@@ -285,13 +286,26 @@ if(detailPan){
 
 // Project selection has a single panel and equivalent pointer/keyboard paths.
 const projectTabs=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-project-tab]'));
+let collectionTransition:gsap.core.Timeline|undefined;
+const settleCollection=()=>{
+ collectionTransition?.progress(1).kill();
+ document.querySelectorAll<HTMLElement>('.collection-panel').forEach(panel=>{gsap.set(panel,{clearProps:'opacity,transform'});gsap.set(panel.querySelectorAll('.project-art,.collection-caption'),{clearProps:'opacity,transform,clipPath'});});
+};
+rotationRefresh.push(()=>{if(paused||reduced.matches)settleCollection();});
 function selectProject(index:number,focus=false){
+ settleCollection();
  projectTabs.forEach((tab,i)=>{
   const active=i===index;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;
-  const panel=document.getElementById(tab.getAttribute('aria-controls')!);
-  if(panel){panel.hidden=!active;if(active&&!paused&&!reduced.matches){gsap.fromTo(panel,{opacity:.25,y:16},{opacity:1,y:0,duration:.7,ease:'power2.out',overwrite:true});}}
+  const panel=document.getElementById(tab.getAttribute('aria-controls')!);if(panel)panel.hidden=!active;
   if(active&&focus)tab.focus();
  });
+ const panel=document.getElementById(projectTabs[index]?.getAttribute('aria-controls')||'');
+ if(panel&&!paused&&!reduced.matches){
+  collectionTransition=gsap.timeline({defaults:{ease:'power3.out'},onComplete:()=>{gsap.set(panel,{clearProps:'opacity'});gsap.set(panel.querySelectorAll('.project-art,.collection-caption'),{clearProps:'opacity,transform,clipPath'});}})
+   .fromTo(panel,{opacity:.4},{opacity:1,duration:.4},0)
+   .fromTo(panel.querySelector('.project-art'),{x:18,clipPath:'inset(0% 0% 0% 8%)'},{x:0,clipPath:'inset(0% 0% 0% 0%)',duration:.7},0)
+   .fromTo(panel.querySelector('.collection-caption'),{y:14,opacity:.35},{y:0,opacity:1,duration:.55},.12);
+ }
 }
 projectTabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectProject(i));tab.addEventListener('keydown',e=>{let index=i;if(e.key==='ArrowDown'||e.key==='ArrowRight')index=(i+1)%projectTabs.length;else if(e.key==='ArrowUp'||e.key==='ArrowLeft')index=(i-1+projectTabs.length)%projectTabs.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=projectTabs.length-1;else return;e.preventDefault();selectProject(index,true);});});
 // Filters change the semantic set immediately; FLIP preserves the visual positions.
@@ -385,11 +399,11 @@ function rotateWhenVisible(root:HTMLElement|null,period:number,next:()=>void){
   toggle.setAttribute('aria-pressed',String(manual));toggle.textContent=manual?'Retomar alternância':'Pausar alternância';
   controls.querySelector('[data-auto-status]')!.textContent=manual?'Alternância pausada':blocked?'Alternância em pausa':'Alterna automaticamente';
   root.querySelectorAll<HTMLElement>('[aria-live]').forEach(el=>el.setAttribute('aria-live',running?'off':'polite'));
-  if(running)timer=setTimeout(()=>{next();const bar=controls.querySelector<HTMLElement>('.auto-cycle-track span')!;bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';refresh();},period);
+  if(running){const bar=controls.querySelector<HTMLElement>('.auto-cycle-track span')!;bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';timer=setTimeout(()=>{next();refresh();},period);}
  };
  toggle.addEventListener('click',()=>{manual=!manual;refresh();});
- root.addEventListener('pointerenter',event=>{if(event.pointerType==='mouse'){hover=true;refresh();}});
- root.addEventListener('pointerleave',()=>{hover=false;refresh();});
+ root.addEventListener('pointermove',event=>{if(event.pointerType!=='mouse')return;const nextHover=Boolean((event.target as Element).closest('a,button,input,textarea,select'));if(nextHover!==hover){hover=nextHover;refresh();}});
+ root.addEventListener('pointerleave',()=>{if(hover){hover=false;refresh();}});
  root.addEventListener('focusin',refresh);root.addEventListener('focusout',()=>queueMicrotask(refresh));
  const stopOnUse=(event:Event)=>{if(event.isTrusted&&!(event.target as Element).closest('[data-auto-toggle]')){manual=true;refresh();}};
  root.addEventListener('pointerdown',stopOnUse);root.addEventListener('keydown',stopOnUse);
@@ -399,12 +413,12 @@ function rotateWhenVisible(root:HTMLElement|null,period:number,next:()=>void){
  rotationRefresh.push(refresh);refresh();
 }
 const scene=document.querySelector<HTMLElement>('.hero [data-griff]');
-rotateWhenVisible(scene,8000,()=>{const buttons=Array.from(scene!.querySelectorAll<HTMLButtonElement>('[data-scene-mode]'));const index=buttons.findIndex(b=>b.getAttribute('aria-pressed')==='true');buttons[(index+1)%buttons.length]?.click();});
-rotateWhenVisible(document.querySelector('.work-collection'),12000,()=>{const current=projectTabs.findIndex(t=>t.getAttribute('aria-selected')==='true');selectProject((current+1)%projectTabs.length);});
-rotateWhenVisible(document.querySelector('#processo'),14000,()=>{const current=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');selectTab((current+1)%tabs.length);});
+rotateWhenVisible(scene,4200,()=>{const buttons=Array.from(scene!.querySelectorAll<HTMLButtonElement>('[data-scene-mode]'));const index=buttons.findIndex(b=>b.getAttribute('aria-pressed')==='true');buttons[(index+1)%buttons.length]?.click();});
+rotateWhenVisible(document.querySelector('.work-collection'),6500,()=>{const current=projectTabs.findIndex(t=>t.getAttribute('aria-selected')==='true');selectProject((current+1)%projectTabs.length);});
+rotateWhenVisible(document.querySelector('#processo'),7500,()=>{const current=tabs.findIndex(t=>t.getAttribute('aria-selected')==='true');selectTab((current+1)%tabs.length);});
 const atlas=document.querySelector<HTMLElement>('.atlas-section');
-rotateWhenVisible(atlas,10000,()=>{const points=Array.from(atlas!.querySelectorAll<HTMLElement>('[data-atlas]'));const current=points.findIndex(p=>p.classList.contains('is-active'));points[(current+1)%points.length]?.dispatchEvent(new Event('pointerenter'));});
-rotateWhenVisible(document.querySelector('.archive-section'),16000,()=>{const last=document.querySelector<HTMLButtonElement>('[data-archive-next]');if(last?.disabled)track?.dispatchEvent(new KeyboardEvent('keydown',{key:'Home'}));else last?.click();});
+rotateWhenVisible(atlas,5200,()=>{const points=Array.from(atlas!.querySelectorAll<HTMLElement>('[data-atlas]'));const current=points.findIndex(p=>p.classList.contains('is-active'));points[(current+1)%points.length]?.dispatchEvent(new Event('pointerenter'));});
+rotateWhenVisible(document.querySelector('.archive-section'),8000,()=>{const last=document.querySelector<HTMLButtonElement>('[data-archive-next]');if(last?.disabled)track?.dispatchEvent(new KeyboardEvent('keydown',{key:'Home'}));else last?.click();});
 
 const identityImages=Array.from(document.querySelectorAll<HTMLButtonElement>('[data-board-image]'));
 const boardDialog=document.querySelector<HTMLDialogElement>('[data-board-lightbox]');
@@ -429,3 +443,19 @@ document.querySelectorAll<HTMLButtonElement>('[data-copy-color]').forEach(button
  }
  notify(copied?`${value} copiado.`:`Código da cor: ${value}`);
 }));
+
+// A nearby star answers the pointer; no ambient loop or alteration of the mark.
+document.querySelectorAll<HTMLElement>('[data-griff]').forEach(scene=>{
+ const svg=scene.querySelector<SVGSVGElement>('.griff-svg');
+ const stars=Array.from(scene.querySelectorAll<SVGGElement>('.griff-nodes>g'));
+ let active:SVGGElement|undefined;
+ const clear=()=>{active?.classList.remove('is-near');active=undefined;};
+ scene.addEventListener('pointermove',event=>{
+  if(paused||reduced.matches||event.pointerType!=='mouse'||!svg)return;
+  const bounds=svg.getBoundingClientRect(),x=(event.clientX-bounds.left)/bounds.width*500,y=(event.clientY-bounds.top)/bounds.height*500;
+  let closest:SVGGElement|undefined,distance=65;
+  stars.forEach(star=>{const point=star.querySelector('circle');if(!point)return;const d=Math.hypot(point.cx.baseVal.value-x,point.cy.baseVal.value-y);if(d<distance){distance=d;closest=star;}});
+  if(closest!==active){clear();active=closest;active?.classList.add('is-near');}
+ });
+ scene.addEventListener('pointerleave',clear);rotationRefresh.push(()=>{if(paused||reduced.matches)clear();});
+});
