@@ -56,7 +56,7 @@ test('atlas focus updates the preview and opens its chapter',async({page})=>{
  await page.goto('/');await page.locator('[data-atlas="linguagem"]').focus();await expect(page.locator('[data-atlas-title]')).toHaveText('Linguagem');const link=page.getByRole('link',{name:'Conhecer este capítulo'});await expect(link).toHaveAttribute('href','/trabalhos/glifo/#linguagem');await link.click();await expect(page).toHaveURL(/glifo\/#linguagem$/);
 });
 test('portfolio links open the authorial case',async({page})=>{
- await page.goto('/trabalhos/');await page.locator('.index-work').first().click();await expect(page).toHaveURL(/\/trabalhos\/glifo\//);await expect(page.locator('#identidade')).toBeVisible();
+ await page.goto('/trabalhos/');await page.locator('.index-work[href="/trabalhos/glifo/"]').click();await expect(page).toHaveURL(/\/trabalhos\/glifo\//);await expect(page.locator('#identidade')).toBeVisible();
 });
 test('process works with keyboard and retains one selected panel',async({page})=>{
  await page.goto('/');const tab=page.getByRole('tab',{name:/Forma/});await tab.click();await expect(tab).toHaveAttribute('aria-selected','true');await tab.press('ArrowRight');await expect(page.getByRole('tab',{name:/Presença/})).toHaveAttribute('aria-selected','true');await expect(page.locator('.process-panel:not([hidden])')).toHaveCount(1);

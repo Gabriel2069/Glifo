@@ -196,6 +196,7 @@ function wordSpans(element:HTMLElement, masked=false){
 }
 media.add('(prefers-reduced-motion: no-preference)',()=>{
  document.querySelectorAll<HTMLElement>('h1,h2').forEach(heading=>{
+  if(heading.querySelector('img'))return;
   const words=wordSpans(heading,true);
   const tween=gsap.fromTo(words,{yPercent:115,rotation:3,opacity:0},{yPercent:0,rotation:0,opacity:1,duration:1.1,stagger:.075,ease:'power3.out',scrollTrigger:{trigger:heading,start:'top 93%',once:true}});
   entrances.push(tween);
@@ -293,14 +294,48 @@ function selectProject(index:number,focus=false){
  });
 }
 projectTabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectProject(i));tab.addEventListener('keydown',e=>{let index=i;if(e.key==='ArrowDown'||e.key==='ArrowRight')index=(i+1)%projectTabs.length;else if(e.key==='ArrowUp'||e.key==='ArrowLeft')index=(i-1+projectTabs.length)%projectTabs.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=projectTabs.length-1;else return;e.preventDefault();selectProject(index,true);});});
+// Filters change the semantic set immediately; FLIP preserves the visual positions.
+const workCards=Array.from(document.querySelectorAll<HTMLElement>('[data-project-categories]'));
+let filterTimeline:gsap.core.Timeline|undefined;
+const settleWorkFilter=()=>{filterTimeline?.kill();gsap.killTweensOf(workCards);gsap.set(workCards,{clearProps:'transform,opacity'});};
+rotationRefresh.push(()=>{if(paused||reduced.matches)settleWorkFilter();});
 document.querySelectorAll<HTMLButtonElement>('[data-project-filter]').forEach(button=>{
  button.addEventListener('click',()=>{
+  if(button.getAttribute('aria-pressed')==='true')return;
+  settleWorkFilter();
+  const before=new Map(workCards.filter(card=>!card.hidden).map(card=>[card,card.getBoundingClientRect()]));
   const filter=button.dataset.projectFilter;let count=0;
   document.querySelectorAll('[data-project-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
-  document.querySelectorAll<HTMLElement>('[data-project-categories]').forEach(project=>{project.hidden=filter!=='Todos'&&!project.dataset.projectCategories?.split(',').includes(filter!);if(!project.hidden)count++;});
+  workCards.forEach(project=>{project.hidden=filter!=='Todos'&&!project.dataset.projectCategories?.split(',').includes(filter!);if(!project.hidden)count++;});
+  const visible=workCards.filter(card=>!card.hidden);
+  const after=visible.map(card=>({card,rect:card.getBoundingClientRect(),old:before.get(card)}));
   const status=document.querySelector('[data-project-filter-count]');if(status)status.textContent=`${count} ${count===1?'trabalho':'trabalhos'}`;
+  if(!paused&&!reduced.matches){
+   filterTimeline=gsap.timeline({onComplete:()=>gsap.set(visible,{clearProps:'transform,opacity'})});
+   after.forEach(({card,rect,old},index)=>{
+    if(old)filterTimeline!.fromTo(card,{x:old.left-rect.left,y:old.top-rect.top},{x:0,y:0,duration:.65,ease:'power3.out'},0);
+    else filterTimeline!.fromTo(card,{y:22,opacity:0},{y:0,opacity:1,duration:.55,ease:'power2.out'},Math.min(index*.045,.18));
+   });
+  }
   ScrollTrigger.refresh();
  });
+});
+// The light belongs to the frame, so the supplied artwork keeps its geometry.
+document.querySelectorAll<HTMLElement>('.project-art').forEach(frame=>{
+ frame.addEventListener('pointermove',event=>{
+  if(paused||reduced.matches||event.pointerType!=='mouse')return;
+  const bounds=frame.getBoundingClientRect();
+  frame.style.setProperty('--cover-x',`${((event.clientX-bounds.left)/bounds.width)*100}%`);
+  frame.style.setProperty('--cover-y',`${((event.clientY-bounds.top)/bounds.height)*100}%`);
+ });
+ frame.addEventListener('pointerleave',()=>{frame.style.removeProperty('--cover-x');frame.style.removeProperty('--cover-y');});
+});
+media.add('(prefers-reduced-motion: no-preference)',()=>{
+ document.querySelectorAll<HTMLElement>('.index-work .project-art,.index-work .work-card-copy,.work-intro-aside').forEach(element=>{
+  const entrance=gsap.fromTo(element,{y:20,opacity:.35},{y:0,opacity:1,duration:.85,ease:'power2.out',scrollTrigger:{trigger:element,start:'top 95%',once:true}});
+  entrances.push(entrance);
+ });
+ updateMotion();
 });
 const projectOrientation=matchMedia('(max-width:760px)');
 const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',projectOrientation.matches?'horizontal':'vertical');

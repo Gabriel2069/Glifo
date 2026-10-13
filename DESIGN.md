@@ -89,3 +89,9 @@ Cada documento define suas famílias de título e leitura no próprio artigo: Gl
 Capas e materiais usam contain em trilhas de grid que podem encolher. O favicon usa o emblema do grifo fornecido; o rodapé utiliza o símbolo oficial e oferece navegação, contato e autoria. O acabamento móvel prioriza leitura, alvos de toque e documentos sem excesso de altura.
 
 Assinaturas nominais usam public/brand/logo.png, inclusive rodapé, atlas, estudo de tela e abertura do documento Glifo. Menções editoriais ao nome continuam como texto legível. public/brand/symbol.png é o emblema do grifo e ocupa o favicon e o ícone de tela inicial.
+
+## Vitrine e acabamento de interação
+
+A página de trabalhos começa por Christiano Tadeu em composição ampla, seguida por Delfas e pelos projetos autorais. Cartões conservam as capas aprovadas e enquadramento contain. Tipos, numeração e chamadas organizam a exploração. Filtros aplicam o conjunto sem atraso semântico e usam FLIP para conservar posições; trocas rápidas cancelam a animação anterior. Pausa e movimento reduzido concluem a troca imediatamente.
+
+O hover ilumina o frame com o acento do projeto. A imagem não recebe distorção ou ampliação que corte o material. Foco apresenta um estado equivalente; no toque, os caminhos permanecem visíveis. As entradas pertencem ao interior dos cartões, enquanto o contêiner tem um único dono para a transição dos filtros.
