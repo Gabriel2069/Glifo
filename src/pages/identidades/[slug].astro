@@ -6,4 +6,4 @@ export function getStaticPaths(){return identities.map(board=>({params:{slug:boa
 interface Props {board:Board}
 const {board}=Astro.props;
 ---
-<Base bodyClass={board.theme==='ct'?'identity-light-page':undefined} title={`${board.name} · Prancha de identidade`} description={board.intro}><IdentityBoard board={board}/></Base>
+<Base bodyClass={['ct','acolher','comissao'].includes(board.theme)?'identity-light-page':undefined} title={`${board.name} · Prancha de identidade`} description={board.intro}><IdentityBoard board={board}/></Base>

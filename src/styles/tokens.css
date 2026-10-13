@@ -1,5 +1,7 @@
+@font-face{font-family:Almendra;src:url('/fonts/almendra-400.ttf') format('truetype');font-weight:400 600;font-display:swap}
+@font-face{font-family:Almendra;src:url('/fonts/almendra-700.ttf') format('truetype');font-weight:700;font-display:swap}
 @font-face{font-family:Cormorant;src:url('/fonts/cormorant-500.woff2') format('woff2');font-weight:500;font-display:swap}
 @font-face{font-family:Cormorant;src:url('/fonts/cormorant-600.woff2') format('woff2');font-weight:600;font-display:swap}
 @font-face{font-family:Manrope;src:url('/fonts/manrope-400.woff2') format('woff2');font-weight:400;font-display:swap}
 @font-face{font-family:Manrope;src:url('/fonts/manrope-600.woff2') format('woff2');font-weight:600;font-display:swap}
-:root{color-scheme:dark;--night:#0C1020;--deep:#080C17;--blue:#243A68;--haze:#6E86B7;--purple:#514176;--lavender:#A29BC6;--gray:#8993A7;--light:#E6EAF2;--muted:#B0BACD;--line:rgba(162,155,198,.23);--serif:Cormorant,Georgia,serif;--sans:Manrope,Arial,sans-serif;--ease:cubic-bezier(.2,.65,.3,1);--page-gutter:clamp(22px,5vw,84px)}
+:root{color-scheme:dark;--night:#0C1020;--deep:#080C17;--blue:#243A68;--haze:#6E86B7;--purple:#7042B3;--lavender:#B28CFF;--gray:#8993A7;--light:#E6EAF2;--muted:#B0BACD;--line:rgba(162,155,198,.23);--serif:Almendra,Georgia,serif;--sans:Manrope,Arial,sans-serif;--ease:cubic-bezier(.2,.65,.3,1);--page-gutter:clamp(22px,5vw,84px)}

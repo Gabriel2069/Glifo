@@ -80,3 +80,9 @@ A narrativa usa títulos serifados e prosa em Manrope, com parágrafos separados
 A abertura leva aos documentos de marca e uma seção própria reúne suas entradas. Os casos oferecem acesso à identidade, à construção e aos materiais antes da imagem principal. TdV inclui as sete pranchas fornecidas; Christiano reúne nove aplicações. Christiano e Delfas aparecem primeiro na seleção da home.
 
 As áreas de seleção alternam com o tempo quando estão visíveis, com controles locais para pausar e retomar. Interação manual mantém a seleção, e foco, ponteiro, movimento reduzido, diálogos e aba oculta suspendem a alternância.
+
+## Serviços e contato
+
+O WhatsApp confirmado do autor é 5562983010176. Os links preparam a conversa e a ferramenta de mensagem permite revisar antes de abrir o aplicativo. A vitrine apresenta cinco frentes com entregas definidas, além de sete casos e seis documentos de identidade.
+
+Almendra e as novas famílias dos projetos são locais e acompanhadas das licenças OFL. As identidades de Delfas, Comissão e Acolher usam os materiais fornecidos; credenciais e dados internos não são publicados.

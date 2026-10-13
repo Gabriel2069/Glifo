@@ -71,3 +71,13 @@ Links de identidade abrem um documento em dialog com iframe de mesma origem. A r
 A abertura oferece acesso aos documentos e a home tem uma seção de três documentos com chamadas visíveis. Os casos seguem apresentação, entradas para identidade/construção/materiais, imagem principal, escopo, construção, aplicações e continuidade. As identidades mantêm a sequência essência, assinaturas, cor, tipografia, linguagem e aplicações; os elementos continuam próprios de cada marca. Christiano e Delfas aparecem primeiro na coleção da home.
 
 A seleção de projetos, a representação do grifo, o atlas, o método e o caderno têm alternância temporizada. Ela pausa fora da tela, em aba oculta, com diálogos abertos, movimento reduzido, pausa global, ponteiro e foco. Interação manual suspende a alternância da seção até Retomar. As trocas automáticas reutilizam os controles, não movem foco e não anunciam a galeria continuamente.
+
+## Atualização comercial e acervo
+
+WhatsApp confirmado: https://wa.me/5562983010176. Serviços têm seção própria, entregas concretas e convites por área. A mensagem preparada abre o WhatsApp para revisão e envio pelo visitante. Não enviar mensagens automaticamente.
+
+Almendra assume os títulos da Glifo, aproximando o repertório da escrita caligráfica e gótica; Manrope continua na leitura. Roxo #7042B3 e lavanda #B28CFF dão mais presença aos caminhos de ação. As identidades dos projetos preservam suas fontes e paletas.
+
+Delfas utiliza a direção consolidada nos documentos v1.0 fornecidos, com Arapey e Manrope, roxo/ameixa/champanhe, estrela e brilho delicado. Acolher e Comissão Grão de Mostarda compõem um novo caso, com dois documentos de identidade próprios e materiais das apresentações fornecidas. Tan Nimbus e Marykate são descritas pelo manual; suas famílias não são substituídas por outra fonte decorativa apresentada como original.
+
+Capas anteriores de TdV e Christiano foram restauradas, mantendo as galerias completas. Tadeon conserva a distinção entre estudo de interface e aplicativo conectado. A inspeção autenticada ficou bloqueada pelo navegador nesta etapa. Credenciais nunca entram no código, nas pranchas ou nos artefatos.

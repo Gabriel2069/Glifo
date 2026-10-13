@@ -101,7 +101,7 @@ const dialog=document.querySelector<HTMLDialogElement>('.idea-dialog');
 document.querySelectorAll('[data-open-idea]').forEach(b=>b.addEventListener('click',()=>dialog?.showModal()));
 document.querySelector('[data-close-dialog]')?.addEventListener('click',()=>dialog?.close());
 const form=document.querySelector<HTMLFormElement>('[data-idea-form]');
-form?.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(form);const name=String(data.get('name')||'').trim();const idea=String(data.get('idea')||'').trim();const message=document.querySelector<HTMLTextAreaElement>('[data-idea-message]');if(message)message.value=`Olá, Tadeu! Sou ${name}.\n\nQuero conversar sobre uma ideia:\n${idea}`;const result=document.querySelector<HTMLElement>('.idea-result');if(result)result.hidden=false;form.hidden=true;});
+form?.addEventListener('submit',e=>{e.preventDefault();const data=new FormData(form);const name=String(data.get('name')||'').trim();const idea=String(data.get('idea')||'').trim();const message=document.querySelector<HTMLTextAreaElement>('[data-idea-message]');if(message)message.value=`Olá, Tadeu! Sou ${name}.\n\nQuero conversar sobre uma ideia:\n${idea}`;const send=document.querySelector<HTMLAnchorElement>('[data-send-idea]');if(send&&message)send.href=form.dataset.whatsapp+'?text='+encodeURIComponent(message.value);const result=document.querySelector<HTMLElement>('.idea-result');if(result)result.hidden=false;form.hidden=true;});
 document.querySelector('[data-edit-idea]')?.addEventListener('click',()=>{if(!form)return;form.hidden=false;const result=document.querySelector<HTMLElement>('.idea-result');if(result)result.hidden=true;form.querySelector<HTMLTextAreaElement>('textarea')?.focus();});
 dialog?.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();});
 let feedbackTimer:ReturnType<typeof setTimeout>;
@@ -318,7 +318,7 @@ if(identityDocument&&documentFrame){
   const url=new URL(anchor.href,location.href);if(url.origin!==location.origin||!/^\/identidades\/[^/]+\/$/.test(url.pathname))return;
   if(document.documentElement.dataset.identityDocument){anchor.href=url.pathname+'?documento=1'+url.hash;return;}
   event.preventDefault();documentOpener=anchor;closeMenu();
-  const title=identityDocument.querySelector('[data-identity-document-title]');if(title)title.textContent=url.pathname.includes('christiano')?'Christiano Tadeu':url.pathname.includes('tdv')?'Tessitura do Vazio':'Glifo';
+  const title=identityDocument.querySelector('[data-identity-document-title]');if(title)title.textContent=({'glifo':'Glifo','christiano-tadeu':'Christiano Tadeu','tdv':'Tessitura do Vazio','delfas-corpore':'Delfas Corpore','comissao':'Comissão Grão de Mostarda','acolher':'Projeto Acolher'} as Record<string,string>)[url.pathname.split('/')[2]]||'Identidade de marca';
   identityDocument.querySelector<HTMLAnchorElement>('[data-identity-document-route]')!.href=url.pathname;
   documentFrame.src=url.pathname+'?documento=1'+url.hash;identityDocument.showModal();
  });
