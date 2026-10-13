@@ -95,3 +95,7 @@ Assinaturas nominais usam public/brand/logo.png, inclusive rodapé, atlas, estud
 A página de trabalhos começa por Christiano Tadeu em composição ampla, seguida por Delfas e pelos projetos autorais. Cartões conservam as capas aprovadas e enquadramento contain. Tipos, numeração e chamadas organizam a exploração. Filtros aplicam o conjunto sem atraso semântico e usam FLIP para conservar posições; trocas rápidas cancelam a animação anterior. Pausa e movimento reduzido concluem a troca imediatamente.
 
 O hover ilumina o frame com o acento do projeto. A imagem não recebe distorção ou ampliação que corte o material. Foco apresenta um estado equivalente; no toque, os caminhos permanecem visíveis. As entradas pertencem ao interior dos cartões, enquanto o contêiner tem um único dono para a transição dos filtros.
+
+## Capas e documento conjunto
+
+Acolher e Comissão Grão de Mostarda compartilham a capa de portfólio e a rota /identidades/acolher/. O documento reúne duas apresentações completas, com IDs prefixados e famílias locais, sem misturar as paletas. A rota individual da Comissão permanece disponível. Christiano usa a assinatura central em fundo azul contínuo. TdV conserva a capa no centro e cresce no hover do frame ou foco do link, respeitando pausa e movimento reduzido.

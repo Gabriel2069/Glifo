@@ -353,7 +353,7 @@ if(identityDocument&&documentFrame){
   const url=new URL(anchor.href,location.href);if(url.origin!==location.origin||!/^\/identidades\/[^/]+\/$/.test(url.pathname))return;
   if(document.documentElement.dataset.identityDocument){anchor.href=url.pathname+'?documento=1'+url.hash;return;}
   event.preventDefault();documentOpener=anchor;closeMenu();
-  const title=identityDocument.querySelector('[data-identity-document-title]');if(title)title.textContent=({'glifo':'Glifo','christiano-tadeu':'Christiano Tadeu','tdv':'Tessitura do Vazio','delfas-corpore':'Delfas Corpore','comissao':'Comissão Grão de Mostarda','acolher':'Projeto Acolher'} as Record<string,string>)[url.pathname.split('/')[2]]||'Identidade de marca';
+  const title=identityDocument.querySelector('[data-identity-document-title]');if(title)title.textContent=({'glifo':'Glifo','christiano-tadeu':'Christiano Tadeu','tdv':'Tessitura do Vazio','delfas-corpore':'Delfas Corpore','comissao':'Comissão Grão de Mostarda','acolher':'Acolher e Grão de Mostarda'} as Record<string,string>)[url.pathname.split('/')[2]]||'Identidade de marca';
   identityDocument.querySelector<HTMLAnchorElement>('[data-identity-document-route]')!.href=url.pathname;
   documentFrame.src=url.pathname+'?documento=1'+url.hash;identityDocument.showModal();
  });

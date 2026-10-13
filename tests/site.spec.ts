@@ -4,7 +4,7 @@ test('services and prepared messages point to the confirmed WhatsApp',async({pag
  await page.getByRole('button',{name:/Preparar minha ideia/}).click();await page.getByLabel('Seu nome').fill('Visitante');await page.getByLabel('O que você tem em mente?').fill('Quero organizar a identidade do meu projeto.');await page.getByRole('button',{name:/Preparar mensagem/}).click();await expect(page.locator('[data-send-idea]')).toHaveAttribute('href',/^https:\/\/wa.me\/5562983010176\?text=/);
 });
 test('new identities and paired project preserve distinct systems',async({page})=>{
- for(const slug of ['delfas-corpore','comissao','acolher']){await page.goto(`/identidades/${slug}/`);await expect(page.locator('.identity-vision')).toBeVisible();await expect(page.locator('.identity-color')).not.toHaveCount(0);await expect(page.locator('.identity-material-grid figure')).not.toHaveCount(0);}
+ for(const slug of ['delfas-corpore','comissao','acolher']){await page.goto(`/identidades/${slug}/`);await expect(page.locator('.identity-vision').first()).toBeVisible();await expect(page.locator('.identity-color')).not.toHaveCount(0);await expect(page.locator('.identity-material-grid figure')).not.toHaveCount(0);}
  await page.goto('/trabalhos/acolher-comissao/');await expect(page.locator('.case-material-grid figure')).toHaveCount(6);await expect(page.getByRole('link',{name:/Ver a identidade da Comissão/})).toHaveAttribute('href','/identidades/comissao/');
 });
 test('documents have visible home entries and cases share the reading sequence',async({page})=>{

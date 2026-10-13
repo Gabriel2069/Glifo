@@ -30,9 +30,9 @@
  .site-header{padding-top:max(12px,env(safe-area-inset-top));padding-inline:20px}.menu-toggle,.icon-button{min-width:44px;min-height:44px}
  .identity-local-nav{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px 12px}.identity-local-nav a{min-height:44px;display:flex;align-items:center}
  .identity-board .identity-intro,.identity-language p{font-size:14px;line-height:1.85}
- .identity-cover h1{overflow-wrap:normal;hyphens:manual;font-size:clamp(44px,11vw,62px)}
- html[data-identity-document] .identity-cover h1{font-size:clamp(38px,10vw,54px)}
- .identity-ct .identity-cover h1{font-size:clamp(36px,9.5vw,49px)}
+ .identity-cover .identity-board-name{overflow-wrap:normal;hyphens:manual;font-size:clamp(44px,11vw,62px)}
+ html[data-identity-document] .identity-cover .identity-board-name{font-size:clamp(38px,10vw,54px)}
+ .identity-ct .identity-cover .identity-board-name{font-size:clamp(36px,9.5vw,49px)}
  .identity-mosaic{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
  .identity-board .identity-mosaic-type strong{font-size:clamp(20px,6vw,30px)}
  .project-art{padding:28px 22px 36px}.case-project-visual .project-art{height:clamp(300px,90vw,420px)}
