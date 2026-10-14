@@ -141,3 +141,13 @@ Lema aprovado: “Há outros sinais a desenhar. O seu pode ser o próximo”. si
 A página de links assume a forma de carta celeste. Ícones SVG distinguem conversa, observatório, acervo, documento e serviços. Campo celeste, escala do emblema, órbitas e amostra de três projetos dão continuidade à marca. A decoração fica contida no viewport, sem alterar os alvos de toque. As entradas CSS são finitas e param com a preferência de movimento. Os caminhos continuam diretos, fora dos menus e com noindex.
 
 O campo stellar-field.webp foi criado como textura celeste para esta etapa. A mesma imagem participa das artes de lançamento. A campanha tem treze páginas em três carrosséis, com Almendra/Manrope, assinaturas oficiais, materiais reais do portfólio e uma linha de constelação que mantém os pontos de entrada e saída entre páginas. A composição editorial e o texto são determinísticos, sem redesenho dos logos.
+
+## Composição de celular · refinamento de outubro
+
+O desktop mantém suas grades e proporções. Até 760 px, a abertura agrupa os caminhos secundários em duas colunas e contém o observatório em uma área menor, sem sobrepor legenda e controles. A prosa comercial ganha escala de leitura; títulos e convite final são dimensionados para a largura disponível.
+
+Serviços e documentos usam faixas horizontais nativas, com o próximo cartão parcialmente visível, botões de 44 px, posição e limites. Sem JavaScript, o arrasto e os links continuam funcionando e os controles não aparecem. Teclado pode percorrer a faixa pelas setas quando ela está em foco. As demais galerias conservam seu comportamento próprio.
+
+Na seleção de projetos, a aba ativa permanece visível sem deslocar a página verticalmente. Arrasto horizontal deliberado sobre a capa muda o projeto; o gesto vertical conserva a rolagem. O gesto manual pausa a alternância. O link da capa continua abrindo o caso quando tocado, sem navegar ao concluir um arrasto.
+
+Menus e documentos acompanham a altura dinâmica disponível e as áreas seguras. O fechamento do menu permanece acessível ao rolar; imagens ampliadas têm controles maiores. Movimento reduzido conserva o acesso e conclui as passagens imediatamente.

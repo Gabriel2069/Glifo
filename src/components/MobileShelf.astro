@@ -1,0 +1,6 @@
+---
+import Icon from './Icon.astro';
+interface Props { target:string; label:string; total:number; }
+const {target,label,total}=Astro.props;
+---
+<div class="mobile-shelf-navigation" hidden data-shelf-navigation={target} role="group" aria-label={label}><span>Deslize para explorar <small data-shelf-count>01 / {String(total).padStart(2,'0')}</small></span><div><button type="button" data-shelf-prev aria-controls={target} aria-label={`Anterior: ${label}`} disabled><Icon name="left"/></button><button type="button" data-shelf-next aria-controls={target} aria-label={`Próximo: ${label}`}><Icon name="right"/></button></div></div>

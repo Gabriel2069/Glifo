@@ -1,4 +1,5 @@
 import {initExperience} from './experience';
+import {initMobileShelves,keepSelectedTabVisible,phoneLayout} from './mobile';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
@@ -131,7 +132,7 @@ document.querySelectorAll<HTMLElement>('[data-atlas]').forEach(point=>{
 });
 
 const tabs=Array.from(document.querySelectorAll<HTMLButtonElement>('.process-tabs [role=tab]'));
-function selectTab(index:number,focus=false){tabs.forEach((tab,i)=>{const active=i===index;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;const panel=document.getElementById(tab.getAttribute('aria-controls')!);if(panel){panel.hidden=!active;if(active&&!paused&&!reduced.matches)gsap.fromTo(panel,{y:9},{y:0,duration:.4});}if(active&&focus)tab.focus();});}
+function selectTab(index:number,focus=false){tabs.forEach((tab,i)=>{const active=i===index;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;const panel=document.getElementById(tab.getAttribute('aria-controls')!);if(panel){panel.hidden=!active;if(active&&!paused&&!reduced.matches)gsap.fromTo(panel,{y:9},{y:0,duration:.4});}if(active){keepSelectedTabVisible(tab);if(focus)tab.focus({preventScroll:true});}});}
 tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectTab(i));tab.addEventListener('keydown',e=>{let index=i;if(e.key==='ArrowRight')index=(i+1)%tabs.length;else if(e.key==='ArrowLeft')index=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=tabs.length-1;else return;e.preventDefault();selectTab(index,true);});});
 
 const dialog=document.querySelector<HTMLDialogElement>('.idea-dialog');
@@ -237,7 +238,7 @@ media.add('(prefers-reduced-motion: no-preference)',()=>{
  document.querySelectorAll<HTMLElement>('h1,h2').forEach(heading=>{
   if(heading.querySelector('img'))return;
   const words=wordSpans(heading,true);
-  const tween=gsap.fromTo(words,{yPercent:115,rotation:3,opacity:0},{yPercent:0,rotation:0,opacity:1,duration:1.1,stagger:.075,ease:'power3.out',scrollTrigger:{trigger:heading,start:'top 93%',once:true}});
+  const tween=gsap.fromTo(words,{yPercent:115,rotation:3,opacity:0},{yPercent:0,rotation:0,opacity:1,duration:phoneLayout.matches?.78:1.1,stagger:phoneLayout.matches?.045:.075,ease:'power3.out',scrollTrigger:{trigger:heading,start:'top 93%',once:true}});
   entrances.push(tween);
  });
  document.querySelectorAll<HTMLElement>('[data-reading-prose]').forEach(prose=>{
@@ -245,7 +246,7 @@ media.add('(prefers-reduced-motion: no-preference)',()=>{
   entrances.push(tween);
  });
  document.querySelectorAll<HTMLElement>('.featured-frame,.sheet-art,.detail-frame,.case-image,.case-signatures>div').forEach(frame=>{
-  gsap.fromTo(frame,{clipPath:'inset(12% 4% 12% 4%)',opacity:.35},{clipPath:'inset(0% 0% 0% 0%)',opacity:1,duration:1.5,ease:'power3.inOut',scrollTrigger:{trigger:frame,start:'top 94%',once:true}});
+  gsap.fromTo(frame,{clipPath:'inset(12% 4% 12% 4%)',opacity:.35},{clipPath:'inset(0% 0% 0% 0%)',opacity:1,duration:phoneLayout.matches?.9:1.5,ease:'power3.inOut',scrollTrigger:{trigger:frame,start:'top 94%',once:true}});
  });
  document.querySelectorAll<HTMLElement>('.section-description,.project-caption,.process-tabs,.author-grid>div,.services>div,.case-text>div').forEach(element=>{
   gsap.fromTo(element,{y:30,opacity:0},{y:0,opacity:1,duration:.9,ease:'power2.out',scrollTrigger:{trigger:element,start:'top 94%',once:true}});
@@ -335,7 +336,7 @@ function selectProject(index:number,focus=false){
  projectTabs.forEach((tab,i)=>{
   const active=i===index;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;
   const panel=document.getElementById(tab.getAttribute('aria-controls')!);if(panel)panel.hidden=!active;
-  if(active&&focus)tab.focus();
+  if(active){keepSelectedTabVisible(tab);if(focus)tab.focus({preventScroll:true});}
  });
  const panel=document.getElementById(projectTabs[index]?.getAttribute('aria-controls')||'');
  if(panel&&!paused&&!reduced.matches){
@@ -392,6 +393,25 @@ media.add('(prefers-reduced-motion: no-preference)',()=>{
 const projectOrientation=matchMedia('(max-width:760px)');
 const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',projectOrientation.matches?'horizontal':'vertical');
 projectOrientation.addEventListener('change',setProjectOrientation);setProjectOrientation();
+initMobileShelves(()=>paused||reduced.matches);
+// A deliberate horizontal swipe changes the project; vertical gestures keep scrolling.
+const projectPanels=document.querySelector<HTMLElement>('.collection-panels');
+let swipeStart:{x:number;y:number;id:number}|undefined,blockProjectClickUntil=0;
+projectPanels?.addEventListener('pointerdown',event=>{
+ if(event.pointerType==='touch'&&phoneLayout.matches&&(event.target as Element).closest('.collection-panel>a'))swipeStart={x:event.clientX,y:event.clientY,id:event.pointerId};
+});
+projectPanels?.addEventListener('pointercancel',()=>{swipeStart=undefined;});
+projectPanels?.addEventListener('pointerup',event=>{
+ if(!swipeStart||event.pointerId!==swipeStart.id)return;
+ const dx=event.clientX-swipeStart.x,dy=event.clientY-swipeStart.y;swipeStart=undefined;
+ if(Math.abs(dx)<48||Math.abs(dy)>Math.abs(dx)*.6)return;
+ const index=projectTabs.findIndex(tab=>tab.getAttribute('aria-selected')==='true');
+ selectProject((index+(dx<0?1:-1)+projectTabs.length)%projectTabs.length);
+ blockProjectClickUntil=performance.now()+500;
+ document.querySelector<HTMLButtonElement>('.work-collection [data-auto-toggle][aria-pressed="false"]')?.click();
+});
+projectPanels?.addEventListener('click',event=>{if(performance.now()<blockProjectClickUntil){event.preventDefault();event.stopImmediatePropagation();}},true);
+
 
 // The identity keeps a direct route; ordinary clicks open the document over the site.
 const identityDocument=document.querySelector<HTMLDialogElement>('[data-identity-document]');
