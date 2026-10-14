@@ -17,6 +17,7 @@ import '../styles/client-journey.css';
 import '../styles/finishing.css';
 import '../styles/experience.css';
 import '../styles/navigation.css';
+import '../styles/bio-celestial.css';
 interface Props { title?: string; description?: string; bodyClass?: string; minimal?: boolean; noindex?: boolean; }
 const {title = 'Glifo · Ideias que encontram forma', description = site.description, bodyClass,minimal=false,noindex=false} = Astro.props;
 ---
@@ -25,7 +26,7 @@ const {title = 'Glifo · Ideias que encontram forma', description = site.descrip
 {!minimal&&<Navigation/>}
 <main id="main"><slot/></main>
 {!minimal&&<footer class="site-footer wrap">
- <div class="footer-brand"><a href="/" aria-label="Glifo, voltar ao início"><img class="footer-emblem" src="/brand/symbol.png" alt="Emblema do grifo" width="120" height="120" loading="lazy"/><img class="footer-logotype" src="/brand/logo.png" alt="Glifo" width="1394" height="1128" loading="lazy"/></a><p>Ideias que encontram forma.<br/>Um estúdio de Gabriel Tadeu.</p></div>
+ <div class="footer-brand"><a href="/" aria-label="Glifo, voltar ao início"><img class="footer-emblem" src="/brand/symbol.png" alt="Emblema do grifo" width="120" height="120" loading="lazy"/><img class="footer-logotype" src="/brand/logo.png" alt="Glifo" width="1394" height="1128" loading="lazy"/></a><p>{site.motto}<br/>Um estúdio de Gabriel Tadeu.</p></div>
  <nav aria-label="Explorar a Glifo"><h2>Explorar</h2><a href="/trabalhos/">Trabalhos</a><a href="/identidades/">Documentos de marca</a><a href="/#servicos">Serviços</a><a href="/#processo">O processo</a><a href="/#autor">Quem faz</a></nav>
  <nav aria-label="Áreas de trabalho"><h2>O que ganha forma</h2><a href="/#servicos">Identidades visuais</a><a href="/#servicos">Sites e interfaces</a><a href="/#servicos">Documentos e editorial</a><a href="/#servicos">Redes e comunicação</a></nav>
  <div class="footer-contact"><h2>Uma ideia em mente?</h2><a class="quiet-link" href={site.contact.whatsapp} target="_blank" rel="noopener noreferrer">Conversar com Tadeu <Icon name="arrow"/></a><p>(62) 98301-0176</p><a href="#main" class="back-top">Voltar ao início <Icon name="up"/></a></div>

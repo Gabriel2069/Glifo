@@ -1,6 +1,6 @@
 ---
-interface Props {name?:'arrow'|'up'|'down'|'left'|'right'|'close'|'menu'|'motion';class?:string}
+interface Props {name?:'arrow'|'up'|'down'|'left'|'right'|'close'|'menu'|'motion'|'chat'|'compass'|'collection'|'document'|'spark';class?:string}
 const {name='arrow',class:className}=Astro.props;
-const paths={arrow:'M5 19L19 5M6 5H19V18',up:'M12 20V4M5 11L12 4L19 11',down:'M12 4V20M5 13L12 20L19 13',left:'M20 12H4M11 5L4 12L11 19',right:'M4 12H20M13 5L20 12L13 19',close:'M6 6L18 18M18 6L6 18',menu:'M4 8H20M4 16H16',motion:'M9 5V19M15 5V19'};
+const paths={arrow:'M5 19L19 5M6 5H19V18',up:'M12 20V4M5 11L12 4L19 11',down:'M12 4V20M5 13L12 20L19 13',left:'M20 12H4M11 5L4 12L11 19',right:'M4 12H20M13 5L20 12L13 19',close:'M6 6L18 18M18 6L6 18',menu:'M4 8H20M4 16H16',motion:'M9 5V19M15 5V19',chat:'M4 4H20V16H10L5 20V16H4ZM8 8H16M8 12H13',compass:'M12 2L22 12L12 22L2 12ZM16 8L14 14L8 16L10 10ZM12 2V5M22 12H19M12 22V19M2 12H5',collection:'M3 5H10L12 8H21V20H3ZM6 2H20V5',document:'M6 2H15L20 7V22H6ZM15 2V7H20M3 6V19M10 12H16M10 16H16',spark:'M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5ZM20 2V6M18 4H22'};
 ---
 <svg class:list={['vector-icon',`icon-${name}`,className]} viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="square" stroke-linejoin="miter" aria-hidden="true" focusable="false"><path d={paths[name]}/></svg>

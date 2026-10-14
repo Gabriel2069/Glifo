@@ -133,3 +133,11 @@ Todas as setas de apresentação usam Icon.astro, em SVG monocromático, com tra
 O convite da vitrine retoma a formulação já presente nos casos: “Há outros sinais a desenhar.”
 
 /links/ é uma entrada pública e discreta para o Instagram: WhatsApp, site, trabalhos, documentos e serviços. Não aparece nos menus e possui noindex,follow. É descoberta pelo endereço, sem promessa de acesso restrito. Contatos seguem site.ts; não acrescentar usuário de Instagram ou domínio que não foram confirmados.
+
+## Lema e campanha inicial
+
+Lema aprovado: “Há outros sinais a desenhar. O seu pode ser o próximo”. site.motto é a fonte de verdade; Motto.astro organiza suas duas frases na vitrine, no contato e na entrada da bio. O rodapé usa o texto integral.
+
+A página de links assume a forma de carta celeste. Ícones SVG distinguem conversa, observatório, acervo, documento e serviços. Campo celeste, escala do emblema, órbitas e amostra de três projetos dão continuidade à marca. A decoração fica contida no viewport, sem alterar os alvos de toque. As entradas CSS são finitas e param com a preferência de movimento. Os caminhos continuam diretos, fora dos menus e com noindex.
+
+O campo stellar-field.webp foi criado como textura celeste para esta etapa. A mesma imagem participa das artes de lançamento. A campanha tem treze páginas em três carrosséis, com Almendra/Manrope, assinaturas oficiais, materiais reais do portfólio e uma linha de constelação que mantém os pontos de entrada e saída entre páginas. A composição editorial e o texto são determinísticos, sem redesenho dos logos.

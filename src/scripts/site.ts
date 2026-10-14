@@ -116,7 +116,7 @@ document.querySelectorAll<HTMLElement>('[data-griff]').forEach(el=>{
  el.addEventListener('pointerleave',()=>gsap.to(el.querySelector('.griff-svg'),{x:0,y:0,duration:.8,overwrite:true}));
 });
 
-document.querySelectorAll<HTMLElement>('.featured-frame').forEach(el=>{
+document.querySelectorAll<HTMLElement>('.featured-frame,.bio-links>a').forEach(el=>{
  el.addEventListener('pointermove',e=>{if(paused||reduced.matches||e.pointerType!=='mouse')return;const r=el.getBoundingClientRect();el.style.setProperty('--light-x',`${((e.clientX-r.left)/r.width)*100}%`);el.style.setProperty('--light-y',`${((e.clientY-r.top)/r.height)*100}%`);});
 });
 

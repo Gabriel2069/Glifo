@@ -1,5 +1,6 @@
 export const site = {
   name: 'Glifo',
+  motto: 'Há outros sinais a desenhar. O seu pode ser o próximo',
   author: 'Gabriel Tadeu de Souza',
   description: 'Estúdio autoral de identidade, design e presença digital. Ideias que encontram forma, por Gabriel Tadeu.',
   contact: { email: null as string | null, whatsapp: 'https://wa.me/5562983010176' },

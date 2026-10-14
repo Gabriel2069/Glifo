@@ -12,7 +12,7 @@ test('desktop navigation indicates the route and the panel preserves reduced mot
  await page.getByRole('button',{name:'Menu',exact:true}).click();const menu=page.locator('#mobile-menu');expect(await menu.evaluate(e=>getComputedStyle(e).animationName)).toBe('none');await menu.getByRole('button',{name:'Fechar menu'}).click();await expect(menu).not.toBeVisible();
 });
 test('all presentation arrows use vectors and the previous invitation is restored',async({page})=>{
- await page.goto('/trabalhos/');await expect(page.locator('.work-index-end h2')).toHaveText('Há outros sinaisa desenhar.');
+ await page.goto('/trabalhos/');await expect(page.locator('.work-index-end h2')).toHaveText('Há outros sinais a desenhar. O seu pode ser o próximo');
  expect(await page.locator('body').innerText()).not.toMatch(/[↗↑↓←→]/);await expect(page.locator('.work-index-end .vector-icon')).toHaveCount(1);
 });
 test('bio entry is outside navigation, has noindex and real contact and site paths',async({page})=>{

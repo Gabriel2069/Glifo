@@ -1,0 +1,7 @@
+---
+import {site} from '../data/site';
+interface Props {variant?:'heading'|'bio'}
+const {variant='heading'}=Astro.props;
+const [lead,...rest]=site.motto.split('. ');
+---
+{variant==='bio'?<><p>{lead}.</p>{' '}<strong>{rest.join('. ')}</strong></>:<><span>{lead}.</span>{' '}<em>{rest.join('. ')}</em></>}
