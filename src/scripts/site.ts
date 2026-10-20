@@ -25,6 +25,7 @@ const updateMotion = () => {
   if (paused) { trigger.animation?.progress(1); trigger.disable(false); }
   else trigger.enable(false);
  }
+ if(paused)gsap.set('.hero .griff-scene, .hero-copy',{clearProps:'transform'});
  rotationRefresh.forEach(refresh=>refresh());
 };
 motionButton?.addEventListener('click',()=>{paused=!paused;try{localStorage.setItem('glifo:motion',paused?'paused':'playing');}catch{}updateMotion();drawSky(performance.now());requestAnimationFrame(()=>{ScrollTrigger.refresh();updateReading();});});

@@ -44,3 +44,5 @@ a:focus-visible .project-art>.material-light{opacity:1;background:linear-gradien
 @media(max-width:359px){.hero .griff-scene{width:276px;height:390px}.hero .lens-angle{width:264px;font-size:7px}.signal-passage>span{font-size:25px}.hero h1{font-size:52px}}
 .motion-paused .lens-assembly{transform:none!important}.motion-paused .material-light{display:none}.motion-paused .chapter-light{transform:none!important;opacity:1!important}.motion-paused .lens-angle{opacity:.5}
 @media(prefers-reduced-motion:reduce){.lens-assembly{transform:none!important}.material-light{display:none}.chapter-light{transform:none!important;opacity:1!important}.lens-shell{transform:none}.service-offer-grid>article:before{transition:none}}
+
+@media(min-width:761px){.hero .scene-controls{left:2%;right:auto;width:53%;bottom:-22px;justify-content:center}.hero .lens-angle{left:auto;right:0;transform:none;bottom:-22px;width:43%;gap:8px}.hero .lens-angle input{width:80px;min-width:30px;flex:1 1 60px}.hero .lens-angle output{min-width:20px}}

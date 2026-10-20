@@ -59,3 +59,6 @@ button,.button{transition:background .2s,border-color .2s,box-shadow .25s}button
  .login{padding:24px 18px 36px;gap:16px}.login-card{padding:26px}.login-card h1{font-size:41px}.login-art{min-height:160px}.login-art img{height:140px;width:180px}
 }
 @media(prefers-reduced-motion:reduce){.nav-indicator{transition:none}.view,dialog[open]{animation:none!important}}
+
+.nuclei-disclosure{margin-top:22px;border-top:1px solid var(--line)}.nuclei-disclosure summary{cursor:pointer;padding:16px 0;font-size:11px;color:var(--muted);min-height:44px}.nuclei-disclosure summary:hover{color:var(--accent)}.nuclei-disclosure .nuclei{margin-top:2px}
+@media(max-width:700px){.dashboard-grid .empty{padding:16px 12px;text-align:left;font-size:12px;line-height:1.7;border:0;border-left:1px solid var(--line);border-radius:0;background:#b28cff05}.dayline{font-size:10px}.stat small{font-size:11px}.workflow-step{font-size:11px}.nuclei-disclosure summary{font-size:11px;line-height:1.6}.nucleus strong{font-size:11px}.record>p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:5;overflow:hidden}}
