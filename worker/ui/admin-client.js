@@ -1,5 +1,5 @@
 (()=>{'use strict';
-const $=s=>document.querySelector(s),view=$('#view'),dialog=$('#editor'),body=$('#editor-body'),status=$('#save-status');let state,version=0,library,current='home',saving=false,dirty=false,filters={search:'',module:'',kind:''};let collectionFilters={},projectContext='',commandReturn;const motionQuery=matchMedia('(prefers-reduced-motion: reduce)');
+const $=s=>document.querySelector(s),view=$('#view'),dialog=$('#editor'),body=$('#editor-body'),status=$('#save-status');let state,version=0,library,current='home',saving=false,dirty=false,filters={search:'',module:'',kind:''};let collectionFilters={},projectContext='',commandReturn;
 const blank=()=>({projects:[],leads:[],tasks:[],notes:[],bookmarks:[],responses:[],checklists:[]});
 const modules={OP:'Fundamentos e operação',CO:'Comercial',BR:'Briefings',LG:'Acordos e proteção',GP:'Gestão e processo',ID:'Marca e identidade',WB:'Sites e digital',RS:'Redes e comunicação',ED:'Editorial',EN:'Entrega'};
 const names={projects:'Projetos',leads:'Contatos',tasks:'Tarefas',notes:'Caderno',bookmarks:'Links'};

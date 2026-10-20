@@ -6,7 +6,7 @@
 .hero .griff-scene{isolation:isolate;perspective:1100px;filter:none}
 .lens-assembly{position:relative;width:100%;height:100%;transform-style:preserve-3d;transform:rotateX(calc(var(--lens-y,0)*1deg)) rotateY(calc(var(--lens-x,0)*1deg));--lens-x:0;--lens-y:0}
 .lens-atmosphere{position:absolute;inset:6%;border-radius:50%;pointer-events:none;background:radial-gradient(ellipse at 38% 25%,#6e86b71e,transparent 45%),radial-gradient(ellipse at 70% 75%,#7042b325,transparent 55%);box-shadow:inset 1px 1px 1px #d4d8ef28,inset -1px -1px 1px #7042b355,0 20px 95px #080c1740;transform:translateZ(-28px)}
-.lens-shell{position:absolute;inset:-3%;width:106%;height:106%;fill:none;stroke:url(#lens-metal);stroke-width:.8;pointer-events:none;transform:translateZ(38px)}.lens-shell .lens-rim{stroke-width:2;opacity:.65}
+.lens-shell{position:absolute;inset:-3%;width:106%;height:106%;fill:none;stroke-width:.8;pointer-events:none;transform:translateZ(38px)}.lens-shell .lens-rim{stroke-width:2;opacity:.65}
 .lens-assembly .celestial-dial{transform:translateZ(0)}.lens-assembly .griff-ghost{transform:translateZ(36px)}.lens-assembly .griff-svg{transform:translateZ(60px)}
 .lens-angle{display:none;align-items:center;gap:12px;position:absolute;bottom:-73px;left:50%;transform:translateX(-50%);font:8px var(--sans);letter-spacing:.05em;color:var(--muted);width:285px;min-height:44px;margin:0}
 .spatial-ready>.lens-angle{display:flex}.lens-angle>span{white-space:nowrap}.lens-angle input{width:105px;min-height:44px;margin:0;padding:0;background:none;accent-color:var(--lavender);cursor:ew-resize}.lens-angle output{min-width:26px;color:var(--light);font-variant-numeric:tabular-nums}.lens-angle:has(input:disabled){opacity:.5}
@@ -32,7 +32,7 @@ a:focus-visible .project-art>.material-light{opacity:1;background:linear-gradien
 .contact-section h2{letter-spacing:-.04em}.contact-section .contact-whatsapp{border-color:var(--lavender);padding-bottom:14px}
 .page-intro h1{letter-spacing:-.04em}.case-entry-links a,.project-entry-links a{transition:color .2s,border-color .2s}.project-entry-links a:hover{color:var(--lavender)}
 @media(min-width:1400px){.hero .griff-scene{max-width:620px}.hero .hero-inner{padding-bottom:125px}.hero h1{font-size:clamp(120px,8.7vw,153px)}}
-@media(max-width:1000px)and(min-width:761px){.hero .hero-inner{gap:15px}.hero h1{font-size:clamp(72px,9.3vw,100px)}.hero .griff-scene{max-width:420px}.lens-angle{width:265px;font-size:7px}.project-cosmos .cosmos-readings{padding:22px}}
+@media(max-width:1000px) and (min-width:761px){.hero .hero-inner{gap:15px}.hero h1{font-size:clamp(72px,9.3vw,100px)}.hero .griff-scene{max-width:420px}.lens-angle{width:265px;font-size:7px}.project-cosmos .cosmos-readings{padding:22px}}
 @media(max-width:760px){
  .hero .hero-inner{grid-template-columns:1fr;gap:30px;padding-top:116px;padding-bottom:105px}.hero h1{font-size:clamp(52px,13.6vw,86px);line-height:1.04;margin-bottom:0}.hero .hero-description{font-size:13px;line-height:1.85;max-width:36ch}
  .hero .griff-scene{width:min(100%,300px);max-width:300px;height:414px;padding-bottom:114px;aspect-ratio:auto;margin:0 auto}.hero .lens-assembly{position:absolute;inset:0 0 114px;width:100%;height:auto}.hero .lens-assembly .celestial-dial{height:100%}.hero .lens-assembly .griff-svg{position:absolute;top:0;left:0;width:82%;height:82%;margin:7% 9% 11%}.hero .lens-assembly .griff-ghost{inset:10% 15% 17%;width:70%;height:73%}.hero .lens-assembly .orbit{bottom:auto}.hero .lens-assembly .orbit-a{inset:10% 4%}.hero .lens-assembly .orbit-b{inset:20%}
