@@ -9,7 +9,9 @@
     "preview": "astro preview --host 0.0.0.0",
     "check": "astro check",
     "deploy": "npm run build && wrangler deploy",
-    "test": "playwright test"
+    "test": "playwright test",
+    "prepare:admin": "node worker/prepare-views.mjs",
+    "test:admin": "node tests/run-admin.mjs"
   },
   "dependencies": {
     "@astrojs/check": "0.9.10",

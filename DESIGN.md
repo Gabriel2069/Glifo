@@ -151,3 +151,9 @@ Serviços e documentos usam faixas horizontais nativas, com o próximo cartão p
 Na seleção de projetos, a aba ativa permanece visível sem deslocar a página verticalmente. Arrasto horizontal deliberado sobre a capa muda o projeto; o gesto vertical conserva a rolagem. O gesto manual pausa a alternância. O link da capa continua abrindo o caso quando tocado, sem navegar ao concluir um arrasto.
 
 Menus e documentos acompanham a altura dinâmica disponível e as áreas seguras. O fechamento do menu permanece acessível ao rolar; imagens ampliadas têm controles maiores. Movimento reduzido conserva o acesso e conclui as passagens imediatamente.
+
+## Espaço interno · biblioteca e organização
+
+`/admin/` é uma aplicação privada separada da vitrine. Usa as assinaturas, Almendra e Manrope, com pouca decoração e leitura estável. A navegação lateral se torna uma faixa horizontal no celular; formulários abrem em dialog nativo. As transições são curtas e dispensadas com movimento reduzido.
+
+O painel consulta o catálogo de 154 artefatos, com links para os cadernos, controles e kits no Drive. Projetos, contatos, tarefas, notas, respostas e checklists vivem no Durable Object, nunca nos arquivos públicos do site. As telas começam vazias e não apresentam dados ilustrativos como trabalho real. Conflitos de versão preservam a cópia local e pedem exportação/recarregamento.

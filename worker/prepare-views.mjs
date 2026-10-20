@@ -1,0 +1,4 @@
+import {readFile,writeFile} from 'node:fs/promises';
+const dir=new URL('./ui/',import.meta.url);const read=name=>readFile(new URL(name,dir),'utf8');const css=await read('admin.css');
+function page(body,js){return '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow"><meta name="color-scheme" content="dark"><title>Espaço interno · Glifo</title><link rel="icon" href="/brand/favicon.svg"><style nonce="NONCE_PLACEHOLDER">'+css+'</style></head><body>'+body+'<script nonce="NONCE_PLACEHOLDER">'+js+'</script></body></html>'}
+const login=page(await read('login.html'),await read('login.js')),admin=page(await read('admin.html'),await read('admin-client.js'));await writeFile(new URL('./views.mjs',import.meta.url),'export const loginView='+JSON.stringify(login)+';\nexport const adminView='+JSON.stringify(admin)+';\n');
