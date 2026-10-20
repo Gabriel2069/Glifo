@@ -3,13 +3,15 @@ interface Props { compact?: boolean; }
 const { compact = false } = Astro.props;
 const nodes = [[113,8],[155,97],[207,139],[246,211],[274,280],[262,362],[282,480],[178,67],[231,117],[256,177],[185,152],[224,195],[324,209],[359,179],[383,150],[421,168],[446,155],[430,121],[345,96],[310,76],[328,115],[360,143],[378,242],[410,301],[379,348],[340,397],[300,437],[366,297],[234,325],[198,333],[152,362],[126,398],[139,430],[183,450],[219,413],[213,379],[224,292],[244,262],[270,423]];
 ---
-<div class:list={['griff-scene', { compact }]} data-griff>
+<div class:list={['griff-scene', { compact }]} data-griff data-celestial-lens>
+ <div class="lens-assembly" data-lens-assembly><div class="lens-atmosphere" aria-hidden="true"></div><svg class="lens-shell" viewBox="0 0 600 600" aria-hidden="true"><defs><linearGradient id="lens-metal"><stop stop-color="#B28CFF" stop-opacity=".05"/><stop offset=".4" stop-color="#E6EAF2" stop-opacity=".8"/><stop offset=".65" stop-color="#6E86B7" stop-opacity=".1"/><stop offset="1" stop-color="#B28CFF" stop-opacity=".7"/></linearGradient></defs><ellipse cx="300" cy="300" rx="282" ry="215" transform="rotate(-28 300 300)"/><ellipse cx="300" cy="300" rx="250" ry="273" transform="rotate(37 300 300)"/><path d="M47 385Q180 548 415 505" class="lens-rim"/></svg>
  <svg class="celestial-dial" viewBox="0 0 500 500" aria-hidden="true"><circle cx="250" cy="250" r="233"/>{Array.from({length:72},(_,i)=><path d={i%6===0?"M250 17V30":"M250 17V22"} transform={`rotate(${i*5} 250 250)`}/>)}<circle cx="250" cy="250" r="206" stroke-dasharray="1 9"/></svg><div class="orbit orbit-a" aria-hidden="true"></div><div class="orbit orbit-b" aria-hidden="true"></div>
  <img class="griff-ghost" src="/brand/symbol.png" width="1254" height="1254" alt="" aria-hidden="true" />
  <svg class="griff-svg" viewBox="0 0 500 500" role="img" aria-label="O grifo da Glifo interpretado como uma constelação">
   <g class="griff-lines"><path d="M113 8L155 97L207 139L246 211L274 280L262 362L282 480M113 8L178 67L231 117L256 177L274 280M155 97L185 152L224 195L274 280M207 139L231 117M246 211L256 177M274 280L324 209L359 179L383 150L421 168L446 155L430 121L345 96L310 76L328 115L360 143L383 150M359 179L360 143M324 209L378 242L410 301L379 348L340 397L300 437M378 242L366 297L379 348M262 362L234 325L198 333L152 362L126 398L139 430L183 450L219 413L213 379L198 333M234 325L224 292L244 262L274 280M262 362L270 423L282 480"/></g>
   <g class="griff-nodes">{nodes.map(([x,y],i)=><g><circle class="star-halo" cx={x} cy={y} r={i%5===0?8:4}/><circle cx={x} cy={y} r={i%5===0?2.6:1.25}/>{i%5===0&&<path class="star-rays" d={`M${x-8} ${y}H${x+8}M${x} ${y-8}V${y+8}`}/>}</g>)}</g>
  </svg>
- <div class="observatory-caption"><span>GLIFO 01 / GRIFO</span><span data-scene-state>OS SINAIS</span></div>
+ </div><div class="observatory-caption"><span>GLIFO 01 / GRIFO</span><span data-scene-state>OS SINAIS</span></div>
  <div class="scene-controls" role="group" aria-label="Representação do grifo"><button type="button" data-scene-mode="stars" aria-pressed="true">Constelação</button><span aria-hidden="true">/</span><button type="button" data-scene-mode="mark" aria-pressed="false">Emblema</button></div>
+ <label class="lens-angle"><span>Inclinar o observatório</span><input type="range" min="-12" max="12" value="0" step="1" data-lens-angle aria-label="Ângulo do observatório"/><output data-lens-value>0°</output></label>
 </div>

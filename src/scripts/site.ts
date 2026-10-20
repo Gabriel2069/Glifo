@@ -1,3 +1,4 @@
+import {initSpatial} from './spatial';
 import {initExperience} from './experience';
 import {initMobileShelves,keepSelectedTabVisible,phoneLayout} from './mobile';
 import gsap from 'gsap';
@@ -519,3 +520,5 @@ document.querySelectorAll<HTMLElement>('[data-griff]').forEach(scene=>{
 });
 
 initExperience({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn),rotate:rotateWhenVisible});
+
+initSpatial({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});
