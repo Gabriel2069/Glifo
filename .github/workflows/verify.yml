@@ -5,6 +5,10 @@ on:
   pull_request:
 permissions:
   contents: read
+  actions: write
+concurrency:
+  group: glifo-verify-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -12,6 +16,27 @@ jobs:
     env:
       GLIFO_VISUAL_PROOF: 'true'
     steps:
+      - name: Cancel superseded checks for this pull request
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPOSITORY: ${{ github.repository }}
+          GH_BRANCH: ${{ github.head_ref }}
+          GH_RUN_ID: ${{ github.run_id }}
+        run: |
+          node --input-type=module <<'JS'
+          const headers={Authorization:'Bearer '+process.env.GH_TOKEN,Accept:'application/vnd.github+json'};
+          const base='https://api.github.com/repos/'+process.env.GH_REPOSITORY;
+          const response=await fetch(base+'/actions/workflows/verify.yml/runs?per_page=30&branch='+encodeURIComponent(process.env.GH_BRANCH),{headers});
+          if(!response.ok)throw Error('Could not list superseded checks: '+response.status);
+          const {workflow_runs}=await response.json();
+          for(const run of workflow_runs){
+            if(run.event!=='pull_request'||Number(run.id)>=Number(process.env.GH_RUN_ID)||!['queued','in_progress','waiting'].includes(run.status))continue;
+            const result=await fetch(base+'/actions/runs/'+run.id+'/cancel',{method:'POST',headers});
+            if(!result.ok&&result.status!==409)throw Error('Could not cancel superseded check '+run.id+': '+result.status);
+            console.log('Superseded check closed: '+run.id);
+          }
+          JS
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
