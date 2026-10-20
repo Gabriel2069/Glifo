@@ -1,3 +1,4 @@
+import {initSpatial} from './spatial';
 import {initExperience} from './experience';
 import {initMobileShelves,keepSelectedTabVisible,phoneLayout} from './mobile';
 import gsap from 'gsap';
@@ -24,6 +25,7 @@ const updateMotion = () => {
   if (paused) { trigger.animation?.progress(1); trigger.disable(false); }
   else trigger.enable(false);
  }
+ if(paused)gsap.set('.hero .griff-scene, .hero-copy',{clearProps:'transform'});
  rotationRefresh.forEach(refresh=>refresh());
 };
 motionButton?.addEventListener('click',()=>{paused=!paused;try{localStorage.setItem('glifo:motion',paused?'paused':'playing');}catch{}updateMotion();drawSky(performance.now());requestAnimationFrame(()=>{ScrollTrigger.refresh();updateReading();});});
@@ -519,3 +521,5 @@ document.querySelectorAll<HTMLElement>('[data-griff]').forEach(scene=>{
 });
 
 initExperience({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn),rotate:rotateWhenVisible});
+
+initSpatial({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});

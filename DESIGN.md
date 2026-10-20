@@ -157,3 +157,15 @@ Menus e documentos acompanham a altura dinâmica disponível e as áreas seguras
 `/admin/` é uma aplicação privada separada da vitrine. Usa as assinaturas, Almendra e Manrope, com pouca decoração e leitura estável. A navegação lateral se torna uma faixa horizontal no celular; formulários abrem em dialog nativo. As transições são curtas e dispensadas com movimento reduzido.
 
 O painel consulta o catálogo de 154 artefatos, com links para os cadernos, controles e kits no Drive. Projetos, contatos, tarefas, notas, respostas e checklists vivem no Durable Object, nunca nos arquivos públicos do site. As telas começam vazias e não apresentam dados ilustrativos como trabalho real. Conflitos de versão preservam a cópia local e pedem exportação/recarregamento.
+
+## Camadas espaciais e espaço de trabalho · 20 de outubro de 2026
+
+Referências consultadas: Aether 1 e o estudo publicado por OFF+BRAND (https://aether1.ai/ e https://www.itsoffbrand.com/our-work/aether1), Alche (https://alche.studio/), Seasats (https://seasats.com/) e Nfinite Paper (https://nfinitepaper.com/). As fontes sustentam a direção de composição por cenas, exploração e explicação de camadas; não são evidência de inspeção quadro a quadro ou tempos medidos. Aether documenta modelos 3D e WebGL; a Glifo utiliza uma composição 2,5D própria.
+
+A abertura trabalha com órbitas em planos de profundidade. O emblema original e a constelação conservam seus arquivos e controladores; lens-assembly possui apenas a perspectiva do conjunto. Ponteiro fino e controle nativo de ângulo oferecem caminhos equivalentes. Pausa global e preferência do sistema tornam a composição estática; nenhuma rolagem é interceptada. A passagem Ideia / Forma / Presença mantém palavras completas, sem fragmentar a prosa.
+
+spatial.ts e spatial.css controlam somente as novas camadas: perspectiva, luz de capítulos e reflexão discreta nas capas. Não transformam a imagem original nem disputam suas propriedades com controladores anteriores. Ponteiro responde apenas na área ativa; não há um novo loop ambiente. Galerias, mapa, serviços, casos e documentos mantêm caminhos diretos e enquadramentos aprovados.
+
+O painel mantém dados, autenticação, sessões e armazenamento existentes. A visão geral apresenta registros reais: ações, etapas, projetos, próximos contatos e decisões. Busca global por nome, assunto ou código abre destinos e registros existentes. A ficha do projeto reúne tarefas, respostas, checklists, notas e links pelo projectId. Filtros e ordenação são transitórios. Ctrl/Cmd+K, setas, Enter e Escape estão disponíveis; no celular, a navegação pode se expandir em grade.
+
+A luz do painel é contida, o texto permanece estável e o indicador de navegação possui um controlador CSS. Mestres do Drive continuam privados e com os mesmos links. Não há nova sincronização automática.
