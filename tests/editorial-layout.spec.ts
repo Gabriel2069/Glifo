@@ -68,5 +68,5 @@ test('the animated headline keeps two typographic lines after masks are inserted
  expect(await page.locator('#hero-title').evaluate(title=>title.getBoundingClientRect().height)).toBeLessThan(450);
  expect(await page.locator('.hero-title-tail .reveal-word-mask').evaluateAll(words=>Math.max(...words.map(w=>w.getBoundingClientRect().top))-Math.min(...words.map(w=>w.getBoundingClientRect().top)))).toBeLessThan(2);
  await page.emulateMedia({reducedMotion:'reduce'});
- expect(await page.locator('#hero-title .reveal-word').evaluateAll(words=>words.every(w=>Number(getComputedStyle(w).opacity)===1))).toBe(true);
+ await expect.poll(()=>page.locator('#hero-title .reveal-word').evaluateAll(words=>words.every(w=>Number(getComputedStyle(w).opacity)===1))).toBe(true);
 });

@@ -18,7 +18,7 @@
 .atlas-point{transition:color .25s}
 .message-actions{display:flex;gap:24px;align-items:center;flex-wrap:wrap}
 .quiet-button{font-size:11px;background:none;border:0;border-bottom:1px solid var(--line);padding:8px 0;color:var(--muted)}
-.motion-paused .featured-frame img,.motion-paused .featured-frame:after,.motion-paused .line-link span,.motion-paused .circle-arrow{transition:none;transform:none}
+.motion-paused .featured-frame img,.motion-paused .featured-frame:after,.motion-paused .circle-arrow{transition:none;transform:none}
 @media(max-width:1050px){.atlas{grid-template-columns:1.1fr .9fr;gap:0 24px}.atlas-preview{grid-template-columns:1fr}.atlas-preview-image{display:none}}
 @media(max-width:760px){.atlas{grid-template-columns:1fr;gap:0}.atlas-list{grid-column:1}.atlas-preview{grid-template-columns:65px 1fr;gap:18px;border-top:1px solid var(--line);padding:25px 0}.atlas-preview-image{display:grid;height:100px}.atlas-preview-image img{max-height:90px}.atlas-preview h3{font-size:29px}.site-header.is-scrolled{background:#0C1020f5;backdrop-filter:blur(8px)}}
 
