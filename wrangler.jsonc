@@ -10,7 +10,9 @@
     "run_worker_first": [
       "/admin",
       "/admin/*",
-      "/api/admin/*"
+      "/api/admin/*",
+      "/api/forms/*",
+      "/responder/*"
     ]
   },
   "main": "worker/index.mjs",
