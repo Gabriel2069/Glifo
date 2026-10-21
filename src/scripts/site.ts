@@ -1,3 +1,4 @@
+import {initCraft} from './craft';
 import {initEditorial} from './editorial';
 import {initSpatial} from './spatial';
 import {initExperience} from './experience';
@@ -525,5 +526,6 @@ document.querySelectorAll<HTMLElement>('[data-griff]').forEach(scene=>{
 initExperience({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn),rotate:rotateWhenVisible});
 
 initSpatial({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});
+initCraft({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});
 initEditorial({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});
 updateMotion();

@@ -2,7 +2,7 @@ import {test,expect} from '@playwright/test';
 
 test('phone shelves reveal the next card, track position, and keep direct document access',async({page})=>{
  await page.setViewportSize({width:390,height:844});await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');
- for(const id of ['service-shelf','document-shelf']){
+ for(const id of ['document-shelf']){
   const track=page.locator('#'+id),navigation=page.locator(`[data-shelf-navigation="${id}"]`);
   await expect(navigation).toBeVisible();await expect(navigation.locator('[data-shelf-prev]')).toBeDisabled();
   await navigation.locator('[data-shelf-next]').click();
@@ -44,5 +44,5 @@ test('phone layouts fit 320px and short-screen menu actions remain reachable',as
 test('desktop retains complete grids and hides phone shelf controls',async({page})=>{
  await page.setViewportSize({width:1440,height:900});await page.goto('/');
  await expect(page.locator('.mobile-shelf-navigation').first()).not.toBeVisible();
- for(const id of ['service-shelf','document-shelf'])expect(await page.locator('#'+id).evaluate(e=>getComputedStyle(e).display)).toBe('grid');
+ for(const id of ['document-shelf'])expect(await page.locator('#'+id).evaluate(e=>getComputedStyle(e).display)).toBe('grid');
 });

@@ -14,3 +14,31 @@
 @media(max-width:760px){html{scroll-padding-top:100px}.site-header{padding:10px 20px;min-height:80px}.site-header .brand span,.header-actions .contact-link{display:none}.brand img{width:78px;height:52px}.header-actions{gap:10px}.icon-button{width:44px;height:44px}.menu-toggle{font-size:11px;padding:9px 12px}.mobile-menu{width:100%;height:100dvh;max-width:100%;max-height:100dvh;border:0;padding:max(18px,env(safe-area-inset-top)) 22px max(20px,env(safe-area-inset-bottom));overscroll-behavior:contain;margin:0}.navigation-top{gap:15px;padding-bottom:16px}.navigation-top>span{display:none}.navigation-top>button{padding:10px 12px;gap:12px}.navigation-layout{grid-template-columns:minmax(0,1fr);gap:24px;padding-top:12px}.navigation-layout nav>a{padding:14px 0;gap:12px}.navigation-layout nav strong{font-size:34px}.navigation-layout nav small{font-size:10px;margin-top:6px}.navigation-aside{padding-top:5px}.navigation-aside>div{display:none}.navigation-aside>.eyebrow{display:none}.navigation-aside .navigation-contact{margin-top:0;padding:20px}.navigation-contact>strong{font-size:26px}.navigation-colophon{font-size:7px;letter-spacing:.06em}.bio-hub{padding-top:30px;padding-inline:22px}.bio-identity{margin-bottom:25px}.bio-emblem{height:72px;width:60px}.bio-identity h1 img{height:95px;width:140px}.bio-links>a{padding:19px 16px;gap:12px;grid-template-columns:18px minmax(0,1fr) 18px}.bio-links strong{font-size:23px}.bio-links small{font-size:10px}}
 @media(prefers-reduced-motion:reduce){.mobile-menu[open]{animation:none}.desktop-nav a,.navigation-marker,.navigation-layout nav>a,.navigation-layout nav>a .vector-icon,.bio-links>a,.bio-links .vector-icon{transition:none}}
 .motion-paused .mobile-menu[open]{animation:none}.motion-paused .desktop-nav a,.motion-paused .navigation-marker,.motion-paused .navigation-layout nav>a,.motion-paused .navigation-layout nav>a .vector-icon,.motion-paused .bio-links>a,.motion-paused .bio-links .vector-icon{transition:none}
+
+/* Shared action grammar: a quiet rule, a terminal arrow, a precise press. */
+.glifo-action{display:inline-flex;align-items:center;justify-content:space-between;gap:24px;min-height:48px;padding:8px 12px 8px 17px;font:11px/1.6 var(--sans);color:var(--light);background:linear-gradient(105deg,#7042b333,#243a6822);border:1px solid #b28cff66;position:relative;isolation:isolate;transition:background .3s,border-color .3s,box-shadow .3s}
+.glifo-action:before{content:'';position:absolute;left:-2px;top:-2px;width:4px;height:4px;background:var(--lavender);pointer-events:none}
+.action-arrow{display:grid;place-items:center;width:30px;height:30px;border-left:1px solid var(--line);padding-left:8px;flex-shrink:0}
+.action-arrow .vector-icon{width:15px;height:15px;transition:transform .35s var(--ease)}
+.glifo-action:hover,.glifo-action:focus-visible{border-color:var(--lavender);background:#7042b345;box-shadow:0 6px 25px #080c1740}
+.glifo-action:hover .action-arrow .vector-icon,.glifo-action:focus-visible .action-arrow .vector-icon{transform:translate(2px,-2px)}
+.glifo-action:active{background:#7042b366;box-shadow:inset 0 1px 8px #080c1740}
+.line-link,.quiet-button,.menu-toggle,.icon-button{transition:border-color .3s,color .3s,background .3s,box-shadow .3s}
+.line-link:active,.quiet-button:active{color:var(--lavender)}
+.menu-toggle[aria-expanded=true]{border-color:var(--lavender);background:#7042b333}
+.menu-toggle .icon-menu{transition:transform .35s var(--ease)}
+.menu-toggle:hover .icon-menu{transform:rotate(-6deg)}
+.icon-button:hover{background:#7042b326;border-color:var(--lavender)}
+.navigation-top>button:hover{border-color:var(--lavender);background:#7042b326}
+.navigation-top>button .vector-icon{transition:transform .35s var(--ease)}
+.navigation-top>button:hover .vector-icon{transform:rotate(90deg)}
+[data-nav-surface]{position:relative;isolation:isolate}
+.navigation-glide{position:absolute;left:0;top:0;pointer-events:none;z-index:-1;border-radius:28px;background:linear-gradient(120deg,#7042b339,#243a6833);border:1px solid #b28cff26;opacity:0;transform:translate(var(--nav-x,0px),var(--nav-y,0px));transition:transform .42s var(--ease),width .42s var(--ease),height .42s var(--ease),opacity .2s}
+.desktop-nav:has(.navigation-glide) a:is(:hover,:focus-visible),.desktop-nav:has(.navigation-glide) a[aria-current]{background:transparent}
+.navigation-layout nav>.navigation-glide{border-radius:0;background:linear-gradient(90deg,#7042b329,transparent);border:0;border-left:1px solid var(--lavender)}
+.navigation-layout nav:has(.navigation-glide)>a{padding-left:15px;padding-right:12px}
+.navigation-layout nav:has(.navigation-glide)>a:hover,.navigation-layout nav:has(.navigation-glide)>a[aria-current]{border-color:var(--line)}
+.navigation-aside>div>a{transition:color .25s,border-color .25s}
+.navigation-aside>div>a:hover{color:var(--lavender);border-color:#b28cff66}
+@media(prefers-reduced-motion:reduce){.navigation-glide,.glifo-action,.action-arrow .vector-icon,.line-link,.quiet-button,.menu-toggle,.icon-button,.menu-toggle .icon-menu,.navigation-top>button .vector-icon,.navigation-aside>div>a{transition:none}}
+.motion-paused .navigation-glide,.motion-paused .glifo-action,.motion-paused .action-arrow .vector-icon,.motion-paused .line-link,.motion-paused .quiet-button,.motion-paused .menu-toggle,.motion-paused .icon-button,.motion-paused .menu-toggle .icon-menu,.motion-paused .navigation-top>button .vector-icon,.motion-paused .navigation-aside>div>a{transition:none}
