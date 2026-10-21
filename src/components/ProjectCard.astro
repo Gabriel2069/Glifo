@@ -1,0 +1,16 @@
+---
+import Icon from './Icon.astro';
+import ProjectVisual from './ProjectVisual.astro';
+import type {Project} from '../data/site';
+interface Props {project:Project;index:number}
+const {project:p,index}=Astro.props;
+---
+<a href={`/trabalhos/${p.slug}/`} class="index-work project-card" data-project-categories={p.categories.join(',')} data-project-slug={p.slug}>
+ <div class="project-card-cover"><ProjectVisual project={p}/><span class="project-card-inspect" aria-hidden="true">EXPLORAR <Icon name="arrow"/></span></div>
+ <div class="work-card-copy">
+  <div class="work-card-meta"><span>{String(index+1).padStart(2,'0')} / {p.label}</span><span>{p.year}</span></div>
+  <h2>{p.slug==='glifo'?<img class="work-card-logotype" src="/brand/logo.png" alt="Glifo" width="1394" height="1128"/>:p.title}</h2>
+  <p>{p.summary}</p>
+  <div class="work-card-bottom"><span>{p.categories.filter(c=>c!=='Direção visual').join(' / ')}</span><span class="project-card-entry">Explorar o projeto <span class="work-card-arrow" aria-hidden="true"><Icon name="arrow"/></span></span></div>
+ </div>
+</a>

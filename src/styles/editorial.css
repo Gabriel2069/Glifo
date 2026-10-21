@@ -81,17 +81,6 @@
 /* The offer is a numbered editorial spread, with proof and contact together. */
 .editorial-home .service-offer{background:var(--night);border:0;padding-block:100px}
 .editorial-home .service-offer h2{font-size:clamp(56px,7vw,104px)}
-.editorial-home .service-offer-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1px solid var(--line)}
-.editorial-home .service-offer-grid article{background:transparent;border:0;border-bottom:1px solid var(--line);padding:35px 40px 35px 65px;display:grid;grid-template-columns:1fr 1fr;gap:15px 35px;align-content:start}
-.editorial-home .service-offer-grid article:nth-child(odd){border-right:1px solid var(--line);padding-left:30px}
-.editorial-home .service-offer-grid article:last-child{grid-column:1/-1;border-right:0;grid-template-columns:1fr 1fr 1fr;padding-left:30px}
-.editorial-home .service-number{grid-column:1/-1;color:var(--lavender);font-size:9px}
-.editorial-home .service-offer-grid h3{font-size:38px;grid-column:1/-1;margin:6px 0 12px;max-width:450px}
-.editorial-home .service-offer-grid p{font-size:12px;line-height:1.9}
-.editorial-home .service-offer-grid ul{font-size:11px;margin:0 0 12px;padding-left:16px;color:var(--muted)}
-.editorial-home .service-offer-grid a{font-size:10px;margin:0;padding-top:15px}
-.editorial-home .service-offer-grid .service-proof{display:block;line-height:1.8;color:var(--light)}
-.editorial-home .service-proof>span{font-size:7px;color:var(--gray)}
 /* Identity documents become a shelf of large plates, visually quieter chrome. */
 .editorial-home .brand-documents{background:#101526;border-block:1px solid var(--line);max-width:none;padding-block:95px}
 .editorial-home .brand-documents>.section-heading{max-width:1300px;margin-inline:auto}
@@ -123,24 +112,7 @@
 .work-directory .work-selection{position:sticky;top:86px;z-index:4;padding-block:15px;background:#0c1020f5;border-block:1px solid var(--line);margin-bottom:50px;max-width:none}
 .work-directory .project-filters button{border:0;border-radius:0;padding:10px 18px;background:transparent;min-height:44px}
 .work-directory .project-filters button[aria-pressed=true]{background:var(--purple);color:var(--light)}
-.work-directory .project-index{grid-template-columns:repeat(12,minmax(0,1fr));column-gap:32px;row-gap:90px;padding-bottom:95px}
-.work-directory .index-work{grid-column:span 7;display:block;padding:0;border:0;margin:0;min-width:0}
-.work-directory .index-work:nth-child(even){grid-column:span 5;padding-top:150px}
-.work-directory .index-work:nth-child(4n+3){grid-column:span 5}
-.work-directory .index-work:nth-child(4n+4){grid-column:span 7}
-.work-directory .index-work:first-child{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1.85fr) minmax(0,1fr);gap:0;align-items:stretch;background:var(--deep)}
-.work-directory .index-work:first-child .project-art{height:620px;border:0}
-.work-directory .index-work:first-child>.work-card-copy{display:flex;flex-direction:column;justify-content:center;padding:42px}
-.work-directory .index-work:first-child .work-card-bottom{margin-top:35px}
-.work-directory .index-work .project-art{height:460px;border:0}
-.work-directory .index-work:nth-child(even) .project-art{height:350px}
-.work-directory .index-work:nth-child(4n+4) .project-art{height:460px}
-.work-directory .index-work h2{font-size:clamp(35px,4.5vw,68px);margin:17px 0;line-height:1.05}
-.work-directory .index-work .work-card-copy>p{font-size:12px;line-height:1.85;max-width:56ch}
-.work-directory .work-card-meta{font-size:8px}
-.work-directory .work-card-bottom{padding-top:14px;margin-top:20px}
-.work-directory .work-card-arrow{width:38px;height:38px;border:0;background:#7042b326}
-.work-directory .index-work .quiet-link{font-size:10px}
+.work-directory .project-index{grid-template-columns:repeat(2,minmax(0,1fr));gap:55px 32px;padding-bottom:95px}
 .work-directory .project-cosmos{background:#101526;border-block:1px solid var(--line);max-width:none}
 .work-directory .project-cosmos>.section-heading,.work-directory .project-cosmos>.cosmos-layout{max-width:1300px;margin-inline:auto}
 /* Cases: a huge title with its own landscape, followed by a stable reading spine. */
@@ -210,17 +182,11 @@
 .identity-board .identity-local-nav{scrollbar-width:thin}
 /* Bounded scenic masks and reveals own wrappers, never the original images. */
 .scene-aperture{overflow:clip;position:relative}
-@media(min-width:761px){
- .work-directory .project-index[data-filtered=true] .index-work{grid-column:span 6;display:block;padding-top:0;background:none}
- .work-directory .project-index[data-filtered=true] .index-work .project-art{height:380px}
- .work-directory .project-index[data-filtered=true] .index-work>.work-card-copy{display:block;padding:25px 0 0}
- .work-directory .project-index[data-filtered=true] .index-work h2{font-size:clamp(36px,4vw,58px)}
-}
 @media(min-width:1600px){.editorial-opening .hero-copy{top:18%}.editorial-opening .griff-scene{top:9%;left:36%}}
 @media(min-width:761px) and (max-width:1100px){
+ .case-study .case-opening>.page-intro{gap:15px 35px}.case-study .case-text{gap:20px 40px}.work-directory .work-intro{grid-template-columns:1fr 150px}
  .editorial-home .editorial-opening{min-height:800px}.editorial-opening .hero-copy{top:23%}.editorial-opening h1{font-size:14vw}.editorial-opening .griff-scene{width:56vw;height:56vw;left:31%;top:20%}.editorial-opening .hero-description{bottom:13%;font-size:12px}.editorial-opening .hero-definition{top:15%}
  .editorial-home .collection-panel{grid-template-columns:1.4fr 1fr;min-height:520px}.editorial-home .collection-panel .project-art{min-height:520px}.editorial-home .collection-caption{padding:28px}.editorial-home .collection-caption h3{font-size:34px}.editorial-home .collection-tabs small{display:none}
- .case-study .case-opening>.page-intro{gap:15px 35px}.case-study .case-text{gap:20px 40px}.work-directory .work-intro{grid-template-columns:1fr 150px}.work-directory .index-work:first-child .project-art{height:500px}.work-directory .index-work:first-child>.work-card-copy{padding:30px}
 }
 @media(max-width:760px){
  .editorial-home .editorial-opening{height:auto;min-height:0;max-height:none;padding-top:0}
@@ -280,13 +246,6 @@
  .editorial-home .chapter-sign{font-size:26px;margin-top:20px}
  .editorial-home .service-offer{padding-block:60px}
  .editorial-home .service-offer h2,.editorial-home .brand-documents h2{font-size:clamp(47px,11vw,70px)}
- .editorial-home .service-offer-grid{display:flex;gap:14px;border:0}
- .editorial-home .service-offer-grid article,.editorial-home .service-offer-grid article:last-child,.editorial-home .service-offer-grid article:nth-child(odd){display:flex;flex:0 0 87%;padding:25px 22px;border:1px solid var(--line);min-height:0;background:var(--deep);gap:15px}
- .editorial-home .service-offer-grid h3{font-size:32px;max-width:250px;margin:0}
- .editorial-home .service-offer-grid p{font-size:12px}
- .editorial-home .service-offer-grid ul{margin-bottom:5px}
- .editorial-home .service-offer-grid a{padding-top:14px;font-size:10px}
- .editorial-home .service-offer-grid .service-proof{margin-top:auto}
  .editorial-home .service-offer-note{font-size:10px;margin-top:22px}
  .editorial-home .brand-documents{padding-block:60px}
  .editorial-home .brand-document-grid{display:flex;gap:16px}
@@ -315,12 +274,6 @@
  .work-directory .project-filters button>span{font-size:7px}
  .work-directory .project-filter-count{font-size:8px;margin-top:8px}
  .work-directory .project-index{display:grid;grid-template-columns:1fr;gap:45px;padding-bottom:65px}
- .work-directory .index-work,.work-directory .index-work:nth-child(even),.work-directory .index-work:nth-child(4n+3),.work-directory .index-work:nth-child(4n+4),.work-directory .index-work:first-child{grid-column:auto;display:block;padding:0;background:none}
- .work-directory .index-work .project-art,.work-directory .index-work:first-child .project-art,.work-directory .index-work:nth-child(even) .project-art,.work-directory .index-work:nth-child(4n+4) .project-art{height:clamp(280px,86vw,450px)}
- .work-directory .index-work:first-child>.work-card-copy{padding:23px 0 0;display:block}
- .work-directory .index-work h2{font-size:39px;margin:14px 0}
- .work-directory .index-work .work-card-copy>p{font-size:12px}
- .work-directory .work-card-bottom,.work-directory .index-work:first-child .work-card-bottom{margin-top:18px}
  .case-study .case-opening>.page-intro{display:block;padding-top:125px;padding-bottom:35px}
  .case-study .case-opening .page-intro>.quiet-link{display:inline-flex;margin-bottom:27px}
  .case-study .case-opening .page-intro>.eyebrow{font-size:8px;margin-bottom:20px}

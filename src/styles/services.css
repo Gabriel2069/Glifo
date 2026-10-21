@@ -1,0 +1,83 @@
+/* Services owns its disclosure layout. No horizontal card carousel here. */
+.services-studio .section-description{font-size:13px;line-height:1.9}
+.service-workbench{position:relative;isolation:isolate;border-top:1px solid var(--line)}
+.service-register{display:flex;justify-content:space-between;gap:20px;padding-block:18px 10px;font:8px/1.5 var(--sans);letter-spacing:.13em;color:var(--gray)}
+.service-accordion>article{border-bottom:1px solid var(--line)}
+.service-accordion summary{display:block;list-style:none;cursor:pointer;position:relative;padding:24px 0;min-height:78px}
+.service-accordion summary::-webkit-details-marker{display:none}
+.service-accordion summary:focus-visible{outline:2px solid var(--lavender);outline-offset:4px}
+.service-accordion summary h3{display:grid;grid-template-columns:30px minmax(0,1fr) 36px;align-items:center;gap:12px;font:400 clamp(26px,2.6vw,38px)/1.15 var(--serif);margin:0;color:var(--muted)}
+.service-number{font:400 9px/1 var(--sans);letter-spacing:.12em;color:var(--gray);align-self:start;padding-top:13px}
+.service-name{transition:color .25s}
+.service-toggle{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;color:var(--lavender);transition:background .3s,border-color .3s}
+.service-toggle .vector-icon{width:14px;height:14px;transition:transform .4s var(--ease)}
+.service-accordion details[open] .service-toggle .vector-icon{transform:rotate(45deg)}
+.service-accordion details[open] .service-name{color:var(--light)}
+.service-accordion details[open] .service-number{color:var(--lavender)}
+.service-accordion details[open] .service-toggle{background:#7042b32b;border-color:#b28cff88}
+.service-accordion summary:hover .service-name{color:var(--lavender)}
+.service-accordion summary:hover .service-toggle{border-color:var(--lavender)}
+.service-detail-inner{padding:0 0 25px 42px}
+.service-description>p:first-child{font:400 13px/1.9 var(--sans);color:var(--muted);max-width:48ch}
+.service-description .service-delivery-label{font:8px/1.7 var(--sans);letter-spacing:.13em;color:var(--gray);margin-top:24px}
+.service-description ul{display:grid;gap:9px;list-style:none;margin:15px 0 23px;padding:0;font:12px/1.7 var(--sans);color:var(--light)}
+.service-description li{display:flex;align-items:baseline;gap:12px}
+.service-description li:before{content:'';width:4px;height:4px;background:var(--lavender);transform:rotate(45deg);flex-shrink:0;align-self:center;opacity:.7}
+.service-contact{margin-top:5px;width:100%;max-width:380px}
+.service-example{border:1px solid var(--line);background:var(--deep);margin-top:28px}
+.service-example-art{height:350px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr);background:#10172b;min-width:0;overflow:clip}
+.service-example-art>.project-art{height:100%;min-height:0;width:100%;border:0}
+.service-example-art>img{width:100%;height:100%;min-height:0;object-fit:contain;padding:24px}
+.service-example figcaption{padding:25px 28px 28px}
+.service-example-index{font:8px/1.6 var(--sans);letter-spacing:.13em;color:var(--lavender)}
+.service-example h4{font:400 34px/1.1 var(--serif);margin:18px 0 12px}
+.service-example figcaption>p{font:11px/1.85 var(--sans);color:var(--muted);max-width:45ch}
+.service-example .service-proof{display:flex;justify-content:space-between;align-items:center;gap:15px;color:var(--light);border-top:1px solid var(--line)!important;margin:22px 0 0;padding:13px 0 0!important;font:11px/1.7 var(--sans);min-height:44px}
+.service-proof .vector-icon{width:16px;height:16px;transition:transform .3s var(--ease)}
+.service-proof:hover{color:var(--lavender)}
+.service-proof:hover .vector-icon{transform:translate(3px,-3px)}
+.service-standby{display:none}
+.services-ready .service-workbench{padding-right:52%;min-height:730px}
+.services-ready .service-register{padding-bottom:10px}
+.services-ready .service-example{position:absolute;right:0;top:0;width:44%;margin:0}
+.services-ready .service-example-art{height:390px}
+.services-ready .service-standby{display:flex;position:absolute;right:0;top:0;width:44%;height:580px;align-items:center;justify-content:center;flex-direction:column;gap:20px;border:1px solid var(--line);background:radial-gradient(ellipse at center,#7042b31a,transparent 70%),var(--deep);z-index:-1}
+.service-standby img{width:45%;height:250px;object-fit:contain;opacity:.12}
+.service-standby span{font:8px var(--sans);letter-spacing:.2em;color:var(--gray)}
+.services-ready details:not(.is-current) .service-example{visibility:hidden}
+@media(max-width:1050px) and (min-width:761px){.services-ready .service-workbench{padding-right:49%;min-height:770px}.services-ready .service-example{width:44%}.services-ready .service-example-art{height:320px}.service-accordion summary h3{font-size:28px}.service-detail-inner{padding-left:0}.service-example figcaption{padding:22px}.service-example h4{font-size:30px}}
+@media(max-width:760px){
+ .services-studio .section-description{font-size:12px}
+ .services-ready .service-workbench{padding-right:0;min-height:0}
+ .services-ready .service-standby{display:none}
+ .service-register{font-size:7px;padding-block:16px 8px;gap:12px}
+ .service-accordion summary{padding:20px 0;min-height:74px}
+ .service-accordion summary h3{grid-template-columns:22px minmax(0,1fr) 30px;gap:10px;font-size:27px;line-height:1.13}
+ .service-number{font-size:8px;padding-top:10px}
+ .service-toggle{width:30px;height:30px}
+ .service-detail-inner{padding:0 0 24px 0}
+ .service-description>p:first-child{font-size:12px;max-width:42ch}
+ .service-description .service-delivery-label{font-size:7px;margin-top:20px}
+ .service-description ul{font-size:11px;gap:8px;margin:12px 0 18px}
+ .service-contact{max-width:none;font-size:10px}
+ .services-ready .service-example,.service-example{position:static;width:100%;display:grid;grid-template-columns:110px minmax(0,1fr);margin:23px 0 0;min-width:0}
+ .services-ready .service-example-art,.service-example-art{height:100%;min-height:148px}
+ .service-example-art>img{padding:9px}
+ .service-example-art>.project-art{padding:12px}
+ .service-example-art>.art-christiano{padding:0}
+ .service-example .project-art-label{display:none}
+ .service-example .paired-cover-marks{gap:4px}
+ .service-example .paired-cover-marks figcaption{display:none}
+ .service-example figcaption{padding:15px 14px}
+ .service-example-index{font-size:6px;letter-spacing:.06em}
+ .service-example h4{font-size:24px;margin:10px 0}
+ .service-example figcaption>p{display:none}
+ .service-example .service-proof{font-size:9px;margin-top:10px;padding-top:8px!important;min-height:35px}
+ .service-example .service-proof .vector-icon{width:13px;height:13px}
+}
+@media(max-width:359px){.service-accordion summary h3{font-size:24px}.service-example{grid-template-columns:92px minmax(0,1fr)}.service-example h4{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.service-name,.service-toggle,.service-toggle .vector-icon,.service-proof .vector-icon{transition:none}}
+.motion-paused .service-name,.motion-paused .service-toggle,.motion-paused .service-toggle .vector-icon,.motion-paused .service-proof .vector-icon{transition:none}
+
+.services-ready summary[aria-expanded=false] .service-toggle .vector-icon{transform:none}
+.services-ready summary[aria-expanded=false] .service-name{color:var(--muted)}

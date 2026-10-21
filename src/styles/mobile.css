@@ -39,13 +39,6 @@
  .mobile-shelf-navigation button:disabled{opacity:.3;cursor:default}
  .mobile-shelf{display:flex;align-items:stretch;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--page-gutter);overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:var(--lavender) transparent;margin-inline:calc(-1 * var(--page-gutter));padding:3px var(--page-gutter) 22px}
  .mobile-shelf>*{flex:0 0 88%;min-width:0;scroll-snap-align:start;scroll-snap-stop:normal}
- .service-offer-grid article{padding:24px;flex-basis:88%;height:auto}
- .service-offer-grid h3{font-size:33px;margin-block:18px 15px}
- .service-offer-grid p{font-size:14px;line-height:1.8}
- .service-offer-grid ul{font-size:13px;margin-block:18px 22px}
- .service-offer-grid a{min-height:44px;align-items:center;font-size:12px;line-height:1.6}
- .service-offer-grid .service-proof{display:block;position:relative;padding-right:30px!important}
- .service-offer-grid .service-proof>.vector-icon{position:absolute;right:0;top:22px}
  .service-offer-note{font-size:12px;line-height:1.8;margin-top:10px}
  .brand-document-card{display:flex;flex-direction:column}
  .brand-document-image{height:220px;flex-shrink:0}
@@ -101,7 +94,7 @@
  .contact-section .quiet-button{min-height:44px}
  .page-intro{padding-top:116px}
  .case-opening{padding-top:112px}
- .case-opening .page-intro>p:not(.eyebrow):not(.project-lead),.index-work .work-card-copy>p{font-size:15px}
+ .case-opening .page-intro>p:not(.eyebrow):not(.project-lead){font-size:15px}
  .case-entry strong{font-size:24px}
  .case-project-details ul,.case-project-details p{font-size:14px}
  .case-end h2{font-size:38px}
@@ -135,7 +128,6 @@
  .hero .griff-ghost{height:200px}
  .hero-copy .eyebrow{font-size:7px;letter-spacing:.03em}
  .mobile-shelf>*{flex-basis:92%}
- .service-offer-grid article{padding:21px}
  .identity-board .identity-mosaic-type{padding:13px}
 }
 @media(max-height:600px) and (max-width:760px){

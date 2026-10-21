@@ -1,6 +1,26 @@
 ---
 import Icon from './Icon.astro';
-import MobileShelf from './MobileShelf.astro';
+import ProjectVisual from './ProjectVisual.astro';
 import {services,site,projects} from '../data/site';
 ---
-<section class="service-offer section wrap" id="servicos" aria-labelledby="services-title"><div class="section-heading"><div><p class="eyebrow">O que podemos construir</p><h2 id="services-title">Seu projeto<br/><em>pede uma forma.</em></h2></div><p class="section-description">Uma identidade, uma página, uma coleção de materiais. O trabalho é combinado a partir do que você precisa comunicar e de onde ele será usado.</p></div><MobileShelf target="service-shelf" label="Serviços" total={services.length}/><div class="service-offer-grid mobile-shelf" id="service-shelf" data-mobile-shelf tabindex="0" role="region" aria-label="Serviços disponíveis">{services.map((service,i)=><article><span class="service-number">0{i+1}</span><h3>{service.title}</h3><p>{service.copy}</p><ul>{service.items.map(item=><li>{item}</li>)}</ul><a class="service-proof" href={`/trabalhos/${service.example}/`}><span>UM TRABALHO PARA CONHECER</span>{projects.find(project=>project.slug===service.example)!.title} <Icon name="arrow"/></a><a href={`${site.contact.whatsapp}?text=${encodeURIComponent(`Olá, Tadeu! Quero conversar sobre ${service.title.toLowerCase()} para meu projeto.`)}`} target="_blank" rel="noopener noreferrer">Conversar sobre este serviço <span aria-hidden="true"><Icon name="arrow"/></span></a></article>)}</div><p class="service-offer-note">Cada projeto tem escopo e entregas combinados. Acompanhamentos contínuos são definidos à parte.</p></section>
+<section class="service-offer services-studio section wrap" id="servicos" aria-labelledby="services-title">
+ <div class="section-heading"><div><p class="eyebrow">O que podemos construir</p><h2 id="services-title">Seu projeto<br/><em>pede uma forma.</em></h2></div><p class="section-description">Uma identidade, uma página, uma coleção de materiais. Abra uma área para conhecer as entregas e ver como elas aparecem no trabalho.</p></div>
+ <div class="service-workbench" data-services>
+  <div class="service-standby" aria-hidden="true"><img src="/brand/symbol.png" alt="" width="1254" height="1254" loading="lazy"/><span>IDEIA · FORMA · PRESENÇA</span></div>
+  <div class="service-register"><span>AS FRENTES DO ESTÚDIO</span><span>ESCOLHA UM CAMINHO</span></div>
+  <div class="service-accordion">
+   {services.map((service,i)=>{const project=projects.find(p=>p.slug===service.example)!;return <article>
+    <details data-service open={i===0}>
+     <summary aria-controls={`service-detail-${i}`}><h3><span class="service-number">0{i+1}</span><span class="service-name">{service.title}</span><span class="service-toggle" aria-hidden="true"><Icon name="plus"/></span></h3></summary>
+     <div id={`service-detail-${i}`} class="service-detail">
+      <div class="service-detail-inner"><div class="service-description"><p>{service.copy}</p><p class="service-delivery-label">O QUE PODE FAZER PARTE</p><ul>{service.items.map(item=><li>{item}</li>)}</ul></div>
+       <a class="glifo-action service-contact" href={`${site.contact.whatsapp}?text=${encodeURIComponent(`Olá, Tadeu! Quero conversar sobre ${service.title.toLowerCase()} para meu projeto.`)}`} target="_blank" rel="noopener noreferrer"><span>Conversar sobre este serviço</span><span class="action-arrow" aria-hidden="true"><Icon name="arrow"/></span></a>
+       <figure class="service-example"><div class="service-example-art">{service.proofImage?<img src={service.proofImage} alt={service.proofAlt} width="1440" height="1000" loading="lazy"/>:<ProjectVisual project={project}/>}</div><figcaption><span class="service-example-index">0{i+1} / UM TRABALHO PARA CONHECER</span><h4>{project.title}</h4><p>{service.proofNote}</p><a class="service-proof" href={`/trabalhos/${project.slug}/`}>Explorar o projeto <Icon name="arrow"/></a></figcaption></figure>
+      </div>
+     </div>
+    </details>
+   </article>})}
+  </div>
+ </div>
+ <p class="service-offer-note">Cada projeto tem escopo e entregas combinados. Acompanhamentos contínuos são definidos à parte.</p>
+</section>
