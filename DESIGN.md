@@ -197,3 +197,11 @@ O controlador comum concede seis segundos após clique, foco ou teclado, então 
 Process.astro e process.css possuem o percurso Ideia/Forma/Presença, com coordenadas ligadas, texto integral e pontos de cada etapa. GSAP possui uma única transição cancelável nos interiores dos painéis; sem JavaScript, as três etapas ficam disponíveis. O menu nativo ganha escala editorial, entradas escalonadas, acervo real e contato próprio. Escape, fechamento, contenção e retorno do foco permanecem disponíveis. O contato do cabeçalho também aparece no celular.
 
 A entrada /links/ reúne assinatura, lema, contato principal, quatro caminhos e três projetos. bio-celestial.css possui a composição; os elementos decorativos ficam contidos no quadro, sem recortar as capas. A home móvel reduz a altura do observatório e das abas, mantém ações em duas colunas e amplia a leitura das descrições e da prosa. Não alterar as capas aprovadas nem o espaço privado nesta etapa.
+
+## Acabamento de controles e espaço interno · 21 de outubro de 2026
+
+A entrada e o painel privado usam o mesmo emblema oficial da vitrine, /brand/symbol.png, como favicon PNG e ícone de tela inicial. prepare-views.mjs é a fonte do cabeçalho das duas telas; views.mjs é regenerado a partir dela. A cor do navegador permanece noturna. A exibição da senha conserva um alvo de toque de 44 px.
+
+Os controles de fechar compartilham o SVG da navegação. Documentos usam uma barra de altura natural e iframe flexível, para títulos longos caberem no celular. O foco começa no fechamento do documento ou da imagem ampliada e retorna ao material de origem. A rolagem do fundo fica contida enquanto um dialog está aberto; a reserva da barra de rolagem no desktop evita deslocamentos da composição.
+
+O formulário de contato mantém o fechamento alcançável durante a leitura, confere o conteúdo depois de remover espaços nas extremidades e leva o foco à mensagem preparada. Editar retorna ao campo da ideia, preservando o rascunho. O envio continua dependendo da ação no WhatsApp. Rodapé, atalhos dos casos, documentos e controles recebem respostas de foco, ponteiro e pressão proporcionais, com transições dispensadas pela preferência de movimento. Imagens com nome adjacente não repetem esse nome na descrição acessível.
