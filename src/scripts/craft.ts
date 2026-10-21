@@ -50,8 +50,8 @@ export function initCraft({isPaused,refresh}:CraftOptions){
    frame=0;const focused=nav.contains(document.activeElement)?(document.activeElement as HTMLElement).closest<HTMLElement>('[data-navigation-link]'):null;
    const target=focused||hovered||nav.querySelector<HTMLElement>('[aria-current]');
    if(!target||!nav.getClientRects().length){light.style.opacity='0';return;}
-   const n=nav.getBoundingClientRect(),r=target.getBoundingClientRect();
-   light.style.setProperty('--nav-x',`${r.left-n.left+nav.scrollLeft}px`);light.style.setProperty('--nav-y',`${r.top-n.top+nav.scrollTop}px`);light.style.width=r.width+'px';light.style.height=r.height+'px';light.style.opacity='1';
+   // Layout coordinates exclude the route's entrance transform.
+   light.style.setProperty('--nav-x',`${target.offsetLeft}px`);light.style.setProperty('--nav-y',`${target.offsetTop}px`);light.style.width=target.offsetWidth+'px';light.style.height=target.offsetHeight+'px';light.style.opacity='1';
   };
   const schedule=()=>{if(!frame)frame=requestAnimationFrame(paint);};
   nav.addEventListener('pointerover',event=>{hovered=(event.target as Element).closest<HTMLElement>('[data-navigation-link]');schedule();});

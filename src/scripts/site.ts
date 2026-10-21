@@ -8,11 +8,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
-let rememberedPause = false;
-try { rememberedPause = localStorage.getItem('glifo:motion') === 'paused'; } catch { /* Storage can be unavailable in a private preview. */ }
-let paused = reduced.matches || rememberedPause;
+let paused = reduced.matches;
 let heroVisible = true;
-const motionButton = document.querySelector<HTMLButtonElement>('[data-motion]');
 const loops: gsap.core.Tween[] = [];
 const entrances: gsap.core.Animation[] = [];
 const rotationRefresh: Array<()=>void> = [];
@@ -20,8 +17,6 @@ const updateMotion = () => {
  document.body.classList.toggle('motion-paused', paused);
  document.documentElement.classList.toggle('motion-paused',paused);
  if(paused)entrances.forEach(animation=>animation.progress(1));
- motionButton?.setAttribute('aria-pressed', String(paused));
- motionButton?.setAttribute('aria-label', paused ? 'Ativar animações' : 'Pausar animações');
  for (const t of loops) paused || document.hidden || !heroVisible ? t.pause() : t.resume();
  for (const trigger of ScrollTrigger.getAll()) {
   if (paused) { trigger.animation?.progress(1); trigger.disable(false); }
@@ -30,8 +25,7 @@ const updateMotion = () => {
  if(paused)gsap.set('.hero .griff-scene, .hero-copy',{clearProps:'transform'});
  rotationRefresh.forEach(refresh=>refresh());
 };
-motionButton?.addEventListener('click',()=>{paused=!paused;try{localStorage.setItem('glifo:motion',paused?'paused':'playing');}catch{}updateMotion();drawSky(performance.now());requestAnimationFrame(()=>{ScrollTrigger.refresh();updateReading();});});
-reduced.addEventListener('change',()=>{if(reduced.matches){paused=true;updateMotion();drawSky(performance.now());}});
+reduced.addEventListener('change',()=>{paused=reduced.matches;updateMotion();drawSky(performance.now());requestAnimationFrame(()=>{ScrollTrigger.refresh();updateReading();});});
 updateMotion();
 
 const menuButton=document.querySelector<HTMLButtonElement>('.menu-toggle');
@@ -112,7 +106,7 @@ function restartSky(){if(frame)cancelAnimationFrame(frame);frame=0;drawSky(perfo
 if(canvas&&ctx){
  const resize=new ResizeObserver(()=>{width=canvas.clientWidth;height=canvas.clientHeight;const dpr=Math.min(devicePixelRatio,1.5);canvas.width=width*dpr;canvas.height=height*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);restartSky();});resize.observe(canvas);
  new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;heroVisible=visible;updateMotion();restartSky();},{threshold:.05}).observe(canvas);
- motionButton?.addEventListener('click',restartSky);reduced.addEventListener('change',restartSky);
+ reduced.addEventListener('change',restartSky);
 }
 document.addEventListener('visibilitychange',()=>{updateMotion();restartSky();});
 
@@ -136,7 +130,19 @@ document.querySelectorAll<HTMLElement>('[data-atlas]').forEach(point=>{
 });
 
 const tabs=Array.from(document.querySelectorAll<HTMLButtonElement>('.process-tabs [role=tab]'));
-function selectTab(index:number,focus=false){tabs.forEach((tab,i)=>{const active=i===index;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;const panel=document.getElementById(tab.getAttribute('aria-controls')!);if(panel){panel.hidden=!active;if(active&&!paused&&!reduced.matches)gsap.fromTo(panel,{y:9},{y:0,duration:.4});}if(active){keepSelectedTabVisible(tab);if(focus)tab.focus({preventScroll:true});}});}
+let processTransition:gsap.core.Timeline|undefined;
+function selectTab(index:number,focus=false){
+ processTransition?.progress(1).kill();
+ tabs.forEach((tab,i)=>{
+  const active=i===index;tab.setAttribute('aria-selected',String(active));tab.tabIndex=active?0:-1;
+  const panel=document.getElementById(tab.getAttribute('aria-controls')!);
+  if(panel){panel.hidden=!active;if(active&&!paused){
+   processTransition=gsap.timeline().fromTo(panel.querySelectorAll('.process-story,.process-points>div'),{y:14,opacity:0},{y:0,opacity:1,duration:.5,stagger:.065,ease:'power3.out',clearProps:'transform,opacity'});
+  }}
+  if(active){document.querySelector('#processo')?.setAttribute('data-process-step',String(index));keepSelectedTabVisible(tab);if(focus)tab.focus({preventScroll:true});}
+ });
+}
+rotationRefresh.push(()=>{if(paused)processTransition?.progress(1);});
 tabs.forEach((tab,i)=>{tab.addEventListener('click',()=>selectTab(i));tab.addEventListener('keydown',e=>{let index=i;if(e.key==='ArrowRight')index=(i+1)%tabs.length;else if(e.key==='ArrowLeft')index=(i-1+tabs.length)%tabs.length;else if(e.key==='Home')index=0;else if(e.key==='End')index=tabs.length-1;else return;e.preventDefault();selectTab(index,true);});});
 
 const dialog=document.querySelector<HTMLDialogElement>('.idea-dialog');
@@ -413,7 +419,6 @@ projectPanels?.addEventListener('pointerup',event=>{
  const index=projectTabs.findIndex(tab=>tab.getAttribute('aria-selected')==='true');
  selectProject((index+(dx<0?1:-1)+projectTabs.length)%projectTabs.length);
  blockProjectClickUntil=performance.now()+500;
- document.querySelector<HTMLButtonElement>('.work-collection [data-auto-toggle][aria-pressed="false"]')?.click();
 });
 projectPanels?.addEventListener('click',event=>{if(performance.now()<blockProjectClickUntil){event.preventDefault();event.stopImmediatePropagation();}},true);
 
@@ -448,28 +453,24 @@ if(identityDocument&&documentFrame){
 // Timed discovery shares the existing selection handlers and never moves focus.
 function rotateWhenVisible(root:HTMLElement|null,period:number,next:()=>void){
  if(!root)return;
- let visible=false,hover=false,manual=false,timer:ReturnType<typeof setTimeout>|undefined;
- const controls=document.createElement('div');controls.className='auto-cycle';
- controls.innerHTML='<span data-auto-status>Alternância automática</span><span class="auto-cycle-track" aria-hidden="true"><span></span></span><button type="button" data-auto-toggle aria-pressed="false">Pausar alternância</button>';
- root.append(controls);root.style.setProperty('--auto-period',`${period/1000}s`);
- const toggle=controls.querySelector<HTMLButtonElement>('button')!;
+ let visible=false,interactionUntil=0,timer:ReturnType<typeof setTimeout>|undefined;
+ const progress=document.createElement('div');progress.className='auto-cycle';progress.setAttribute('aria-hidden','true');
+ progress.innerHTML='<span class="auto-cycle-track"><span></span></span>';
+ root.append(progress);root.style.setProperty('--auto-period',`${period/1000}s`);
+ const bar=progress.querySelector<HTMLElement>('.auto-cycle-track span')!;
  const refresh=()=>{
   clearTimeout(timer);timer=undefined;
-  const focus=root.contains(document.activeElement)&&document.activeElement!==toggle;
-  const blocked=paused||reduced.matches||document.hidden||Boolean(document.querySelector('dialog[open]'));
-  const running=visible&&!hover&&!focus&&!manual&&!blocked;
+  const blocked=paused||document.hidden||Boolean(document.querySelector('dialog[open]'));
+  const remaining=interactionUntil-performance.now();
+  const running=visible&&!blocked&&remaining<=0;
   root.dataset.autoState=running?'running':'paused';
-  toggle.setAttribute('aria-pressed',String(manual));toggle.textContent=manual?'Retomar alternância':'Pausar alternância';
-  controls.querySelector('[data-auto-status]')!.textContent=manual?'Alternância pausada':blocked?'Alternância em pausa':'Alterna automaticamente';
   root.querySelectorAll<HTMLElement>('[aria-live]').forEach(el=>el.setAttribute('aria-live',running?'off':'polite'));
-  if(running){const bar=controls.querySelector<HTMLElement>('.auto-cycle-track span')!;bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';timer=setTimeout(()=>{next();refresh();},period);}
+  if(running){bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';timer=setTimeout(()=>{next();refresh();},period);}
+  else if(visible&&!blocked&&remaining>0)timer=setTimeout(refresh,remaining);
  };
- toggle.addEventListener('click',()=>{manual=!manual;refresh();});
- root.addEventListener('pointermove',event=>{if(event.pointerType!=='mouse')return;const nextHover=Boolean((event.target as Element).closest('a,button,input,textarea,select'));if(nextHover!==hover){hover=nextHover;refresh();}});
- root.addEventListener('pointerleave',()=>{if(hover){hover=false;refresh();}});
- root.addEventListener('focusin',refresh);root.addEventListener('focusout',()=>queueMicrotask(refresh));
- const stopOnUse=(event:Event)=>{if(event.isTrusted&&!(event.target as Element).closest('[data-auto-toggle]')){manual=true;refresh();}};
- root.addEventListener('pointerdown',stopOnUse);root.addEventListener('keydown',stopOnUse);
+ // Interaction buys reading time; neither focus nor hover can latch a pause.
+ const rest=(event:Event)=>{if(!event.isTrusted)return;interactionUntil=performance.now()+6000;refresh();};
+ root.addEventListener('pointerdown',rest);root.addEventListener('keydown',rest);root.addEventListener('focusin',rest);
  new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;refresh();},{threshold:.12}).observe(root);
  document.addEventListener('visibilitychange',refresh);
  new MutationObserver(refresh).observe(document.body,{subtree:true,attributes:true,attributeFilter:['open']});

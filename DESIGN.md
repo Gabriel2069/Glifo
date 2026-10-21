@@ -187,3 +187,13 @@ Os serviços passam a uma lista de detalhes nativos. Cada frente reúne o que po
 ProjectCard.astro define o contrato dos sete cartões do índice: capa 4:3 em contain, número e período, título, resumo integral e uma chamada de ação. A grade conserva esse formato ao filtrar. As regras antigas que alteravam dimensões por posição foram removidas; work-card.css possui a composição. A capa central de TdV, as duas assinaturas de Acolher/Comissão e os tratamentos de Christiano/Delfas foram preservados.
 
 A navegação ganha uma única luz que percorre os itens por foco ou ponteiro e retorna à rota atual. CSS possui sua transição; o script só mede as posições nos eventos necessários. As ações compartilham borda, canto luminoso, seta e estados de pressão, com alvos e foco mantidos. Movimento reduzido e pausa concluem as passagens sem esconder conteúdo.
+
+## Processo, portas e leitura no celular · 21 de outubro de 2026
+
+A orientação atual substitui os controles de pausa manual descritos nas etapas anteriores. Não há botão global de reduzir movimento nem botões de pausar/retomar alternâncias. A preferência do sistema é a única origem de `motion-paused`; o valor antigo em localStorage é ignorado. Alterar a configuração do aparelho nos dois sentidos atualiza os efeitos. Seção fora da tela, aba oculta e diálogo aberto continuam suspendendo os temporizadores.
+
+O controlador comum concede seis segundos após clique, foco ou teclado, então retoma o período normal da seção. Ponteiro e foco não mantêm pausas permanentes. Trocas automáticas não movem foco nem anunciam continuamente a galeria. O traço de tempo é decorativo. O instrumento dos glifos volta ao capítulo da leitura oito segundos depois de uma seleção manual.
+
+Process.astro e process.css possuem o percurso Ideia/Forma/Presença, com coordenadas ligadas, texto integral e pontos de cada etapa. GSAP possui uma única transição cancelável nos interiores dos painéis; sem JavaScript, as três etapas ficam disponíveis. O menu nativo ganha escala editorial, entradas escalonadas, acervo real e contato próprio. Escape, fechamento, contenção e retorno do foco permanecem disponíveis. O contato do cabeçalho também aparece no celular.
+
+A entrada /links/ reúne assinatura, lema, contato principal, quatro caminhos e três projetos. bio-celestial.css possui a composição; os elementos decorativos ficam contidos no quadro, sem recortar as capas. A home móvel reduz a altura do observatório e das abas, mantém ações em duas colunas e amplia a leitura das descrições e da prosa. Não alterar as capas aprovadas nem o espaço privado nesta etapa.

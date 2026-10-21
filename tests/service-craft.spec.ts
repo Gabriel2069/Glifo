@@ -8,7 +8,7 @@ test('services reveal one complete offer, keep keyboard focus and link to real w
  await expect(chosen.locator('.service-example-art>img')).toHaveAttribute('src','/projects/christiano-home.webp');
  await expect(chosen.getByRole('link',{name:'Conversar sobre este serviço'})).toHaveAttribute('href',/^https:\/\/wa.me\/5562983010176\?text=/);
  await summaries.nth(1).focus();await page.keyboard.press('ArrowDown');await expect(summaries.nth(2)).toBeFocused();await page.keyboard.press('Enter');await expect(summaries.nth(2)).toHaveAttribute('aria-expanded','true');
- await summaries.nth(4).click();await summaries.nth(0).click();await page.getByRole('button',{name:'Pausar animações'}).click();
+ await summaries.nth(4).click();await summaries.nth(0).click();await page.emulateMedia({reducedMotion:'reduce'});
  await expect(section.locator('details[open]')).toHaveCount(1);await expect(summaries.first()).toHaveAttribute('aria-expanded','true');
  expect(await section.locator('.service-detail').evaluateAll(es=>es.every(e=>e.style.height===''))).toBe(true);
  await summaries.first().click();await expect(section.locator('details[open]')).toHaveCount(0);

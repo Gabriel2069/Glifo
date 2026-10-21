@@ -1,0 +1,16 @@
+---
+import {process} from '../data/site';
+import Icon from './Icon.astro';
+---
+<section class="process section wrap" id="processo" data-process-step="0" aria-labelledby="process-title">
+ <div class="section-heading"><div><p class="eyebrow">04 / O processo</p><h2 id="process-title">Do pedido<br/><em>ao trabalho pronto.</em></h2></div><p class="section-description">Entre a conversa e a entrega, cada escolha precisa fazer sentido. É assim que uma ideia encontra seu desenho e fica pronta para ser usada.</p></div>
+ <div class="process-workbench">
+  <div class="process-tabs" role="tablist" aria-label="Etapas do processo">{process.map((step,i)=><button id={`step-tab-${i}`} type="button" role="tab" aria-selected={i===0?'true':'false'} aria-controls={`step-panel-${i}`} tabindex={i===0?0:-1}><span class="process-coordinate">0{i+1}<i aria-hidden="true"></i></span><span class="process-step-name">{step.name}</span><small>{step.verb}</small><Icon name="right"/></button>)}</div>
+  <div class="process-pages">{process.map((step,i)=><div class="process-panel" role="tabpanel" id={`step-panel-${i}`} aria-labelledby={`step-tab-${i}`} hidden={i!==0}>
+   <div class="process-story"><span class="process-folio" aria-hidden="true">0{i+1}</span><p class="eyebrow">{step.name} / {step.verb}</p><h3>{step.line}</h3><p>{step.text}</p></div>
+   <div class="process-points">{step.points.map(([title,text],j)=><div><span class="process-point-index" aria-hidden="true">{i+1}.{j+1}</span><strong>{title}</strong><p>{text}</p></div>)}</div>
+  </div>)}</div>
+  <div class="process-endnote"><span>Ideia, forma, presença.</span><a href="#contato">Começar pela conversa <Icon/></a></div>
+ </div>
+ <noscript><style>.process-tabs{display:none}.process-panel[hidden]{display:grid!important}.process-panel{border-top:1px solid var(--line)}</style></noscript>
+</section>

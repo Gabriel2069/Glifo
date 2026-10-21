@@ -9,7 +9,7 @@ test('observatory keeps an intact mark, bounded depth and manual control',async(
  for(const width of [320,390,768,1440]){await page.setViewportSize({width,height:900});await expect.poll(()=>page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBeTruthy();}
  if(process.env.GLIFO_VISUAL_PROOF==='true'){
   if(testInfo.project.name==='mobile')await page.setViewportSize({width:390,height:844});
-  await page.getByRole('button',{name:'Pausar animações',exact:true}).click();await page.evaluate(()=>scrollTo(0,0));
+  await page.emulateMedia({reducedMotion:'reduce'});await page.evaluate(()=>scrollTo(0,0));
   const name=testInfo.project.name==='mobile'?'PUBLIC_PHONE':'PUBLIC_DESKTOP';
   const data=(await page.screenshot({type:'jpeg',quality:38,fullPage:false,animations:'disabled'})).toString('base64');
   console.log('GLIFO_PROOF_'+name+'_BEGIN');for(let i=0;i<data.length;i+=10000)console.log('GLIFO_PROOF_DATA:'+data.slice(i,i+10000));console.log('GLIFO_PROOF_'+name+'_END');
