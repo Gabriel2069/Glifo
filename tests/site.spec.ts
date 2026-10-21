@@ -14,9 +14,9 @@ test('documents have visible home entries and cases share the reading sequence',
 test('TdV presents all supplied cover sheets and supports enlargement',async({page})=>{
  await page.goto('/trabalhos/tdv-editorial/');await expect(page.locator('.case-material-grid figure')).toHaveCount(7);await page.locator('.case-material-grid figure').first().scrollIntoViewIfNeeded();expect(await page.locator('.case-material-image').first().evaluate(el=>{const frame=el.getBoundingClientRect(),image=el.querySelector('img')!.getBoundingClientRect();return image.bottom<=frame.bottom&&image.right<=frame.right;})).toBe(true);await page.getByRole('button',{name:'Ampliar: Orbis Ardex',exact:true}).click();await expect(page.getByRole('dialog',{name:'Imagem da identidade ampliada'})).toBeVisible();await expect(page.locator('[data-board-full-image]')).toHaveAttribute('src','/identities/tdv/collection-6.webp');await page.keyboard.press('Escape');
 });
-test('timed selection advances without focus and manual use pauses it',async({page})=>{
+test('timed selection advances without moving focus and rests after manual use',async({page})=>{
  await page.goto('/');const scene=page.locator('.hero [data-griff]');await scene.scrollIntoViewIfNeeded();await page.mouse.move(0,0);await expect(scene).toHaveAttribute('data-auto-state','running');await expect(scene.getByRole('button',{name:'Emblema',exact:true})).toHaveAttribute('aria-pressed','true',{timeout:11000});
- await scene.getByRole('button',{name:'Constelação',exact:true}).click();await expect(scene.getByRole('button',{name:'Retomar alternância'})).toBeVisible();await expect(scene).toHaveAttribute('data-auto-state','paused');
+ await scene.getByRole('button',{name:'Constelação',exact:true}).click();await expect(scene.locator('[data-auto-toggle]')).toHaveCount(0);await expect(scene).toHaveAttribute('data-auto-state','paused');
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/');await expect(page.locator('.hero [data-griff]')).toHaveAttribute('data-auto-state','paused');
 });
 test('brand document opens over the portfolio and closes after image viewer',async({page})=>{
@@ -30,7 +30,7 @@ test('narrative reveals whole paragraphs with distinct heading typography',async
  await page.goto('/');await expect(page.locator('.myth-prose')).toHaveCount(3);await expect(page.locator('.myth-prose p')).toHaveCount(6);await expect(page.locator('.reading-word')).toHaveCount(0);
  await page.locator('.myth-chapter').first().scrollIntoViewIfNeeded();
  const typography=await page.locator('.myth-chapter').first().evaluate(el=>({heading:getComputedStyle(el.querySelector('h3')!).fontFamily,body:getComputedStyle(el.querySelector('p.reading-prose')!).fontFamily}));expect(typography.heading).not.toBe(typography.body);
- await page.getByRole('button',{name:'Pausar animações'}).click();expect(await page.locator('[data-reading-prose]').evaluateAll(nodes=>nodes.every(n=>Number(getComputedStyle(n).opacity)>.99))).toBe(true);
+ await page.emulateMedia({reducedMotion:'reduce'});expect(await page.locator('[data-reading-prose]').evaluateAll(nodes=>nodes.every(n=>Number(getComputedStyle(n).opacity)>.99))).toBe(true);
 });
 test('identity directory opens each board and its real materials',async({page})=>{
  for(const slug of ['glifo','christiano-tadeu','tdv']){
@@ -64,11 +64,11 @@ test('process works with keyboard and retains one selected panel',async({page})=
 test('draft can be prepared and edited without sending',async({page})=>{
  await page.goto('/');await page.getByRole('button',{name:/Preparar minha ideia/}).click();await page.getByLabel('Seu nome').fill('Visitante');await page.getByLabel('O que você tem em mente?').fill('Quero organizar a apresentação do meu projeto.');await page.getByRole('button',{name:/Preparar mensagem/}).click();await expect(page.getByLabel('Mensagem preparada')).toHaveValue(/Visitante/);await page.getByRole('button',{name:'Editar ideia'}).click();await expect(page.getByLabel('Seu nome')).toHaveValue('Visitante');await page.keyboard.press('Escape');await expect(page.getByRole('dialog')).not.toBeVisible();
 });
-test('motion preference persists through navigation',async({page})=>{
- await page.goto('/');await page.getByRole('button',{name:'Pausar animações'}).click();await page.goto('/trabalhos/');await expect(page.getByRole('button',{name:'Ativar animações'})).toHaveAttribute('aria-pressed','true');
+test('system motion preference applies across navigation',async({page})=>{
+ await page.goto('/');await page.emulateMedia({reducedMotion:'reduce'});await page.goto('/trabalhos/');await expect(page.locator('html')).toHaveClass(/motion-paused/);
 });
 test('reduced motion and narrow layout preserve the content',async({page})=>{
- await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:320,height:850});await page.goto('/');await expect(page.locator('h1')).toBeVisible();await expect(page.getByRole('button',{name:'Ativar animações'})).toHaveAttribute('aria-pressed','true');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ await page.emulateMedia({reducedMotion:'reduce'});await page.setViewportSize({width:320,height:850});await page.goto('/');await expect(page.locator('h1')).toBeVisible();await expect(page.locator('html')).toHaveClass(/motion-paused/);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
 test('observatory changes representation with keyboard and interrupted input',async({page})=>{
  await page.goto('/');const scene=page.locator('.hero [data-griff]');const emblem=scene.getByRole('button',{name:'Emblema',exact:true});await emblem.focus();await emblem.press('Enter');await expect(emblem).toHaveAttribute('aria-pressed','true');await scene.getByRole('button',{name:'Constelação',exact:true}).click();await emblem.click();await expect(scene.locator('[data-scene-state]')).toHaveText('A FIGURA');await expect(scene.getByRole('button',{name:'Constelação',exact:true})).toHaveAttribute('aria-pressed','false');
@@ -85,8 +85,8 @@ test('archive can be dragged without triggering its chapter links',async({page})
 test('myth and archive remain readable when scripts are disabled',async({browser})=>{
  const context=await browser.newContext({javaScriptEnabled:false,viewport:{width:390,height:844}});const page=await context.newPage();await page.goto('/');await expect(page.locator('.myth-chapter')).toHaveCount(3);await expect(page.getByRole('heading',{name:'A mensagem toma forma'})).toBeVisible();await page.goto('/trabalhos/glifo/');await expect(page.locator('.archive-sheet')).toHaveCount(4);await expect(page.locator('.archive-sheet').first().getByRole('link')).toHaveAttribute('href','/trabalhos/glifo/#identidade');expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await context.close();
 });
-test('motion control restores whole prose and carries the preference into the atelier',async({page})=>{
- await page.goto('/');await page.getByRole('button',{name:'Pausar animações'}).click();await expect(page.locator('body')).toHaveClass(/motion-paused/);
+test('system reduced motion restores whole prose and remains effective in the atelier',async({page})=>{
+ await page.goto('/');await page.emulateMedia({reducedMotion:'reduce'});await expect(page.locator('body')).toHaveClass(/motion-paused/);
  const prose=page.locator('[data-reading-prose]');expect(await prose.count()).toBeGreaterThan(0);expect(await prose.evaluateAll(paragraphs=>paragraphs.every(p=>Number(getComputedStyle(p).opacity)>.99))).toBe(true);
  await page.goto('/trabalhos/glifo/');await expect(page.locator('body')).toHaveClass(/motion-paused/);
  const slider=page.getByRole('slider',{name:'Ampliação do grifo'});await slider.focus();await slider.press('End');await page.getByRole('button',{name:'Recentrar'}).click();await expect(slider).toHaveValue('100');

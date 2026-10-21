@@ -1,14 +1,14 @@
 import {test,expect} from '@playwright/test';
 
-test('glyph exploration keeps manual choice until following the narrative again',async({page})=>{
+test('glyph exploration returns to the current reading chapter after interaction',async({page})=>{
  await page.goto('/');const instrument=page.locator('[data-glyph-instrument]');
  await instrument.getByRole('button',{name:'03 · Leitura'}).click();
  await expect(instrument).toHaveAttribute('data-glyph-phase','2');
  await page.locator('[data-myth-stage]').evaluate(stage=>stage.setAttribute('data-phase','1'));
  await expect(instrument).toHaveAttribute('data-glyph-phase','2');
- await instrument.getByRole('button',{name:/Voltar a acompanhar/}).click();
- await expect(instrument).toHaveAttribute('data-glyph-phase','1');
- await page.getByRole('button',{name:'Pausar animações'}).click();
+ await expect(instrument.locator('[data-glyph-follow]')).toHaveCount(0);
+ await expect(instrument).toHaveAttribute('data-glyph-phase','1',{timeout:10000});
+ await page.emulateMedia({reducedMotion:'reduce'});
  expect(await instrument.locator('.glyph-fragments').evaluate(e=>Number(getComputedStyle(e).opacity))).toBeCloseTo(.6);
 });
 
