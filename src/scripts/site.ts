@@ -1,3 +1,4 @@
+import {initEditorial} from './editorial';
 import {initSpatial} from './spatial';
 import {initExperience} from './experience';
 import {initMobileShelves,keepSelectedTabVisible,phoneLayout} from './mobile';
@@ -393,7 +394,7 @@ media.add('(prefers-reduced-motion: no-preference)',()=>{
  updateMotion();
 });
 const projectOrientation=matchMedia('(max-width:760px)');
-const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',projectOrientation.matches?'horizontal':'vertical');
+const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',document.body.classList.contains('editorial-home')||projectOrientation.matches?'horizontal':'vertical');
 projectOrientation.addEventListener('change',setProjectOrientation);setProjectOrientation();
 initMobileShelves(()=>paused||reduced.matches);
 // A deliberate horizontal swipe changes the project; vertical gestures keep scrolling.
@@ -523,3 +524,5 @@ document.querySelectorAll<HTMLElement>('[data-griff]').forEach(scene=>{
 initExperience({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn),rotate:rotateWhenVisible});
 
 initSpatial({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});
+initEditorial({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});
+updateMotion();

@@ -21,7 +21,7 @@ test('reduced motion preserves content and removes perspective controls',async({
  await expect(page.getByRole('slider',{name:'Ângulo do observatório'})).toBeDisabled();
  await expect(page.locator('[data-lens-assembly]')).toHaveCSS('transform','none');
  await expect(page.getByRole('heading',{name:'O sentido de um traço.'})).toBeVisible();
- await page.locator('[data-project-cosmos]').scrollIntoViewIfNeeded();
+ await page.goto('/trabalhos/');await page.locator('[data-project-cosmos]').scrollIntoViewIfNeeded();
  const points=page.locator('[data-cosmos-point]');await points.nth(2).click();
  await expect(points.nth(2)).toHaveAttribute('aria-pressed','true');
  await expect(page.locator('[data-cosmos-panel]:visible')).toHaveCount(1);
