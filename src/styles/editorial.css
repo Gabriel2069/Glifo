@@ -6,8 +6,9 @@
 .editorial-opening .hero-copy{position:absolute;top:20%;left:var(--page-gutter);right:var(--page-gutter);z-index:2;pointer-events:none}
 .editorial-opening .hero-copy>.eyebrow{margin-bottom:30px;letter-spacing:.22em;font-size:9px}
 .editorial-opening h1{font-size:clamp(106px,14.3vw,244px);line-height:.88;letter-spacing:-.055em;margin:0;font-weight:400}
-.editorial-opening h1>span{display:block;margin-left:21%;color:var(--lavender);white-space:nowrap}
-.editorial-opening h1>br{display:none}
+.editorial-opening h1>.hero-title-tail{display:block;margin-left:21%;color:var(--lavender);white-space:nowrap}
+.editorial-opening h1>.hero-title-lead{display:block;margin-left:0;color:var(--light)}
+.editorial-opening h1 .reveal-word-mask,.editorial-opening h1 .reveal-word{color:inherit}
 .editorial-opening .griff-scene{position:absolute;top:14%;left:33%;width:min(46vw,710px);height:min(46vw,710px);max-width:none;aspect-ratio:1;margin:0;overflow:visible;z-index:1}
 .editorial-opening .griff-ghost{opacity:.15}
 .editorial-opening .lens-atmosphere{background:radial-gradient(ellipse at 60% 30%,#6e86b728,transparent 55%),radial-gradient(ellipse at 40% 80%,#7042b34a,transparent 65%)}
@@ -209,6 +210,12 @@
 .identity-board .identity-local-nav{scrollbar-width:thin}
 /* Bounded scenic masks and reveals own wrappers, never the original images. */
 .scene-aperture{overflow:clip;position:relative}
+@media(min-width:761px){
+ .work-directory .project-index[data-filtered=true] .index-work{grid-column:span 6;display:block;padding-top:0;background:none}
+ .work-directory .project-index[data-filtered=true] .index-work .project-art{height:380px}
+ .work-directory .project-index[data-filtered=true] .index-work>.work-card-copy{display:block;padding:25px 0 0}
+ .work-directory .project-index[data-filtered=true] .index-work h2{font-size:clamp(36px,4vw,58px)}
+}
 @media(min-width:1600px){.editorial-opening .hero-copy{top:18%}.editorial-opening .griff-scene{top:9%;left:36%}}
 @media(min-width:761px) and (max-width:1100px){
  .editorial-home .editorial-opening{min-height:800px}.editorial-opening .hero-copy{top:23%}.editorial-opening h1{font-size:14vw}.editorial-opening .griff-scene{width:56vw;height:56vw;left:31%;top:20%}.editorial-opening .hero-description{bottom:13%;font-size:12px}.editorial-opening .hero-definition{top:15%}
@@ -221,7 +228,7 @@
  .editorial-opening .hero-copy{position:relative;top:auto;left:auto;right:auto;z-index:2}
  .editorial-opening .hero-copy>.eyebrow{font-size:7px;letter-spacing:.16em;margin-bottom:25px}
  .editorial-opening h1{font-size:clamp(65px,16.3vw,122px);line-height:.95;letter-spacing:-.045em}
- .editorial-opening h1>span{margin-left:0;white-space:normal}
+ .editorial-opening h1>.hero-title-tail{margin-left:0;white-space:normal}
  .editorial-opening .griff-scene{position:relative;left:auto;top:auto;width:min(100%,350px);height:340px;max-width:390px;aspect-ratio:auto;grid-row:2;margin:-25px auto 0;padding-bottom:90px;overflow:visible}
  .editorial-opening .lens-assembly{inset:0 0 90px;height:auto}
  .editorial-opening .griff-scene .observatory-caption{bottom:92px;left:0;right:0;font-size:6px;letter-spacing:.12em;padding-inline:6%}

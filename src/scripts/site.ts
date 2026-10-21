@@ -363,6 +363,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-project-filter]').forEach(bu
   const filter=button.dataset.projectFilter;let count=0;
   document.querySelectorAll('[data-project-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
   workCards.forEach(project=>{project.hidden=filter!=='Todos'&&!project.dataset.projectCategories?.split(',').includes(filter!);if(!project.hidden)count++;});
+  const index=document.querySelector<HTMLElement>('[data-work-index]');if(index)index.dataset.filtered=String(filter!=='Todos');
   const visible=workCards.filter(card=>!card.hidden);
   const after=visible.map(card=>({card,rect:card.getBoundingClientRect(),old:before.get(card)}));
   const status=document.querySelector('[data-project-filter-count]');if(status)status.textContent=`${count} ${count===1?'trabalho':'trabalhos'}`;

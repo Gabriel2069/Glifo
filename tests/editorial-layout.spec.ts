@@ -60,3 +60,13 @@ test('the observatory controls remain separate from the entry links',async({page
   }),`entry controls at ${width}px`).toBe(true);
  }
 });
+
+
+test('the animated headline keeps two typographic lines after masks are inserted',async({page})=>{
+ await page.setViewportSize({width:1440,height:900});await page.emulateMedia({reducedMotion:'no-preference'});await page.goto('/');
+ await expect(page.locator('#hero-title .reveal-word')).toHaveCount(5);
+ expect(await page.locator('#hero-title').evaluate(title=>title.getBoundingClientRect().height)).toBeLessThan(450);
+ expect(await page.locator('.hero-title-tail .reveal-word-mask').evaluateAll(words=>Math.max(...words.map(w=>w.getBoundingClientRect().top))-Math.min(...words.map(w=>w.getBoundingClientRect().top)))).toBeLessThan(2);
+ await page.getByRole('button',{name:'Pausar animações'}).click();
+ expect(await page.locator('#hero-title .reveal-word').evaluateAll(words=>words.every(w=>Number(getComputedStyle(w).opacity)===1))).toBe(true);
+});
