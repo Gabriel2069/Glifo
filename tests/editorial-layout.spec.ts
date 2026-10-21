@@ -49,3 +49,14 @@ test('editorial pages provide visual evidence of the complete composition',async
   }
  }
 });
+
+test('the observatory controls remain separate from the entry links',async({page})=>{
+ await page.emulateMedia({reducedMotion:'reduce'});
+ for(const width of [320,390,768,1440,1920]){
+  await page.setViewportSize({width,height:900});await page.goto('/');await page.evaluate(()=>document.fonts.ready);
+  expect(await page.locator('.hero-entry').evaluate(entry=>{
+   const a=entry.getBoundingClientRect();
+   return Array.from(document.querySelectorAll('.hero .scene-controls,.hero .lens-angle')).every(control=>{const b=control.getBoundingClientRect();return a.right<=b.left||a.left>=b.right||a.bottom<=b.top||a.top>=b.bottom});
+  }),`entry controls at ${width}px`).toBe(true);
+ }
+});

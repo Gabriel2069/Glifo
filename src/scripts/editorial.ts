@@ -3,6 +3,8 @@ import {ScrollTrigger} from 'gsap/ScrollTrigger';
 interface EditorialOptions {isPaused:()=>boolean;refresh:(callback:()=>void)=>void;}
 /** One owner for each new scenic wrapper. Text/marks keep their existing owners. */
 export function initEditorial({isPaused,refresh}:EditorialOptions){
+ const clearing=document.querySelector('.editorial-passage');
+ if(clearing)new IntersectionObserver(([entry])=>document.body.classList.toggle('on-light-scene',entry.isIntersecting),{rootMargin:'-45% 0px -45% 0px'}).observe(clearing);
  const animations:gsap.core.Animation[]=[];
  const reduce=matchMedia('(prefers-reduced-motion:reduce)');
  if(!reduce.matches){
