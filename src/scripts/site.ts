@@ -1,3 +1,4 @@
+import {initEditorial} from './editorial';
 import {initSpatial} from './spatial';
 import {initExperience} from './experience';
 import {initMobileShelves,keepSelectedTabVisible,phoneLayout} from './mobile';
@@ -362,6 +363,7 @@ document.querySelectorAll<HTMLButtonElement>('[data-project-filter]').forEach(bu
   const filter=button.dataset.projectFilter;let count=0;
   document.querySelectorAll('[data-project-filter]').forEach(b=>b.setAttribute('aria-pressed',String(b===button)));
   workCards.forEach(project=>{project.hidden=filter!=='Todos'&&!project.dataset.projectCategories?.split(',').includes(filter!);if(!project.hidden)count++;});
+  const index=document.querySelector<HTMLElement>('[data-work-index]');if(index)index.dataset.filtered=String(filter!=='Todos');
   const visible=workCards.filter(card=>!card.hidden);
   const after=visible.map(card=>({card,rect:card.getBoundingClientRect(),old:before.get(card)}));
   const status=document.querySelector('[data-project-filter-count]');if(status)status.textContent=`${count} ${count===1?'trabalho':'trabalhos'}`;
@@ -393,7 +395,7 @@ media.add('(prefers-reduced-motion: no-preference)',()=>{
  updateMotion();
 });
 const projectOrientation=matchMedia('(max-width:760px)');
-const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',projectOrientation.matches?'horizontal':'vertical');
+const setProjectOrientation=()=>document.querySelector('.collection-tabs')?.setAttribute('aria-orientation',document.body.classList.contains('editorial-home')||projectOrientation.matches?'horizontal':'vertical');
 projectOrientation.addEventListener('change',setProjectOrientation);setProjectOrientation();
 initMobileShelves(()=>paused||reduced.matches);
 // A deliberate horizontal swipe changes the project; vertical gestures keep scrolling.
@@ -523,3 +525,5 @@ document.querySelectorAll<HTMLElement>('[data-griff]').forEach(scene=>{
 initExperience({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn),rotate:rotateWhenVisible});
 
 initSpatial({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});
+initEditorial({isPaused:()=>paused||reduced.matches,refresh:fn=>rotationRefresh.push(fn)});
+updateMotion();

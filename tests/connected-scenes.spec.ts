@@ -13,7 +13,7 @@ test('glyph exploration keeps manual choice until following the narrative again'
 });
 
 test('constellation selects real projects, pauses automatic changes and keeps direct paths',async({page})=>{
- await page.goto('/');const cosmos=page.locator('[data-project-cosmos]');
+ await page.goto('/trabalhos/');const cosmos=page.locator('[data-project-cosmos]');
  await cosmos.getByRole('button',{name:/NexOS Digital/}).click();
  await expect(cosmos).toHaveAttribute('data-auto-state','paused');
  await expect(cosmos.locator('[data-cosmos-panel]:not([hidden])')).toHaveCount(1);
