@@ -51,3 +51,11 @@ Salvar usa If-Match por estudo. Autosave é agrupado e o texto de confirmação 
 `prepare:admin` também compila `worker/ui/studio/app.mjs` com esbuild para `worker/studio-runtime.mjs`. Inclua ambos os arquivos gerados nas alterações. `tests/studio-verify.mjs` integra a verificação privada e cobre estudos, vínculo, duas direções, cores, fontes, componente importado, editor, teclado, persistência, versões, exportações e restauração, conflito, isolamento e quatro larguras. Não execute esses testes contra registros reais.
 
 Referências técnicas verificadas: Cloudflare Durable Objects /platform/limits e /api/sqlite-storage-api (SQLite existente, sem novo binding); PDF-LIB PDFDocument para composição local de páginas e imagens.
+
+## Studio · fluxo rápido
+
+O mesmo botão de busca do painel e Ctrl/Cmd+K abrem **Acesso rápido** dentro do Studio: ferramentas, estudos, direções e pranchas, com busca sem distinção de acentos, setas e Enter. Formulários abertos conservam prioridade. A página inicial permite buscar pelo estudo, direção ou projeto, filtrar e ordenar; a cópia de um estudo preserva a origem.
+
+O editor mantém seleção, zoom e deslocamento por estudo/direção/prancha durante a sessão aberta. Copiar/colar reutiliza objetos entre pranchas da **mesma direção**, preservando vínculos sem misturar identidades; esse buffer é interno à aba e não lê nem substitui a área de transferência do sistema. Com foco na área de criação: Ctrl/Cmd+C copia, V cola, D duplica, G agrupa, Shift+G desagrupa, A seleciona e Escape limpa. Campos de texto mantêm os próprios atalhos; Ctrl/Cmd+S salva mesmo durante a escrita.
+
+A barra contextual oferece PNG direto, duplicação e encaixe opcional em grade de 8 px. Duplicar uma prancha cria IDs e grupos novos; objetos travados resistem à remoção. Alinhar mantém as relações do conjunto e distribuir utiliza intervalos iguais entre as caixas, em ambos os eixos. A busca de recursos apresenta miniaturas privadas; importar uma lista HEX acrescenta cores sem apagar a paleta ou repetir códigos existentes. Exportações assíncronas bloqueiam cliques repetidos no próprio botão enquanto são processadas.

@@ -156,7 +156,7 @@ function moveNavigationIndicator(){
  const bounds=nav.getBoundingClientRect(),target=active.getBoundingClientRect();indicator.style.width=target.width+'px';indicator.style.height=target.height+'px';indicator.style.transform='translate('+(target.left-bounds.left+nav.scrollLeft)+'px,'+(target.top-bounds.top+nav.scrollTop)+'px)';
 }
 const command=$('#command'),commandInput=$('#command-input'),commandResults=$('#command-results');
-function openCommand(){if(!state||dialog.open)return;commandReturn=document.activeElement;commandInput.value='';drawCommand();command.showModal();commandInput.focus();}
+function openCommand(){if(!state||document.querySelector('dialog[open]'))return;if(current==='studio'&&window.GlifoStudio?.commands){window.GlifoStudio.commands();return;}commandReturn=document.activeElement;commandInput.value='';drawCommand();command.showModal();commandInput.focus();}
 function drawCommand(){
  const term=normalize(commandInput.value.trim());commandResults.replaceChildren();
  const entries=[...Object.entries({studio:'Glifo Studio',home:'Visão geral',projects:'Projetos',tasks:'Tarefas',library:'Biblioteca',leads:'Contatos',notes:'Caderno',forms:'Formulários',bookmarks:'Links',settings:'Ajustes e cópias'}).map(([id,name])=>({name,meta:'Ir para',run:()=>navigate(id)})),...state.projects.map(p=>({name:p.name,meta:'Projeto · '+(p.stage||''),run:()=>projectWorkspace(p.id)})),...state.tasks.filter(t=>t.stage!=='Concluída').map(t=>({name:t.name,meta:'Tarefa · '+shortDate(t.due),run:()=>edit('tasks',t.id)})),...state.notes.map(n=>({name:n.name,meta:'Caderno',run:()=>edit('notes',n.id)})),...library.artifacts.map(r=>({name:r.title,meta:r.id+' · '+r.kind,run:()=>{filters={search:r.id,module:'',kind:''};navigate('library');}}))];

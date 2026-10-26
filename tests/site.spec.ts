@@ -30,7 +30,7 @@ test('narrative reveals whole paragraphs with distinct heading typography',async
  await page.goto('/');await expect(page.locator('.myth-prose')).toHaveCount(3);await expect(page.locator('.myth-prose p')).toHaveCount(6);await expect(page.locator('.reading-word')).toHaveCount(0);
  await page.locator('.myth-chapter').first().scrollIntoViewIfNeeded();
  const typography=await page.locator('.myth-chapter').first().evaluate(el=>({heading:getComputedStyle(el.querySelector('h3')!).fontFamily,body:getComputedStyle(el.querySelector('p.reading-prose')!).fontFamily}));expect(typography.heading).not.toBe(typography.body);
- await page.emulateMedia({reducedMotion:'reduce'});expect(await page.locator('[data-reading-prose]').evaluateAll(nodes=>nodes.every(n=>Number(getComputedStyle(n).opacity)>.99))).toBe(true);
+ await page.emulateMedia({reducedMotion:'reduce'});await expect.poll(()=>page.locator('[data-reading-prose]').evaluateAll(nodes=>nodes.every(n=>Number(getComputedStyle(n).opacity)>.99)),{message:'Reduced-motion media change settles every reading paragraph'}).toBe(true);
 });
 test('identity directory opens each board and its real materials',async({page})=>{
  for(const slug of ['glifo','christiano-tadeu','tdv']){
