@@ -1,3 +1,5 @@
+import {StudioStore} from './studio.mjs';
+import {studioRuntime} from './studio-runtime.mjs';
 import {ClientForms} from './forms.mjs';
 import {catalog} from './catalog.mjs';
 import {loginView,adminView,formView} from './views.mjs';
@@ -31,9 +33,9 @@ function validateState(state){
  }
  return true;
 }
-async function body(request){if(Number(request.headers.get('content-length')||0)>MAX_BODY)throw Error('size');const reader=request.body?.getReader();if(!reader)throw Error('body');let size=0,text='',decoder=new TextDecoder();while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>MAX_BODY){await reader.cancel();throw Error('size');}text+=decoder.decode(value,{stream:true});}text+=decoder.decode();return JSON.parse(text);}
+async function body(request,max=MAX_BODY){if(Number(request.headers.get('content-length')||0)>max)throw Error('size');const reader=request.body?.getReader();if(!reader)throw Error('body');let size=0,text='',decoder=new TextDecoder();while(true){const {done,value}=await reader.read();if(done)break;size+=value.byteLength;if(size>max){await reader.cancel();throw Error('size');}text+=decoder.decode(value,{stream:true});}text+=decoder.decode();return JSON.parse(text);}
 export class GlifoWorkspace{
- constructor(ctx,env){this.ctx=ctx;this.env=env;this.forms=new ClientForms(ctx.storage,{json,body,digest,random,empty,validateState});}
+ constructor(ctx,env){this.ctx=ctx;this.env=env;this.studio=new StudioStore(ctx.storage,{json,body});this.forms=new ClientForms(ctx.storage,{json,body,digest,random,empty,validateState});}
  async session(request){const token=request.headers.get('cookie')?.match(/(?:^|;\s*)__Host-glifo=([A-Za-z0-9_-]{43})(?:;|$)/)?.[1];if(!token)return null;const key='session:'+await digest(token),record=await this.ctx.storage.get(key);if(!record||record.expires<Date.now()){if(record)await this.ctx.storage.delete(key);return null;}return {key,...record};}
  async fetch(request){
   const path=new URL(request.url).pathname,method=request.method;
@@ -54,6 +56,8 @@ export class GlifoWorkspace{
    const session=await this.session(request);if(!session)return json({error:'Entre novamente para continuar.'},401);
    if(path==='/api/admin/session'&&method==='GET')return json({ok:true,expires:session.expires});
    if(path==='/api/admin/logout'&&method==='POST'){await this.ctx.storage.delete(session.key);return json({ok:true},200,{'Set-Cookie':cookie('',true)});}
+   if(path==='/api/admin/studio/runtime'&&method==='GET')return new Response(studioRuntime,{headers:{...privateHeaders,'Content-Type':'application/javascript; charset=utf-8'}});
+   if(path==='/api/admin/studio'||path.startsWith('/api/admin/studio/'))return await this.studio.fetch(request);
    if(path==='/api/admin/library'&&method==='GET')return json(catalog(library));
    if(path.startsWith('/api/admin/form-links'))return await this.forms.admin(request);
    if(path==='/api/admin/password'&&method==='PUT'){
@@ -75,7 +79,7 @@ export class GlifoWorkspace{
  }
  async alarm(){const now=Date.now();for(const prefix of ['session:','attempt:','form-attempt:']){const rows=await this.ctx.storage.list({prefix});for(const[key,value]of rows)if((value.expires||value.until)<=now)await this.ctx.storage.delete(key);}const remaining=await this.ctx.storage.list({prefix:'session:',limit:1}),attempts=await this.ctx.storage.list({prefix:'attempt:',limit:1});const formAttempts=await this.ctx.storage.list({prefix:'form-attempt:',limit:1});if(remaining.size||attempts.size||formAttempts.size)await this.ctx.storage.setAlarm(now+15*60*1000);}
 }
-function view(html){const nonce=random();return new Response(html.replaceAll('NONCE_PLACEHOLDER',nonce),{headers:{...privateHeaders,'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':`default-src 'self'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src 'self' data:; font-src 'self'; connect-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'`}});}
+function view(html){const nonce=random();return new Response(html.replaceAll('NONCE_PLACEHOLDER',nonce),{headers:{...privateHeaders,'Content-Type':'text/html; charset=utf-8','Content-Security-Policy':`default-src 'self'; script-src 'nonce-${nonce}'; style-src 'nonce-${nonce}'; img-src 'self' data: blob:; font-src 'self' data: blob:; connect-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'`}});}
 export default{async fetch(request,env){
  const url=new URL(request.url);let path;try{path=decodeURIComponent(url.pathname);}catch{return new Response('Pedido inválido',{status:400});}
  const formPage=/^\/responder\/[A-Za-z0-9_-]{43}\/?$/.test(path);

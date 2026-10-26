@@ -17,12 +17,14 @@
     "@astrojs/check": "0.9.10",
     "astro": "7.3.8",
     "gsap": "3.15.0",
+    "pdf-lib": "^1.17.1",
     "typescript": "6.0.3",
     "wrangler": "4.149.0"
   },
   "devDependencies": {
     "@playwright/test": "1.64.0",
-    "@types/node": "24.19.2"
+    "@types/node": "24.19.2",
+    "esbuild": "0.28.2"
   },
   "engines": {
     "node": ">=22.12.0"
