@@ -231,3 +231,11 @@ SVG usa objetos reais de composição e imagens incorporadas; PNG usa suas dimen
 ## Studio · instrumentos à mão
 
 A busca única do painel assume o contexto criativo no Studio. A tela de estudos combina busca e filtros compactos; o editor mantém uma barra local com seleção, clipboard e PNG direto. O estado de cada área de criação é retomado sem reiniciar o enquadramento. No celular, a barra usa três colunas, com PNG em uma ação maior; propriedades continuam no painel inferior. Busca e recursos usam dialogs nativos, navegação de teclado e miniaturas reais, sem animações que atrasem operações repetidas.
+
+## Admin · leitura, decisão e continuidade
+
+O quadro celestial permanece estático e discreto. As ações primárias recebem destaque, enquanto excluir e ler detalhes usam um tratamento secundário. Estados possuem acentos próprios; datas vencidas e prioridades podem ser distinguidas sem tomar o lugar dos títulos. A visão geral reúne a próxima ação, o acesso à criação e a leitura de respostas, com contagens reais.
+
+O menu móvel usa a camada nativa de dialog, sem um segundo conjunto de destinos. Filtros se distribuem em duas colunas no celular; tarefas se recompõem em título e metadados acima das ações, em vez de comprimir tudo em uma linha. O editor conserva cabeçalho e ações alcançáveis, leitura integral e retorno de foco. Mudanças frequentes usam passagens curtas e respeitam o movimento reduzido.
+
+O Studio continua emoldurando as identidades dos projetos. A ficha administrativa leva diretamente ao estudo vinculado e os painéis de cada prancha retomam seu estado de abertura. A geometria das assinaturas, a vitrine e os materiais oficiais permanecem preservados.
