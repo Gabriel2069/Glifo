@@ -59,3 +59,17 @@ O mesmo botão de busca do painel e Ctrl/Cmd+K abrem **Acesso rápido** dentro d
 O editor mantém seleção, zoom e deslocamento por estudo/direção/prancha durante a sessão aberta. Copiar/colar reutiliza objetos entre pranchas da **mesma direção**, preservando vínculos sem misturar identidades; esse buffer é interno à aba e não lê nem substitui a área de transferência do sistema. Com foco na área de criação: Ctrl/Cmd+C copia, V cola, D duplica, G agrupa, Shift+G desagrupa, A seleciona e Escape limpa. Campos de texto mantêm os próprios atalhos; Ctrl/Cmd+S salva mesmo durante a escrita.
 
 A barra contextual oferece PNG direto, duplicação e encaixe opcional em grade de 8 px. Duplicar uma prancha cria IDs e grupos novos; objetos travados resistem à remoção. Alinhar mantém as relações do conjunto e distribuir utiliza intervalos iguais entre as caixas, em ambos os eixos. A busca de recursos apresenta miniaturas privadas; importar uma lista HEX acrescenta cores sem apagar a paleta ou repetir códigos existentes. Exportações assíncronas bloqueiam cliques repetidos no próprio botão enquanto são processadas.
+
+## Revisão do espaço interno · uso diário
+
+A navegação móvel abre o mesmo menu em um dialog nativo, com foco contido, Escape, fechamento pelo fundo e retorno ao botão. O menu volta ao layout lateral ao ampliar a tela, sem duplicar controles. O comando de busca também permite iniciar projetos, tarefas, notas, contatos e links.
+
+Coleções têm filtros rápidos por contexto e limpeza explícita. Os totais da visão geral abrem os registros correspondentes. Tarefas podem ser reagendadas para amanhã; exclusões de registros têm Desfazer por 12 segundos, respeitando o mesmo salvamento e controle de revisão. Isso não representa uma lixeira permanente. Notas e escopos longos possuem leitura integral antes da edição. Links enviados e respostas têm busca, estado e vínculo ao projeto.
+
+Formulários em edição pedem confirmação ao descartar alterações e oferecem Ctrl/Cmd+Enter para enviar. Briefings internos possuem navegação por seção e contagem de campos obrigatórios; checklists mostram o avanço e permitem concentrar a leitura nas pendências sem retirar campos do salvamento. As respostas originais de clientes continuam protegidas contra edição.
+
+A ficha do projeto abre o Studio no estudo associado; se não houver um estudo ativo, oferece a criação com nome e vínculo preenchidos. O Studio mantém o estado de abertura do inspetor e das ferramentas por prancha. Desfazer/refazer refletem a existência real de histórico, e os limites de direções, cores e componentes são conferidos antes das operações correspondentes. Não houve alteração de namespaces, registros ou autenticação.
+
+`admin-kit.mjs` concentra navegação e instrumentos de interface; `admin-refinements.css` possui o acabamento. `prepare:admin` compila o cliente administrativo e o Studio em bundles privados, mantendo a entrega sob sessão. O novo teste `admin-refinements-verify.mjs` integra o fluxo administrativo isolado; não o execute contra registros de produção.
+
+Consultas periódicas conferem novamente a versão e o estado de edição ao retornar. Uma resposta de leitura iniciada antes de um salvamento não substitui os dados mais recentes da aba. O teste de revisão simula esse atraso enquanto uma tarefa é criada.
